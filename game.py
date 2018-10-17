@@ -33,7 +33,7 @@ def generate_clues(mystery):
         
         }
 
-    rooms[mystey[room]][clue] = clues[room]
+    rooms[mystery[room]][clue] = clues[room]
 
     for room in rooms:
     	if room[name] != "lobby" and room[clue] = "":
