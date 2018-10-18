@@ -32,7 +32,7 @@ def generate_clues(mystery):
         "weapon": "" + mystery["weapon"] + "" ###A string about finding the murder weapon using mystery["weapon"]    
         }
 
-    rooms[mystey[room]][clue] = clues[room]
+    rooms[mystery[room]][clue] = clues[room]
 
     for room in rooms:
     	if room[name] != "lobby" and room[clue] = "":
