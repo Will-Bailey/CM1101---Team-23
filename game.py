@@ -20,7 +20,7 @@ def generate_mystery():
 
 def generate_clues(mystery):
     ###This function is responsible for generating the correct clues to solve the
-    ###mystery given to it and then asigning each of them to a room. There are 5
+    ###mystery given to it and then asigning each of them to a room.
 
     clues = {
         "room": """On closer inspection of the room, you notice a splatter of
@@ -29,8 +29,7 @@ def generate_clues(mystery):
         "witness": "" + suspects[mystery[suspect]]["build"] + "", ###A string about interviewing a witness of some kind who claims they saw a sillhouette of the murderer and that they were (tall/short)
         "clothes" : "" + suspects[mystery[suspect]]["sex"] + "", ###A string about finding a scrap of (male/female) clothing clearly belonging to the murderer
         "hair": "" + suspects[mystery[suspect]]["hair"] + "", ###A string about finding a lock of (black/blonde) hair clearly belonging to the murderer
-        "weapon": "" + mystery["weapon"] + "" ###A string about finding the murder weapon using mystery["weapon"]
-        
+        "weapon": "" + mystery["weapon"] + "" ###A string about finding the murder weapon using mystery["weapon"]    
         }
 
     rooms[mystey[room]][clue] = clues[room]
