@@ -183,18 +183,25 @@ def execute_go(direction):
     display_room(current_room)
 
 def display_details(room):
+    #This function combines the 3 red hearings and the clue from a room, randomly inserting the clue to hide it.
+    #it then returns the text as one string to be printed after the rooms description. 
     pass
 
 def display_help(room):
+    #This will print the list of options available to the player
     pass
 
 def execute_inspect(detail):
+    #This will return the "Closer inspection" text asigned to each red hearing and each clue
     pass
 
 def display_notebook():
+    #Displays the notebook for the player to change the suspicion on any of the mystery elements or to look at any clues that they've previously discovered
+    #The player should input which section they'd like to view, Suspects, Weapons, Rooms or clues
     pass
 
 def notebook_suspects():
+    # Displays the list of suspects sorted by their suspicion level
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
         printed = False
         print("-" + suspicion.upper() + "-")
@@ -211,12 +218,15 @@ def notebook_suspects():
             print()
 
 def notebook_weapons():
+    # Displays the list of weapons sorted by their suspicion level
     pass
 
 def notebook_rooms():
+    # Displays the list of rooms sorted by their suspicion level
     pass
 
 def notebook_clues():
+    # Displays the list of clues previously discovered by the player
     pass
 
 def notebook_mark(subject):
@@ -233,7 +243,4 @@ def display_room(room):
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
               
 if __name__ == "__main__":
-    pass
-    #main()
-
-notebook_suspects()
+    main()
