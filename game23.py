@@ -1,4 +1,5 @@
 from suspects import *
+from notebook import *
 #from map import * #Awaiting dictionary
 #from weapons import * #Awaiting dictionary
 import random
@@ -89,7 +90,7 @@ def generate_clues(mystery):
     rooms[mystery[room]][clue] = clues[room]
 
     for room in rooms:
-        if room[name] != "lobby" and room[clue] = "":
+        if room[name] != "lobby" and room[clue] == "":
             room[clue] = clues[random.choice(list(clues)[1:])]
 
 def menu(exits, room_items, inv_items): # Not inv items
@@ -182,67 +183,59 @@ def execute_go(direction):
     display_room(current_room)
 
 def display_details(room):
+	pass
 
 def display_help(room):
+	pass
 
 def execute_inspect(detail):
+	pass
 
-def execute_notebook():
+def display_notebook():
+	pass
 
 def notebook_suspects():
+	for suspicion in ["highly suspicious", "neutral", "unlikely suspect"]:
+		printed = False
+		print("-" + suspicion.upper() + "-")
+		for suspect in suspects:
+			if suspects[suspect]["notebook_status"] == suspicion:
+				for key in suspects[suspect]:
+					if key != "notebook_status":
+						print("Suspect " + key + ": " + str(suspects[suspect][key]))
+						printed = True
+				print()
+		if printed == False:
+			print()
+			print("None")
+			print()
+
+					
 
 def notebook_weapons():
+	pass
 
 def notebook_rooms():
+	pass
 
 def notebook_clues():
+	pass
 
 def notebook_mark():
+	pass
 
 def notebook_reject():
-
-#def execute_take(item_id):
-
-#def execute_drop(item_id):
-
-#def execute_check(item_id):
-
-#def execute_use(item_id):
-
-#def execute_talk_to(suspect):
+	pass
 
 def execute_status():
+	pass
 
 def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
-
-#def print_room_items(room):
-
-    if room["items"] != []:
-        print("There is " + items_list(room["items"]) + " here.\n")
-
-#def show_present_person(suspect):
-
-    if room["suspects"] != []:
-        print(list_of_suspects(room["suspects"]) + " is in the room.")
-        
-#def print_inventory_items(items):
-
-    if items == []:
-        print("You inventory is empty")
-    else:
-        print("You have " + items_list(items) + ".\n")
-
-#def items_list(items):
-
-    lists = []
-
-    for item in items:
-        lists.append(item.get("name"))
-
-    return ", ".join(lists)
               
 if __name__ == "__main__":
-    
-    main()
+    pass
+    #main()
+
+notebook_suspects()
