@@ -92,7 +92,7 @@ def generate_clues(mystery):
         if room[name] != "lobby" and room[clue] = "":
             room[clue] = clues[random.choice(list(clues)[1:])]
 
-def menu(exits, room_items, inv_items):
+def menu(exits, room_items, inv_items): # Not inv items
 
     print_menu(exits, room_items, inv_items)
 
@@ -137,7 +137,7 @@ def is_valid_exit(exits, chosen_destination):
 
     return chosen_destination in exits
 
-def execute_command(command):
+def execute_command(command): #Use different commands
 
     if 0 == len(command):
         return
@@ -180,16 +180,36 @@ def execute_command(command):
 def execute_go(direction):
     
     display_room(current_room)
-           
-def execute_take(item_id):
 
-def execute_drop(item_id):
+def display_details(room):
 
-def execute_check(item_id):
+def display_help(room):
 
-def execute_use(item_id):
+def execute_inspect(detail):
 
-def execute_talk_to(suspect):
+def execute_notebook():
+
+def notebook_suspects():
+
+def notebook_weapons():
+
+def notebook_rooms():
+
+def notebook_clues():
+
+def notebook_mark():
+
+def notebook_reject():
+
+#def execute_take(item_id):
+
+#def execute_drop(item_id):
+
+#def execute_check(item_id):
+
+#def execute_use(item_id):
+
+#def execute_talk_to(suspect):
 
 def execute_status():
 
@@ -197,24 +217,24 @@ def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
 
-def print_room_items(room):
+#def print_room_items(room):
 
     if room["items"] != []:
         print("There is " + items_list(room["items"]) + " here.\n")
 
-def show_present_person(suspect):
+#def show_present_person(suspect):
 
     if room["suspects"] != []:
         print(list_of_suspects(room["suspects"]) + " is in the room.")
         
-def print_inventory_items(items):
+#def print_inventory_items(items):
 
     if items == []:
         print("You inventory is empty")
     else:
         print("You have " + items_list(items) + ".\n")
 
-def items_list(items):
+#def items_list(items):
 
     lists = []
 
