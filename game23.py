@@ -183,52 +183,50 @@ def execute_go(direction):
     display_room(current_room)
 
 def display_details(room):
-	pass
+    pass
 
 def display_help(room):
-	pass
+    pass
 
 def execute_inspect(detail):
-	pass
+    pass
 
 def display_notebook():
-	pass
+    pass
 
 def notebook_suspects():
-	for suspicion in ["highly suspicious", "neutral", "unlikely suspect"]:
-		printed = False
-		print("-" + suspicion.upper() + "-")
-		for suspect in suspects:
-			if suspects[suspect]["notebook_status"] == suspicion:
-				for key in suspects[suspect]:
-					if key != "notebook_status":
-						print("Suspect " + key + ": " + str(suspects[suspect][key]))
-						printed = True
-				print()
-		if printed == False:
-			print()
-			print("None")
-			print()
-
-					
+    for suspicion in ["highly suspicious", "neutral", "unlikely"]:
+        printed = False
+        print("-" + suspicion.upper() + "-")
+        for suspect in suspects:
+            if suspects[suspect]["notebook_status"] == suspicion:
+                for key in suspects[suspect]:
+                    if key != "notebook_status":
+                        print("Suspect " + key + ": " + str(suspects[suspect][key]))
+                        printed = True
+                print()
+        if printed == False:
+            print()
+            print("None")
+            print()
 
 def notebook_weapons():
-	pass
+    pass
 
 def notebook_rooms():
-	pass
+    pass
 
 def notebook_clues():
-	pass
+    pass
 
-def notebook_mark():
-	pass
+def notebook_mark(subject):
+    subject["notebook_status"] = "highly suspicious"
 
-def notebook_reject():
-	pass
+def notebook_reject(subject):
+    subject["notebook_status"] = "unlikely"
 
 def execute_status():
-	pass
+    pass
 
 def display_room(room):
 
