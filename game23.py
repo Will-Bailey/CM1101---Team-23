@@ -2,9 +2,8 @@ from player import *
 from items import *
 from gameparser import *
 from suspects import *
-#from map import * #Awaiting dictionary
-#from notebook import *
-#from weapons import * #Awaiting dictionary
+rooms = {}#from map import * #Awaiting dictionary
+weapons = {}#from weapons import * #Awaiting dictionary
 import random
 
 def main():
@@ -113,7 +112,7 @@ def is_valid_exit(exits, chosen_destination):
 
     return chosen_destination in exits
 
-def execute_command(command): #Use different commands
+def execute_command(command):
 
     if 0 == len(command):
         return
@@ -124,31 +123,17 @@ def execute_command(command): #Use different commands
         else:
             print("Go where?")
 
-    elif command[0] == "take":
+    elif command[0] == "inspect":
         if len(command) > 1:
-            execute_take(command[1])
+            execute_inspect(command[1])
         else:
-            print("Take what?")
+            print("inspect what?")
 
-    elif command[0] == "drop":
-        if len(command) > 1:
-            execute_drop(command[1])
-        else:
-            print("Drop what?")
+    elif command[0] == "help":
+        display_help()
 
-    elif command[0] == "use":
-        if len(command) > 1:
-            execute_use(command[1])            
-        else:
-            print("Use what?")
-
-    elif command[0] == "status":
-        if len(command) > 1:
-            execute_status(command[1])
-
-    elif command[0] == "talk to":
-        if len(command) > 1:
-            execute_talk_to(command[1])
+    elif command == ["open", "notebook"]:
+        display_notebook()
 
     else:
         print("This makes no sense.")
@@ -158,7 +143,7 @@ def execute_go(direction):
     display_room(current_room)
 
 def display_details(room):
-    #This function combines the 3 red hearings and the clue from a room, randomly inserting the clue to hide it.
+    #This function combines the 3 red herrings and the clue from a room, randomly inserting the clue to hide it.
     #it then returns the text as one string to be printed after the rooms description. 
     pass
 
@@ -171,12 +156,65 @@ def execute_inspect(detail):
     pass
 
 def display_notebook():
+    close = False
+    print("You open your notebook, which section do you want to turn to?")
+    while close == False:
+        execute_notebook(normalise_input(input("...")))
+    return
+
+def execute_notebook(command):
     #Displays the notebook for the player to change the suspicion on any of the mystery elements or to look at any clues that they've previously discovered
     #The player should input which section they'd like to view, Suspects, Weapons, Rooms or clues
-    pass
+        if 0 == len(command):
+            return
+
+        if command[0] == "suspects":
+            notebook_suspects()
+            return
+        
+        elif command[0] == "weapons":
+            notebook_weapons()
+            return
+
+        elif command[0] == "rooms":
+            notebook_rooms()
+            return
+
+        elif command[0] == "clues":
+            notebook_clues()
+            return
+
+        if command[0] == "highlight":
+            if len(command) > 1:
+                suspicion_highlight(command[1])
+            else:
+                print("Highlight what?")
+            return
+
+        if command[0] == "cross":
+            if len(command) > 1:
+                suspicion_lowlight(command[1])
+            else:
+                print("Cross out what?")
+            return
+
+        if command[0] == "reset":
+            if len(command) > 1:
+                suspicion_reset(command[1])
+            else:
+                print("reset what?")
+            return
+
+        if command[0] == "close":
+            close = True
+            return
+
+        else:
+            print("This makes no sense.")
+            return
 
 def notebook_suspects():
-    # Displays the list of suspects sorted by their suspicion level
+    # Displays the list of suspects sorted by their suspicion level  
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
         printed = False
         print("-" + suspicion.upper() + "-")
@@ -194,7 +232,15 @@ def notebook_suspects():
 
 def notebook_weapons():
     # Displays the list of weapons sorted by their suspicion level
-    pass
+    highlighted = False
+    print("You open your notebook to the weapons section the list reads:")
+    for weapon in weapons:
+        print(weapons[weapon]["name"] + ": " + weapons[weapon][description])
+        print("\n")
+        if weapons[weapon][notebook_status] != "neutral":
+            highlighted = weapon
+    if highlighted != False:
+        print("You have highlighted " + weapons[highlighted]["name"] + " as the murder weapon")
 
 def notebook_rooms():
     # Displays the list of rooms sorted by their suspicion level
@@ -204,11 +250,35 @@ def notebook_clues():
     # Displays the list of clues previously discovered by the player
     pass
 
-def notebook_mark(subject):
-    subject["notebook_status"] = "highly suspicious"
+def suspicion_highlight(subject):
+    edited = False
+    for element in [weapons, suspects, rooms]:
+        if subject in element:
+            element[subject]["notebook_status"] = "highly suspicious"
+            edited = True
+    if edited != True:
+        print("You can't highlight that")
+    notebook_suspects()
 
-def notebook_reject(subject):
-    subject["notebook_status"] = "unlikely"
+def suspicion_lowlight(subject):
+    edited = False
+    for element in [weapons, suspects, rooms]:
+        if subject in element:
+            element[subject]["notebook_status"] = "unlikely"
+            edited = True
+    if edited != True:
+        print("You can't cross off that")
+    notebook_suspects()
+
+def suspicion_reset(subject):
+    edited = False
+    for element in [weapons, suspects, rooms]:
+        if subject in element:
+            element[subject]["notebook_status"] = "neutral"
+            edited = True
+    if edited != True:
+        print("You can't reset that")
+    notebook_suspects()
 
 def execute_status():
     pass
