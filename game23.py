@@ -1,15 +1,17 @@
+from map import *
 from player import *
 from items import *
 from gameparser import *
 from suspects import *
-#from map import * #Awaiting dictionary
 #from notebook import *
-#from weapons import * #Awaiting dictionary
+#from weapons import *
 import random
 
 def main():
 
     intro()
+
+    global player_name
 
     player_name = input("Enter your name: ")
 
@@ -21,7 +23,7 @@ def main():
 
     while True:
 
-        command = menu(current_room["exits"], current_room["items"], inventory)
+        command = ask_for_command(current_room["exits"], current_room["items"], inventory)
 
         execute_command(command)
 
@@ -33,6 +35,104 @@ def main():
         #elif life == 0:
         #    print("Game over")
         #    break
+        
+def ask_for_command(exits, room_items, inv_items): # Not inv items
+
+    #print("\nType HELP for list of commands")
+    print("\nWhat do you want to do?  (Type HELP for list of commands)")
+    user_command = input("...")
+
+    input_normalised = normalise_input(user_command)
+
+    return input_normalised
+
+def display_help(exits, room_items, inv_items):#formerly print_menu
+
+    print("\nYou can use commands:\n")
+    
+    for direction in exits:
+        print_exit(direction, destination(exits, direction))
+
+    for items in room_items:
+        #print("TAKE " + items["id"].upper() +  " to add " + items["name"] + " in your inventory.")
+        print("CHECK " + items["id"].upper() +  " to inspect item or TAKE " + items["id"].upper()  + " to add " + items["name"] + " to your inventory.")
+
+    for item in inv_items:
+        print("USE " + item["id"].upper() + " to use " + item["name"] + ".")
+
+
+def print_exit(direction, leads_to):
+
+    print("GO " + direction.upper() + " to " + leads_to + ".")
+
+def move(exits, direction):
+
+    return(rooms[exits[direction]])
+
+def destination(exits, direction): #formerly exit_leads_to
+
+    return rooms[exits[direction]]["name"]
+
+def is_valid_exit(exits, chosen_destination):
+
+    return chosen_destination in exits
+
+def execute_command(command): #Use different commands
+
+    global inventory
+
+    if 0 == len(command):
+        return
+
+    if command[0] == "go":
+        if len(command) > 1:
+            execute_go(command[1])
+        else:
+            print("Go where?")
+
+    elif command[0] == "take":
+        if len(command) > 1:
+            execute_take(command[1])
+        else:
+            print("Take what?")
+
+    elif command[0] == "drop":
+        if len(command) > 1:
+            execute_drop(command[1])
+        else:
+            print("Drop what?")
+
+    elif command[0] == "use":
+        if len(command) > 1:
+            execute_use(command[1])            
+        else:
+            print("Use what?")
+            
+    elif command[0] == "help":
+        #if len(command) > 1:
+        display_help(current_room["exits"], current_room["items"], inventory)
+
+    elif command[0] == "status":
+        if len(command) > 1:
+            show_status(command[1])
+
+    elif command[0] == "talk to":
+        if len(command) > 1:
+            execute_talk_to(command[1])
+
+    else:
+        print("This makes no sense.")
+
+def execute_go(direction):
+
+    global current_room
+
+    exits = current_room["exits"]
+    if is_valid_exit(exits, direction):
+        current_room = move(exits, direction)
+        display_room(current_room)
+    else:
+        print("You cannot go there.")
 
 def generate_mystery():
     ### This function should randomly generate a dictionary (called "mystery")
@@ -68,102 +168,9 @@ def generate_clues(mystery):
         if room[name] != "lobby" and room[clue] == "":
             room[clue] = clues[random.choice(list(clues)[1:])]
 
-def menu(exits, room_items, inv_items): # Not inv items
-
-    print_menu(exits, room_items, inv_items)
-
-    user_command = input("...")
-
-    input_normalised = normalise_input(user_command)
-
-    return input_normalised
-
-def print_menu(exits, room_items, inv_items):
-
-
-    print("You can:")
-    
-    for direction in exits:
-        print_exit(direction, destination(exits, direction))
-
-    for items in room_items:
-        print("\nTAKE" + items["id"].upper() + " to add " + items["name"] + " in your inventory.")
-        print("CHECK" + items["id"].upper() + " to inspect " + items["name"] + ".")
-
-    for items in inv_items:
-        print("\nUSE" + items["id"].upper + " to use " + items["name"] + ".")
-
-    print("\nSTATUS to check your stats.")
-
-    print("\nWhat is your command?")
-
-def print_exit(direction, leads_to):
-
-    print("GO " + direction.upper() + " to " + leads_to + ".")
-
-def move(exits, direction):
-
-    return(rooms[exits[direction]])
-
-def destination(exits, direction): #formerly exit_leads_to
-
-    return rooms[exits[direction]]["name"]
-
-def is_valid_exit(exits, chosen_destination):
-
-    return chosen_destination in exits
-
-def execute_command(command): #Use different commands
-
-    if 0 == len(command):
-        return
-
-    if command[0] == "go":
-        if len(command) > 1:
-            execute_go(command[1])
-        else:
-            print("Go where?")
-
-    elif command[0] == "take":
-        if len(command) > 1:
-            execute_take(command[1])
-        else:
-            print("Take what?")
-
-    elif command[0] == "drop":
-        if len(command) > 1:
-            execute_drop(command[1])
-        else:
-            print("Drop what?")
-
-    elif command[0] == "use":
-        if len(command) > 1:
-            execute_use(command[1])            
-        else:
-            print("Use what?")
-
-    elif command[0] == "status":
-        if len(command) > 1:
-            execute_status(command[1])
-
-    elif command[0] == "talk to":
-        if len(command) > 1:
-            execute_talk_to(command[1])
-
-    else:
-        print("This makes no sense.")
-
-def execute_go(direction):
-    
-    display_room(current_room)
-
 def display_details(room):
     #This function combines the 3 red hearings and the clue from a room, randomly inserting the clue to hide it.
     #it then returns the text as one string to be printed after the rooms description. 
-    pass
-
-def display_help(room):
-    #This will print the list of options available to the player
     pass
 
 def execute_inspect(detail):
@@ -210,12 +217,50 @@ def notebook_mark(subject):
 def notebook_reject(subject):
     subject["notebook_status"] = "unlikely"
 
-def execute_status():
+def show_status():
     pass
 
 def display_room(room):
 
-    print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
-              
-if __name__ == "__main__":
+    print("\n" + room["name"].upper() + "\n\n" + room["description"])
+
+def print_inventory_items(items):
+
+    if items == []:
+        print("You inventory is empty")
+    else:
+        print("You have " + items_list(items) + ".\n")
+
+def items_list(items):
+
+    lists = []
+
+    for item in items:
+        lists.append(item.get("name"))
+
+    return ", ".join(lists)
+
+def execute_take(item_id):
+    
+    for items in range(0, len(current_room["items"])):
+        if item_id == current_room["items"][items]["id"]:
+            inventory.append(current_room["items"][items])
+            del current_room["items"][items]
+            return
+        else:
+            print("You cannot take that.")
+
+
+def execute_drop(item_id):
+
+    for items in range(0, len(inventory)):
+        if item_id == inventory[items]["id"]:
+            current_room["items"].append(inventory[items])
+            del inventory[items]
+            return
+        else:
+            print("You cannot drop that.")    
+
+if __name__ == "__main__":    
     main()
+
