@@ -153,8 +153,11 @@ def execute_inspect(detail):
     pass
 
 def display_notebook():
-    print("\nYou open your notebook, which section do you want to turn to?")
-    execute_notebook(normalise_input(input("...")))
+
+    while execute_notebook != "close":
+        print("\nYou opened your notebook, which section do you want to turn to?")
+        execute_notebook(normalise_input(input("...")))
+    return
 
 def execute_notebook(command):
     #Displays the notebook for the player to change the suspicion on any of the mystery elements or to look at any clues that they've previously discovered
