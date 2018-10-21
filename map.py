@@ -32,3 +32,4 @@ room_kitchen = {
     "Lounge": room_lounge,
     "Kitchen": room_kitchen
 }
+ 
