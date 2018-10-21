@@ -210,12 +210,16 @@ def execute_notebook(command):
             print("This makes no sense.")
             return
 def editing_within_notebook(page):
-    a = input("Would you like to edit the " + str(page) + " list?:")
-    if normalise_input(a) == ['yes'] or normalise_input(a) == ['yeah'] or normalise_input(a) == ['y']:
-        b = input("What would you like to do to the suspects list? (type 'Help' for help):")
-        execute_notebook(normalise_input(b))
-    
-
+    while True:
+        a = input("Would you like to edit the " + str(page)+ " list? (Yes/No):" "\n" "...")
+        if normalise_input(a) == ['yes'] or normalise_input(a) == ['yeah'] or normalise_input(a) == ['y']:
+            b = input("What would you like to do to the suspects list? (type 'Help' for help):" "\n" "...")
+            return execute_notebook(normalise_input(b))
+        elif normalise_input(a) == ['no']:
+            return
+        else:
+            print("That is not a valid input. Please answer with Yes or No" + "\n")
+        
 def notebook_suspects():
     # Displays the list of suspects sorted by their suspicion level  
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
