@@ -250,6 +250,7 @@ def notebook_clues():
 def suspicion_highlight(subject):
     edited = False
     for element in [weapons, suspects, rooms]:
+        subject=subject.title()
         if subject in element:
             element[subject]["notebook_status"] = "highly suspicious"
             edited = True
@@ -260,6 +261,7 @@ def suspicion_highlight(subject):
 def suspicion_lowlight(subject):
     edited = False
     for element in [weapons, suspects, rooms]:
+        subject=subject.title()
         if subject in element:
             element[subject]["notebook_status"] = "unlikely"
             edited = True
@@ -271,6 +273,7 @@ def suspicion_reset(subject):
     edited = False
     for element in [weapons, suspects, rooms]:
         if subject in element:
+            subject=subject.title()
             element[subject]["notebook_status"] = "neutral"
             edited = True
     if edited != True:
@@ -283,7 +286,3 @@ def show_status():
 def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
-              
-if __name__ == "__main__":
-    introduction()
-    main()
