@@ -209,6 +209,12 @@ def execute_notebook(command):
         else:
             print("This makes no sense.")
             return
+def editing_within_notebook(page):
+    a = input("Would you like to edit the " + str(page) + " list?:")
+    if normalise_input(a) == ['yes'] or normalise_input(a) == ['yeah'] or normalise_input(a) == ['y']:
+        b = input("What would you like to do to the suspects list? (type 'Help' for help):")
+        execute_notebook(normalise_input(b))
+    
 
 def notebook_suspects():
     # Displays the list of suspects sorted by their suspicion level  
@@ -226,6 +232,7 @@ def notebook_suspects():
             print()
             print("None")
             print()
+    editing_within_notebook("suspects")
 
 def notebook_weapons():
     # Displays the list of weapons sorted by their suspicion level
@@ -238,6 +245,7 @@ def notebook_weapons():
             highlighted = weapon
     if highlighted != False:
         print("You have highlighted " + weapons[highlighted]["name"] + " as the murder weapon")
+    editing_within_notebook("weapons")
 
 def notebook_rooms():
     # Displays the list of rooms sorted by their suspicion level
@@ -272,8 +280,8 @@ def suspicion_lowlight(subject):
 def suspicion_reset(subject):
     edited = False
     for element in [weapons, suspects, rooms]:
+        subject=subject.title()
         if subject in element:
-            subject=subject.title()
             element[subject]["notebook_status"] = "neutral"
             edited = True
     if edited != True:
