@@ -221,19 +221,24 @@ def editing_within_notebook(page):
             print("That is not a valid input. Please answer with Yes or No" + "\n")
         
 def notebook_suspects():
-    # Displays the list of suspects sorted by their suspicion level  
+    # Displays the list of suspects sorted by their suspicion level
+
+    suspect_number = 0
+
+    print("\n\tLIST OF SUSPECTS\n")
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
         printed = False
-        print("-" + suspicion.upper() + "-")
+        print("-" + suspicion.upper() + "-\n")
         for suspect in suspects:
             if suspects[suspect]["notebook_status"] == suspicion:
+                suspect_number += 1
+                print("Suspect #" + str(suspect_number))
                 for key in suspects[suspect]:
                     if key != "notebook_status":
-                        print("Suspect " + key + ": " + str(suspects[suspect][key]))
+                        print(key.title() + ": " + str(suspects[suspect][key]))
                         printed = True
                 print()
         if printed == False:
-            print()
             print("None")
             print()
     editing_within_notebook("suspects")
