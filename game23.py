@@ -6,16 +6,16 @@ from map import *
 #rooms = {}#from map import * #Awaiting dictionary
 weapons = {}#from weapons import * #Awaiting dictionary
 import random
-
-def main():
-
+def introduction():
     intro()
 
     player_name = input("Enter your name: ")
 
     age_verification(player_name)
     
-    current_room = rooms["Lobby"]
+    current_room = rooms["Lobby"]    
+
+def main():
 
     display_room(current_room)
 
@@ -153,11 +153,8 @@ def execute_inspect(detail):
     pass
 
 def display_notebook():
-    close = False
     print("\nYou open your notebook, which section do you want to turn to?")
-    while close == False:
-        execute_notebook(normalise_input(input("...")))
-    return
+    execute_notebook(normalise_input(input("...")))
 
 def execute_notebook(command):
     #Displays the notebook for the player to change the suspicion on any of the mystery elements or to look at any clues that they've previously discovered
@@ -203,8 +200,8 @@ def execute_notebook(command):
             return
 
         if command[0] == "close":
-            close = True
-            return
+            "You have closed the notebook."
+            main()
 
         else:
             print("This makes no sense.")
@@ -285,4 +282,5 @@ def display_room(room):
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
               
 if __name__ == "__main__":
+    introduction()
     main()
