@@ -125,6 +125,7 @@ def execute_command(command):
 
     elif command[0] == "help":
         display_help(current_room["exits"], current_room["items"], inventory)
+        print("Open notebook to open notebook")
 
     elif command == ["open", "notebook"]:
         display_notebook()
