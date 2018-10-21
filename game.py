@@ -35,5 +35,5 @@ def generate_clues(mystery):
     rooms[mystery[room]][clue] = clues[room]
 
     for room in rooms:
-    	if room[name] != "lobby" and room[clue] = "":
+    	if room[name] != "lobby" and room[clue] == "":
     		room[clue] = clues[random.choice(list(clues)[1:])]

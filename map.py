@@ -1,30 +1,35 @@
- room_study = {
+room_study = {
  "name": "Study",
+ "description": """Study description""",
  "exits": {"east": "Lobby", "secret": "Kitchen"}
-
- }
+}
 room_lobby ={
  "name": "Lobby",
- "exits": {"north": "Conservatory", "east": "Lounge", "north-east": "Dining Room"}
- }
+ "description": """Lobby description""",
+ "exits": {"north": "Conservatory", "east": "Lounge", "northeast": "Dining Room"}
+}
 room_conservatory = {
  "name": "Conservatory",
+ "description": """Conservatory description""",
  "exits": {"south": "Lobby"}
- }
+}
 room_diningroom = {
  "name": "Dining Room",
- "exits": {"south-west": "Lobby", "norht-east": "Kitchen"}
- }
+ "description": """Dining Room description""",
+ "exits": {"southwest": "Lobby", "northeast": "Kitchen"}
+}
 room_lounge = {
  "name": "Lounge",
+ "description": """Lounge description""",
  "exits": {"west": "Lobby", "north" : "Kitchen"}
- }
+}
 room_kitchen = {
  "name" : "Kitchen",
- "exits": {"south-west": "Dining Room", "secret": "Study"}
- }
+ "description": """Kitchen description""",
+ "exits": {"southwest": "Dining Room", "secret": "Study"}
+}
 
- rooms = {
+rooms = {
     "Lobby": room_lobby,
     "Study": room_study,
     "Conservatory": room_conservatory,
