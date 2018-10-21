@@ -212,31 +212,28 @@ def execute_notebook(command):
 
 def execute_within_notebook(command):
         if 0 == len(command):
-            reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+            reentered_input = input("Please enter a valid input" + "\n" + "...")
             execute_within_notebook(normalise_input(reentered_input))
 
         if command[0] == "highlight":
             if len(command) > 1:
                 suspicion_highlight(command[1])
             else:
-                print("Highlight what?")
-                reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+                reentered_input = input("What would you like to highlight? (type 'Help' for help):" + "\n" + "...")
                 execute_within_notebook(normalise_input(reentered_input))
 
         if command[0] == "cross":
             if len(command) > 1:
                 suspicion_lowlight(command[1])
             else:
-                print("Cross out what?")
-                reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+                reentered_input = input("What would you like to cross out? (type 'Help' for help):" + "\n" + "...")
                 execute_within_notebook(normalise_input(reentered_input))
 
         if command[0] == "reset":
             if len(command) > 1:
                 suspicion_reset(command[1])
             else:
-                print("reset what?")
-                reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+                reentered_input = input("What would you like to reset? (type 'Help' for help):" + "\n" + "...")
                 execute_within_notebook(normalise_input(reentered_input))
 
         if command[0] == "close":
@@ -245,7 +242,7 @@ def execute_within_notebook(command):
 
         else:
             print("This makes no sense.")
-            reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+            reentered_input = input("Please try again (type 'Help' for help):" + "\n" + "...")
             execute_within_notebook(normalise_input(reentered_input))
 
         
