@@ -10,6 +10,7 @@ suspect_hollie = {
 	"hair colour": "black",
 	"sex": "female",
 	"build": "tall",
+        "notebook_status":"neutral"
 }
 
 suspect_alexa = {
@@ -17,6 +18,7 @@ suspect_alexa = {
 	"hair colour": "blonde",
 	"sex": "female",
 	"build": "tall",
+        "notebook_status":"neutral"
 }
 
 suspect_samantha = {
@@ -24,6 +26,7 @@ suspect_samantha = {
 	"hair colour": "black",
 	"sex": "female",
 	"build": "short",
+        "notebook_status":"neutral"
 }
 
 suspect_wilma = {
@@ -31,6 +34,7 @@ suspect_wilma = {
 	"hair colour": "blonde",
 	"sex": "female",
 	"build": "short",
+        "notebook_status":"neutral"
 }
 
 suspect_douglas = {
@@ -38,6 +42,7 @@ suspect_douglas = {
 	"hair colour": "black",
 	"sex": "male",
 	"build": "tall",
+        "notebook_status":"neutral"
 }
 
 suspect_matt = {
@@ -45,6 +50,7 @@ suspect_matt = {
 	"hair colour": "blonde",
 	"sex": "male",
 	"build": "short",
+        "notebook_status":"neutral"
 }
 
 suspect_raphael = {
@@ -52,6 +58,7 @@ suspect_raphael = {
 	"hair colour": "black",
 	"sex": "male",
 	"build": "short",
+        "notebook_status":"neutral"
 }
 
 suspect_connor = {
@@ -59,6 +66,7 @@ suspect_connor = {
 	"hair colour": "blonde",
 	"sex": "male",
 	"build": "tall",
+        "notebook_status":"neutral"
 }
 
 
