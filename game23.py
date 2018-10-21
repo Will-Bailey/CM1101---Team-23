@@ -200,7 +200,7 @@ def execute_notebook(command):
             return
 
         if command[0] == "close":
-            "You have closed the notebook."
+            print("You have closed the notebook.")
             main()
 
         else:
