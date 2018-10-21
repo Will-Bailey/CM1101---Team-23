@@ -6,6 +6,7 @@ from map import *
 #rooms = {}#from map import * #Awaiting dictionary
 weapons = {}#from weapons import * #Awaiting dictionary
 import random
+
 def introduction():
     intro()
 
@@ -248,13 +249,16 @@ def execute_within_notebook(command):
 
         
 def editing_within_notebook(page):
+
     while True:
         a = input("Would you like to edit the " + str(page)+ " list? (Yes/No):" "\n" "...")
         if normalise_input(a) == ['yes'] or normalise_input(a) == ['yeah'] or normalise_input(a) == ['y']:
-            b = input("What would you like to do to the suspects list? (type 'Help' for help):" "\n" "...")
+            b = input("What would you like to do to the " + str(page) + " list? (type 'Help' for help):" "\n" "...")
             return execute_within_notebook(normalise_input(b))
-        elif normalise_input(a) == ['no']:
-            return
+
+        elif normalise_input(a) == ['no'] or normalise_input(a) == ['nah'] or normalise_input(a) == ['n']:
+            display_notebook()
+            break
         else:
             print("That is not a valid input. Please answer with Yes or No" + "\n")
         
