@@ -2,7 +2,8 @@ from player import *
 from items import *
 from gameparser import *
 from suspects import *
-rooms = {}#from map import * #Awaiting dictionary
+from map import *
+#rooms = {}#from map import * #Awaiting dictionary
 weapons = {}#from weapons import * #Awaiting dictionary
 import random
 
@@ -20,7 +21,7 @@ def main():
 
     while True:
 
-        command = menu(current_room["exits"], current_room["items"], inventory)
+        command = ask_for_command(current_room["exits"], current_room["items"], inventory)
 
         execute_command(command)
 
@@ -67,34 +68,27 @@ def generate_clues(mystery):
         if room[name] != "lobby" and room[clue] == "":
             room[clue] = clues[random.choice(list(clues)[1:])]
 
-def menu(exits, room_items, inv_items): # Not inv items
+def ask_for_command(exits, room_items, inv_items): # Not inv items
 
-    print_menu(exits, room_items, inv_items)
-
+    print("\nWhat do you want to do?  (Type HELP for list of commands)")
     user_command = input("...")
 
     input_normalised = normalise_input(user_command)
 
     return input_normalised
 
-def print_menu(exits, room_items, inv_items):
+def display_help(exits, room_items, inv_items):
 
-
-    print("You can:")
+    print("\nYou can use commands:\n")
     
     for direction in exits:
         print_exit(direction, destination(exits, direction))
 
     for items in room_items:
-        print("\nTAKE" + items["id"].upper() + " to add " + items["name"] + " in your inventory.")
-        print("CHECK" + items["id"].upper() + " to inspect " + items["name"] + ".")
+        print("CHECK " + items["id"].upper() +  " to inspect " + items["name"] + ".")
 
-    for items in inv_items:
-        print("\nUSE" + items["id"].upper + " to use " + items["name"] + ".")
-
-    print("\nSTATUS to check your stats.")
-
-    print("\nWhat is your command?")
+    #for item in inv_items:
+    #    print("USE " + item["id"].upper() + " to use " + item["name"] + ".")
 
 def print_exit(direction, leads_to):
 
@@ -130,7 +124,7 @@ def execute_command(command):
             print("inspect what?")
 
     elif command[0] == "help":
-        display_help()
+        display_help(current_room["exits"], current_room["items"], inventory)
 
     elif command == ["open", "notebook"]:
         display_notebook()
@@ -139,16 +133,19 @@ def execute_command(command):
         print("This makes no sense.")
 
 def execute_go(direction):
-    
-    display_room(current_room)
+
+    global current_room
+
+    exits = current_room["exits"]
+    if is_valid_exit(exits, direction):
+        current_room = move(exits, direction)
+        display_room(current_room)
+    else:
+        print("You cannot go there.")
 
 def display_details(room):
     #This function combines the 3 red herrings and the clue from a room, randomly inserting the clue to hide it.
     #it then returns the text as one string to be printed after the rooms description. 
-    pass
-
-def display_help(room):
-    #This will print the list of options available to the player
     pass
 
 def execute_inspect(detail):
@@ -157,7 +154,7 @@ def execute_inspect(detail):
 
 def display_notebook():
     close = False
-    print("You open your notebook, which section do you want to turn to?")
+    print("\nYou open your notebook, which section do you want to turn to?")
     while close == False:
         execute_notebook(normalise_input(input("...")))
     return
@@ -233,7 +230,7 @@ def notebook_suspects():
 def notebook_weapons():
     # Displays the list of weapons sorted by their suspicion level
     highlighted = False
-    print("You open your notebook to the weapons section the list reads:")
+    print("\nYou open your notebook to the weapons section the list reads:")
     for weapon in weapons:
         print(weapons[weapon]["name"] + ": " + weapons[weapon][description])
         print("\n")
@@ -280,7 +277,7 @@ def suspicion_reset(subject):
         print("You can't reset that")
     notebook_suspects()
 
-def execute_status():
+def show_status():
     pass
 
 def display_room(room):
