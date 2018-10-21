@@ -209,12 +209,52 @@ def execute_notebook(command):
         else:
             print("This makes no sense.")
             return
+
+def execute_within_notebook(command):
+        if 0 == len(command):
+            reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+            execute_within_notebook(normalise_input(reentered_input))
+
+        if command[0] == "highlight":
+            if len(command) > 1:
+                suspicion_highlight(command[1])
+            else:
+                print("Highlight what?")
+                reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+                execute_within_notebook(normalise_input(reentered_input))
+
+        if command[0] == "cross":
+            if len(command) > 1:
+                suspicion_lowlight(command[1])
+            else:
+                print("Cross out what?")
+                reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+                execute_within_notebook(normalise_input(reentered_input))
+
+        if command[0] == "reset":
+            if len(command) > 1:
+                suspicion_reset(command[1])
+            else:
+                print("reset what?")
+                reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+                execute_within_notebook(normalise_input(reentered_input))
+
+        if command[0] == "close":
+            print("You have closed the notebook.")
+            main()
+
+        else:
+            print("This makes no sense.")
+            reentered_input = input("What would you like to do to the suspects list? (type 'Help' for help):" + "\n" + "...")
+            execute_within_notebook(normalise_input(reentered_input))
+
+        
 def editing_within_notebook(page):
     while True:
         a = input("Would you like to edit the " + str(page)+ " list? (Yes/No):" "\n" "...")
         if normalise_input(a) == ['yes'] or normalise_input(a) == ['yeah'] or normalise_input(a) == ['y']:
             b = input("What would you like to do to the suspects list? (type 'Help' for help):" "\n" "...")
-            return execute_notebook(normalise_input(b))
+            return execute_within_notebook(normalise_input(b))
         elif normalise_input(a) == ['no']:
             return
         else:
