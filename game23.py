@@ -229,10 +229,10 @@ def editing_within_notebook(page):
                     notebook_display_help(page)
                     continue
                 elif len(normalise_input(b))==1 and (normalise_input(b)[0] == "highlight" or normalise_input(b)[0] == "cross" or normalise_input(b)[0] == "reset"):
-                    print("What would you like to " + (normalise_input(b)[0]) + "?\n")
+                    print((normalise_input(b)[0]) + " what?\n")
                 elif normalise_input(b)[0] != "highlight" and normalise_input(b)[0] != "cross" and normalise_input(b)[0] != "reset" and normalise_input(b)[0] != "close" :
                     print("This makes no sense.")
-                else:    
+                else:
                     return execute_within_notebook(normalise_input(b))
 
         elif normalise_input(a) == ['no'] or normalise_input(a) == ['nah'] or normalise_input(a) == ['n']:
@@ -308,7 +308,6 @@ def suspicion_highlight(subject):
 def suspicion_lowlight(subject):
     edited = False
     for element in [weapons, suspects, rooms]:
-        subject=subject.title()
         if subject in element:
             element[subject]["notebook_status"] = "unlikely"
             edited = True
@@ -325,7 +324,6 @@ def suspicion_lowlight(subject):
 def suspicion_reset(subject):
     edited = False
     for element in [weapons, suspects, rooms]:
-        subject=subject.title()
         if subject in element:
             element[subject]["notebook_status"] = "neutral"
             edited = True
@@ -345,6 +343,3 @@ def show_status():
 def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
-if __name__ == "__main__":
-    introduction()
-    main()
