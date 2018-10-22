@@ -152,7 +152,15 @@ def execute_inspect(detail):
 def display_notebook():
 
     while execute_notebook != "close":
-        print("\nYou opened your notebook, which section do you want to turn to?")
+        print('''\nYou opened your notebook, which section do you want to turn to?
+
+0) Close (to close notebook)
+1) Suspects
+2) Weapons
+3) Rooms
+4) Clues
+
+(Use number key or page name)''')
         execute_notebook(normalise_input(input("...")))
     return
 
@@ -162,23 +170,23 @@ def execute_notebook(command):
         if 0 == len(command):
             return
 
-        if command[0] == "suspects":
+        if command[0] == "suspects" or command[0] == "1":
             notebook_suspects()
             return
         
-        elif command[0] == "weapons":
+        elif command[0] == "weapons" or command[0] == "2" :
             notebook_weapons()
             return
 
-        elif command[0] == "rooms":
+        elif command[0] == "rooms" or command[0] == "3":
             notebook_rooms()
             return
 
-        elif command[0] == "clues":
+        elif command[0] == "clues" or command[0] == "4":
             notebook_clues()
             return
 
-        if command[0] == "close":
+        if command[0] == "close" or command[0] == "0":
             print("You have closed the notebook.")
             main()
 
