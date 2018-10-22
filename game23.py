@@ -283,11 +283,11 @@ def suspicion_highlight(subject):
             element[subject]["notebook_status"] = "highly suspicious"
             edited = True
             if element == weapons:
-            	notebook_weapons()
+                notebook_weapons()
             elif element == suspects:
-            	notebook_suspects()
+                notebook_suspects()
             elif element == rooms:
-            	notebook_rooms()
+                notebook_rooms()
     if edited != True:
         print("You can't highlight that")
 
@@ -299,11 +299,11 @@ def suspicion_lowlight(subject):
             element[subject]["notebook_status"] = "unlikely"
             edited = True
             if element == weapons:
-            	notebook_weapons()
+                notebook_weapons()
             elif element == suspects:
-            	notebook_suspects()
+                notebook_suspects()
             elif element == rooms:
-            	notebook_rooms()
+                notebook_rooms()
     if edited != True:
         print("You can't cross off that")
     notebook_suspects()
@@ -316,11 +316,11 @@ def suspicion_reset(subject):
             element[subject]["notebook_status"] = "neutral"
             edited = True
             if element == weapons:
-            	notebook_weapons()
+                notebook_weapons()
             elif element == suspects:
-            	notebook_suspects()
+                notebook_suspects()
             elif element == rooms:
-            	notebook_rooms()
+                notebook_rooms()
     if edited != True:
         print("You can't reset that")
     notebook_suspects()
