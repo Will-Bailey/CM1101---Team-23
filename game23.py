@@ -281,6 +281,7 @@ def notebook_clues():
     # Displays the list of clues previously discovered by the player
     print("\n\tLIST OF CLUES\n")
     for clue in discovered_clues:
+        pass
 
 def suspicion_highlight(subject):
     edited = False
@@ -339,7 +340,7 @@ def display_room(room):
 def init_clues():
     clue_room = {
         "detail": "stain",
-        "first look": "There's a smalll red stain on the floor just visible behind the open door."
+        "first look": "There's a smalll red stain on the floor just visible behind the open door.",
         "closer inspection": "As you look more closely you notide discover a larger puddle of blood. Clearly this must be the room in which the murder was committed.",
     }
 
@@ -362,7 +363,7 @@ def init_clues():
     }
 
     clue_weapon = {
-        "detail" = "rug",
+        "detail": "rug",
         "first look": "There's something vaugley shiny sticking out from under a RUG.",
         "closer inspection": "You peel back teh corner of the rug and find a blood stained " + mystery["weapon"] + ". The killer must have used this to commit the murder and then hidden it here."
     }
