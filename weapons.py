@@ -35,10 +35,10 @@ weapon_hammer = {
 }
 
 weapons = {
-	"Knife": weapon_knife,
-	"Wrench": weapon_wrench,
-	"Pen": weapon_pen,
-	"Toothbrush": weapon_toothbrush,
-	"Shovel": weapon_shovel,
-	"Hammer": weapon_hammer
+	"knife": weapon_knife,
+	"wrench": weapon_wrench,
+	"pen": weapon_pen,
+	"toothbrush": weapon_toothbrush,
+	"shovel": weapon_shovel,
+	"hammer": weapon_hammer
 }
