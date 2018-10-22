@@ -1,10 +1,10 @@
 from player import *
-from items import *
 from gameparser import *
 from suspects import *
 from map import *
 from weapons import *
 import random
+
 def introduction():
     intro()
 
@@ -20,7 +20,7 @@ def main():
 
     while True:
 
-        command = ask_for_command(current_room["exits"], current_room["items"], inventory)
+        command = ask_for_command()
 
         execute_command(command)
 
@@ -67,7 +67,7 @@ def generate_clues(mystery):
         if room[name] != "lobby" and room[clue] == "":
             room[clue] = clues[random.choice(list(clues)[1:])]
 
-def ask_for_command(exits, room_items, inv_items): # Not inv items
+def ask_for_command():
 
     print("\nWhat do you want to do?  (Type HELP for list of commands)")
     user_command = input("...")
@@ -76,18 +76,15 @@ def ask_for_command(exits, room_items, inv_items): # Not inv items
 
     return input_normalised
 
-def display_help(exits, room_items, inv_items):
+def display_help(exits): #red_herrings needed
 
     print("\nYou can use commands:\n")
     
     for direction in exits:
         print_exit(direction, destination(exits, direction))
 
-    for items in room_items:
-        print("CHECK " + items["id"].upper() +  " to inspect " + items["name"] + ".")
-
-    #for item in inv_items:
-    #    print("USE " + item["id"].upper() + " to use " + item["name"] + ".")
+    #for item in red_herrings:
+    #    print("CHECK " + item["id"].upper() +  " to inspect " + item["name"] + ".")
 
 def print_exit(direction, leads_to):
 
@@ -123,8 +120,8 @@ def execute_command(command):
             print("inspect what?")
 
     elif command[0] == "help":
-        display_help(current_room["exits"], current_room["items"], inventory)
-        print("Open notebook to open notebook")
+        display_help(current_room["exits"])#need to add red_herrings
+        print("OPEN NOTEBOOK to open notebook")
 
     elif command == ["open", "notebook"]:
         display_notebook()
@@ -225,16 +222,19 @@ def execute_within_notebook(command):
             execute_within_notebook(normalise_input(reentered_input))
         
 def editing_within_notebook(page):
+
     while True:
         a = input("Would you like to edit the " + str(page)+ " list? (Yes/No):" "\n" "...")
         if normalise_input(a) == ['yes'] or normalise_input(a) == ['yeah'] or normalise_input(a) == ['y']:
-            b = input("What would you like to do to the " + str(page) + "list? (type 'Help' for help):" "\n" "...")
+            b = input("What would you like to do to the " + str(page) + " list? (type 'Help' for help):" "\n" "...")
             return execute_within_notebook(normalise_input(b))
-        elif normalise_input(a) == ['no']:
-            return
+
+        elif normalise_input(a) == ['no'] or normalise_input(a) == ['nah'] or normalise_input(a) == ['n']:
+            display_notebook()
+            break
         else:
             print("That is not a valid input. Please answer with Yes or No" + "\n")
-        
+            
 def notebook_suspects():
     # Displays the list of suspects sorted by their suspicion level
     print("\n\tLIST OF SUSPECTS\n")
@@ -249,7 +249,7 @@ def notebook_suspects():
                         printed = True
                 print()
         if printed == False:
-            print("None")
+            print("   None")
             print()
     editing_within_notebook("suspects")
     return
@@ -258,7 +258,7 @@ def notebook_weapons():
     # Displays the list of weapons sorted by their suspicion level
     print("\n\tLIST OF WEAPONS\n")
     highlighted = False
-    print("\nYou open your notebook to the weapons section the list reads:")
+    print("You open your notebook to the weapons section the list reads:\n")
     for weapon in weapons:
         print(weapons[weapon]["name"] + ": " + weapons[weapon]["description"])
         print("\n")
