@@ -202,23 +202,14 @@ def execute_within_notebook(command):
         elif command[0] == "highlight":
             if len(command) > 1:
                 suspicion_highlight(command[1])
-            else:
-                reentered_input = input("What would you like to highlight? (type 'Help' for help):" + "\n" + "...")
-                execute_within_notebook(normalise_input(reentered_input))
 
         elif command[0] == "cross":
             if len(command) > 1:
                 suspicion_lowlight(command[1])
-            else:
-                reentered_input = input("What would you like to cross out? (type 'Help' for help):" + "\n" + "...")
-                execute_within_notebook(normalise_input(reentered_input))
 
         elif command[0] == "reset":
             if len(command) > 1:
                 suspicion_reset(command[1])
-            else:
-                reentered_input = input("What would you like to reset? (type 'Help' for help):" + "\n" + "...")
-                execute_within_notebook(normalise_input(reentered_input))
 
         elif command[0] == "close":
             print("You have closed the notebook.")
@@ -226,8 +217,6 @@ def execute_within_notebook(command):
 
         else:
             print("This makes no sense.")
-            reentered_input = input("Please try again (type 'Help' for help):" + "\n" + "...")
-            execute_within_notebook(normalise_input(reentered_input))
         
 def editing_within_notebook(page):
 
@@ -239,6 +228,10 @@ def editing_within_notebook(page):
                 if normalise_input(b) == ['help']:
                     notebook_display_help(page)
                     continue
+                elif len(normalise_input(b))==1 and (normalise_input(b)[0] == "highlight" or normalise_input(b)[0] == "cross" or normalise_input(b)[0] == "reset"):
+                    print("What would you like to " + (normalise_input(b)[0]) + "?\n")
+                elif normalise_input(b)[0] != "highlight" and normalise_input(b)[0] != "cross" and normalise_input(b)[0] != "reset" and normalise_input(b)[0] != "close" :
+                    print("This makes no sense.")
                 else:    
                     return execute_within_notebook(normalise_input(b))
 
@@ -352,7 +345,3 @@ def show_status():
 def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
-
-if __name__ == "__main__":
-    introduction()
-    main()
