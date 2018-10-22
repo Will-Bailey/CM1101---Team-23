@@ -41,9 +41,9 @@ def generate_mystery():
     ###function should then call the generate_clues function to finish off the
     ###setup.
     mystery = {
-        "suspect": random.choice(list(suspects))
-        #"weapon": random.choice(list(weapons)) #Awaiting dictionary
-        #"room": random.choice(list(room)) #Awaiting dictionary
+        "suspect": random.choice(list(suspects)),
+        "weapon" : random.choice(list(weapons)), 
+        "room": random.choice(list(rooms))
     }
     generate_clues(mystery)
 
