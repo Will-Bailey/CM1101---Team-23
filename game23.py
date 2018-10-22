@@ -45,27 +45,18 @@ def generate_mystery():
         "weapon" : random.choice(list(weapons)), 
         "room": random.choice(list(rooms))
     }
+    init_clues()
     generate_clues(mystery)
 
 def generate_clues(mystery):
     ###This function is responsible for generating the correct clues to solve the
     ###mystery given to it and then asigning each of them to a room.
 
-    clues = {
-        "room": """On closer inspection of the room, you notice a splatter of
-                      blood on the wall and below it a puddle of yet more blood.
-                      clearly this is the room in which the murder took place""",
-        "witness": "" + suspects[mystery[suspect]]["build"] + "", ###A string about interviewing a witness of some kind who claims they saw a sillhouette of the murderer and that they were (tall/short)
-        "clothes" : "" + suspects[mystery[suspect]]["sex"] + "", ###A string about finding a scrap of (male/female) clothing clearly belonging to the murderer
-        "hair": "" + suspects[mystery[suspect]]["hair"] + "", ###A string about finding a lock of (black/blonde) hair clearly belonging to the murderer
-        "weapon": "" + mystery["weapon"] + "" ###A string about finding the murder weapon using mystery["weapon"]    
-        }
-
-    rooms[mystery[room]][clue] = clues[room]
+    rooms[mystery["room"]][clue] = clues["room"]
 
     for room in rooms:
-        if room[name] != "lobby" and room[clue] == "":
-            room[clue] = clues[random.choice(list(clues)[1:])]
+        if room["name"] != "lobby" and room["clue"] == "":
+            room["clue"] = clues[random.choice(list(clues)[1:])]
 
 def ask_for_command():
 
@@ -275,7 +266,7 @@ def notebook_weapons():
     print("You open your notebook to the weapons section the list reads:\n")
     for weapon in weapons:
         print(weapons[weapon]["name"] + ": " + weapons[weapon]["description"])
-        print("\n")
+        print()
         if weapons[weapon]["notebook_status"] == "highly suspicious":
             highlighted = weapon
     if highlighted != False:
@@ -288,7 +279,8 @@ def notebook_rooms():
 
 def notebook_clues():
     # Displays the list of clues previously discovered by the player
-    pass
+    print("\n\tLIST OF CLUES\n")
+    for clue in discovered_clues:
 
 def suspicion_highlight(subject):
     edited = False
@@ -343,6 +335,47 @@ def show_status():
 def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
+
+def init_clues():
+    clue_room = {
+        "detail": "stain",
+        "first look": "There's a smalll red stain on the floor just visible behind the open door."
+        "closer inspection": "As you look more closely you notide discover a larger puddle of blood. Clearly this must be the room in which the murder was committed.",
+    }
+
+    clue_witness = {
+        "detail": "butler",
+        "first look": "The BUTLER is in this room, tidying up",
+        "closer inspection": """You ask the butler if he saw anything he replys in a frail, voice "I did,"" he replys "I saw the silhouette of a person dragging off what looked like a body earlier. I couldn't tell who it was but they were definitely a """ + suspects[mystery["suspect"]]["build"] +""" person. I'm sorry bu that's all I know." You thank the butler""" 
+    }
+
+    clue_clothes = {
+        "detail": "fabric",
+        "first look": "Snagged on the door, you spot a scrap of FABRIC.",
+        "closer inspection": "As you look closer at the farbic, you notice spots of blood on what must be a scrap of clothing. You also notice that the scrap is from " + suspects[mystery["suspect"]]["sex"] + "'s clothing."
+    }
+
+    clue_hair = {
+        "detail": "scuff",
+        "first look": "There's a SCUFF on the wall, it looks like someone scraped against the wall, carrying something heavy.",
+        "closer inspection": "You look more carefully and realise that the mark was clearly form the killer on there way past, dragging the body. There are drips of blood and you also find a lock of hair, snagged on a nail that the killer must have brushed past on their way. The hair is clearly " + suspects[mystery["suspect"]]["hair colour"] + "."
+    }
+
+    clue_weapon = {
+        "detail" = "rug",
+        "first look": "There's something vaugley shiny sticking out from under a RUG.",
+        "closer inspection": "You peel back teh corner of the rug and find a blood stained " + mystery["weapon"] + ". The killer must have used this to commit the murder and then hidden it here."
+    }
+
+
+    clues = {
+        "room": clue_room,
+        "witness": clue_witness,
+        "clothes": clue_clothes,
+        "hair": clue_hair,
+        "weapon": clue_weapon
+    }
+
 if __name__ == "__main__":
     introduction()
     main()
