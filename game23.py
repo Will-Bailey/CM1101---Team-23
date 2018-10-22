@@ -3,8 +3,7 @@ from items import *
 from gameparser import *
 from suspects import *
 from map import *
-#rooms = {}#from map import * #Awaiting dictionary
-weapons = {}#from weapons import * #Awaiting dictionary
+from weapons import *
 import random
 def introduction():
     intro()
@@ -182,27 +181,6 @@ def execute_notebook(command):
             notebook_clues()
             return
 
-        if command[0] == "highlight":
-            if len(command) > 1:
-                suspicion_highlight(command[1])
-            else:
-                print("Highlight what?")
-            return
-
-        if command[0] == "cross":
-            if len(command) > 1:
-                suspicion_lowlight(command[1])
-            else:
-                print("Cross out what?")
-            return
-
-        if command[0] == "reset":
-            if len(command) > 1:
-                suspicion_reset(command[1])
-            else:
-                print("reset what?")
-            return
-
         if command[0] == "close":
             print("You have closed the notebook.")
             main()
@@ -216,28 +194,28 @@ def execute_within_notebook(command):
             reentered_input = input("Please enter a valid input" + "\n" + "...")
             execute_within_notebook(normalise_input(reentered_input))
 
-        if command[0] == "highlight":
+        elif command[0] == "highlight":
             if len(command) > 1:
                 suspicion_highlight(command[1])
             else:
                 reentered_input = input("What would you like to highlight? (type 'Help' for help):" + "\n" + "...")
                 execute_within_notebook(normalise_input(reentered_input))
 
-        if command[0] == "cross":
+        elif command[0] == "cross":
             if len(command) > 1:
                 suspicion_lowlight(command[1])
             else:
                 reentered_input = input("What would you like to cross out? (type 'Help' for help):" + "\n" + "...")
                 execute_within_notebook(normalise_input(reentered_input))
 
-        if command[0] == "reset":
+        elif command[0] == "reset":
             if len(command) > 1:
                 suspicion_reset(command[1])
             else:
                 reentered_input = input("What would you like to reset? (type 'Help' for help):" + "\n" + "...")
                 execute_within_notebook(normalise_input(reentered_input))
 
-        if command[0] == "close":
+        elif command[0] == "close":
             print("You have closed the notebook.")
             main()
 
@@ -245,13 +223,12 @@ def execute_within_notebook(command):
             print("This makes no sense.")
             reentered_input = input("Please try again (type 'Help' for help):" + "\n" + "...")
             execute_within_notebook(normalise_input(reentered_input))
-
         
 def editing_within_notebook(page):
     while True:
         a = input("Would you like to edit the " + str(page)+ " list? (Yes/No):" "\n" "...")
         if normalise_input(a) == ['yes'] or normalise_input(a) == ['yeah'] or normalise_input(a) == ['y']:
-            b = input("What would you like to do to the suspects list? (type 'Help' for help):" "\n" "...")
+            b = input("What would you like to do to the " + str(page) + "list? (type 'Help' for help):" "\n" "...")
             return execute_within_notebook(normalise_input(b))
         elif normalise_input(a) == ['no']:
             return
@@ -260,17 +237,12 @@ def editing_within_notebook(page):
         
 def notebook_suspects():
     # Displays the list of suspects sorted by their suspicion level
-
-    suspect_number = 0
-
     print("\n\tLIST OF SUSPECTS\n")
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
         printed = False
         print("-" + suspicion.upper() + "-\n")
         for suspect in suspects:
             if suspects[suspect]["notebook_status"] == suspicion:
-                suspect_number += 1
-                print("Suspect #" + str(suspect_number))
                 for key in suspects[suspect]:
                     if key != "notebook_status":
                         print(key.title() + ": " + str(suspects[suspect][key]))
@@ -280,15 +252,17 @@ def notebook_suspects():
             print("None")
             print()
     editing_within_notebook("suspects")
+    return
 
 def notebook_weapons():
     # Displays the list of weapons sorted by their suspicion level
+    print("\n\tLIST OF WEAPONS\n")
     highlighted = False
     print("\nYou open your notebook to the weapons section the list reads:")
     for weapon in weapons:
-        print(weapons[weapon]["name"] + ": " + weapons[weapon][description])
+        print(weapons[weapon]["name"] + ": " + weapons[weapon]["description"])
         print("\n")
-        if weapons[weapon][notebook_status] != "neutral":
+        if weapons[weapon]["notebook_status"] == "highly suspicious":
             highlighted = weapon
     if highlighted != False:
         print("You have highlighted " + weapons[highlighted]["name"] + " as the murder weapon")
@@ -305,13 +279,17 @@ def notebook_clues():
 def suspicion_highlight(subject):
     edited = False
     for element in [weapons, suspects, rooms]:
-        subject=subject.title()
         if subject in element:
             element[subject]["notebook_status"] = "highly suspicious"
             edited = True
+            if element == weapons:
+            	notebook_weapons()
+            elif element == suspects:
+            	notebook_suspects()
+            elif element == rooms:
+            	notebook_rooms()
     if edited != True:
         print("You can't highlight that")
-    notebook_suspects()
 
 def suspicion_lowlight(subject):
     edited = False
@@ -320,6 +298,12 @@ def suspicion_lowlight(subject):
         if subject in element:
             element[subject]["notebook_status"] = "unlikely"
             edited = True
+            if element == weapons:
+            	notebook_weapons()
+            elif element == suspects:
+            	notebook_suspects()
+            elif element == rooms:
+            	notebook_rooms()
     if edited != True:
         print("You can't cross off that")
     notebook_suspects()
@@ -331,6 +315,12 @@ def suspicion_reset(subject):
         if subject in element:
             element[subject]["notebook_status"] = "neutral"
             edited = True
+            if element == weapons:
+            	notebook_weapons()
+            elif element == suspects:
+            	notebook_suspects()
+            elif element == rooms:
+            	notebook_rooms()
     if edited != True:
         print("You can't reset that")
     notebook_suspects()
