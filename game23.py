@@ -345,3 +345,6 @@ def show_status():
 def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
+if __name__ == "__main__":
+    introduction()
+    main()
