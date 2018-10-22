@@ -1,36 +1,36 @@
 weapon_knife = {
 	"name": "Knife",
-	"description": "Knife description",
+	"description": "A short but sharp kitchen knife, possibly used to stab the victim",
 	"notebook_status": "neutral"
 }
 
 weapon_wrench = {
 	"name": "Wrench",
-	"description": "Wrench description",
+	"description": "A bent wrench that was found in the car seat, possibly used to hit something with considerable force",
 	"notebook_status": "neutral"
 }
 
 weapon_pen = {
 	"name": "Pen",
-	"description": "pen description",
+	"description": "A vintage pen made of metal, a human body could easily be penetrated by that",
 	"notebook_status": "neutral"
 }
 
 weapon_toothbrush = {
 	"name": "Toothbrush",
-	"description": "toothbrush description",
+	"description": "A tooth brush with a sharpen handle, possibly used to stab the victim",
 	"notebook_status": "neutral"
 }
 
-weapon_bottle = {
-	"name": "Bottle",
-	"description": "bottle description",
+weapon_shovel = {
+	"name": "Shovel",
+	"description": "A massive shovel that could do significant damages to a victim",
 	"notebook_status": "neutral"
 }
 
 weapon_hammer = {
 	"name": "Hammer",
-	"description": "Hammer description",
+	"description": "A hammer, made of steel and easily capable of being used to a man",
 	"notebook_status": "neutral"
 }
 
@@ -39,6 +39,6 @@ weapons = {
 	"Wrench": weapon_wrench,
 	"Pen": weapon_pen,
 	"Toothbrush": weapon_toothbrush,
-	"Bottle": weapon_bottle,
+	"Shovel": weapon_shovel,
 	"Hammer": weapon_hammer
 }
