@@ -14,7 +14,7 @@ def introduction():
     player_name = input("...")
 
     age_verification(player_name)
-    intro()
+    #intro()
     
     current_room = rooms["lobby"]
     global correct_accusation
@@ -101,17 +101,18 @@ def ask_for_command():
 
     return input_normalised
 
-def display_help(exits, details):
+def display_help(exits):
 
     print("\nYou can use commands:\n")
     
     for direction in exits:
         print_exit(direction, destination(exits, direction))
 
-    for item in details:
-        print("CHECK " + item.upper() +  " for closer inspection.")
-
-    print("ACCUSE to make accusation")
+    #for item in details:
+    #    print("CHECK " + item.upper() +  " for closer inspection.")
+    print("CHECK + <object> for closer inspection.")
+    print("ACCUSE to make accusation.")
+    print("OPEN NOTEBOOK to open notebook")
     
 def print_exit(direction, leads_to):
 
@@ -140,15 +141,14 @@ def execute_command(command):
         else:
             print("Go where?")
 
-    elif command[0] == "inspect":
+    elif command[0] == "check":
         if len(command) > 1:
             execute_inspect(command[1])
         else:
             print("inspect what?")
 
     elif command[0] == "help":
-        display_help(current_room["exits"], current_room["details"])
-        print("OPEN NOTEBOOK to open notebook")
+        display_help(current_room["exits"])
 
     elif command == ["open", "notebook"]:
         display_notebook()
