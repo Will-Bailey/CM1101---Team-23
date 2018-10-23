@@ -8,7 +8,9 @@ import random
 def introduction():
     
     global player_name
-    player_name = input("Enter your name: ")
+    scroll_text("Wudunnit!? Who is the Kiriller?\n \n", 0.04)
+    scroll_text("Enter your name: \n", 0.04)
+    player_name = input("...")
 
     age_verification(player_name)
 
@@ -22,18 +24,20 @@ def introduction():
     found_clues = []
     generate_mystery()
  
-
 def intro():
 
     #Intro
-    print("""
-            Wudunnit!? Who is the Kiriller?
-
-ring ring ring ring  A rusty voice at the other end of the line grunts, 
-"Hello? Is this Inspector """ + player_name + """ ?" You answer, huskily, " It certainly is."
-"Professor Parker has been murdered in Morebrandt mansion and we need your help to solve this
-case! We have all 6 suspects gathered in the lobby, and all the rooms are available for inspection.
-We are counting on you to bring the killer to justice.""")
+    scroll_text("\nRing Ring", 0.04)
+    time.sleep(0.4)
+    scroll_text("\nRing Ring", 0.04)
+    time.sleep(0.4)
+    scroll_text("\n" + """A rusty voice at the other end of the line grunts,
+'Hello? Is this Inspector """ + player_name +  "?'\n", 0.02)
+    time.sleep(0.5)
+    scroll_text("""You answer, huskily, 'It certainly is'.\n""", 0.02)
+    time.sleep(0.5)                
+    scroll_text("""'Professor Parker has been murdered in Morebrandt mansion and we need your help!'\n'We have all 6 suspects gathered in the lobby, and all the rooms are available for inspection.' \n'We are counting on you to bring the killer to justice.'\n""", 0.02)
+    time.sleep(0.5)
 
 def main():
     display_room(current_room)
