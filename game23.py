@@ -500,9 +500,12 @@ def init_clues(mystery):
 
 def execute_inspect(detail):
     if detail == current_room["clue"]["detail"]:
-        print(current_room["clue"]["closer inspection"])
-        found_clues.append(current_room)
-        print("You make a note of this in the clues section of your notebook") 
+        if current_room in found_clues:
+            print("You have already added this to your notebook")
+        else:
+            print(current_room["clue"]["closer inspection"])
+            found_clues.append(current_room)
+            print("You make a note of this in the clues section of your notebook") 
     elif detail in current_room["details"]:
         detail_number = current_room["details"].index(detail)
         print(current_room["red herrings"][list(current_room["red herrings"])[detail_number]])
