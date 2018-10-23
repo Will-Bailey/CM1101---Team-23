@@ -361,10 +361,9 @@ def notebook_weapons():
         print("-" + suspicion.upper() + "-\n")
         for weapon in weapons:
             if weapons[weapon]["notebook_status"] == suspicion:
-                for key in weapons[weapon]:
-                    if key != "notebook_status":
-                        print(key.title() + ": " + str(weapons[weapon][key]))
-                        printed = True
+                print("Weapon Name:\n" + weapons[weapon]["name"])
+                print("Weapon Description:\n" + weapons[weapon]["description"] + "\n")
+                printed = True
                 print()
         if printed == False:
             print("   None")
@@ -382,7 +381,7 @@ def notebook_rooms():
         for room in rooms:
             if rooms[room]["notebook_status"] == suspicion:
                 print("Room Name: " + rooms[room]["name"])
-                print("Room Description: " + rooms[room]["name"] + "\n")
+                print("Room Description: " + rooms[room]["description"] + "\n")
                 printed = True
         if printed == False:
             print("   None")
