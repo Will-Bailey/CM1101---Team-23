@@ -152,6 +152,7 @@ def execute_command(command):
         print("This makes no sense.")
 
 def make_accusation():
+    print(mystery)
     comparison_mystery = {}
     for element in mystery:
     	comparison_mystery.update({element: normalise_input(mystery[element])})
@@ -197,6 +198,8 @@ def make_accusation():
                                                 if accusation == comparison_mystery:
                                                     game_won()
                                                 else:
+                                                    print(accusation)
+                                                    print(comparison_mystery)
                                                     print("Incorrect")
                                                     main()
                                             else:
@@ -351,34 +354,41 @@ def notebook_suspects():
 
 def notebook_weapons():
     # Displays the list of weapons sorted by their suspicion level
-
-    highlighted = False
     print("\nYou open your notebook to the weapons section the list reads:")
     print("\n\tLIST OF WEAPONS\n")
-    
-    for weapon in weapons:
-        print(weapons[weapon]["name"] + ": " + weapons[weapon]["description"])
-        print()
-        if weapons[weapon]["notebook_status"] == "highly suspicious":
-            highlighted = weapon
-    if highlighted != False:
-        print("You have highlighted " + weapons[highlighted]["name"] + " as the murder weapon")
+    for suspicion in ["highly suspicious", "neutral", "unlikely"]:
+        printed = False
+        print("-" + suspicion.upper() + "-\n")
+        for weapon in weapons:
+            if weapons[weapon]["notebook_status"] == suspicion:
+                for key in weapons[weapon]:
+                    if key != "notebook_status":
+                        print(key.title() + ": " + str(weapons[weapon][key]))
+                        printed = True
+                print()
+        if printed == False:
+            print("   None")
+            print()
     editing_within_notebook("weapons")
-
+    return
+    
 def notebook_rooms():
     # Displays the list of rooms sorted by their suspicion level
-
-    highlighted = False
-    print("\nYou open your notebook to the rooms section the list reads:")
+    print("\nYou open your notebook to the weapons section the list reads:")
     print("\n\tLIST OF ROOMS\n")
-    for room in rooms:
-        print(rooms[room]["name"] + ": " + rooms[room]["description"])
-        print()
-        if rooms[room]["notebook_status"] == "highly suspicious":
-            highlighted = room
-    if highlighted != False:
-        print("You have highlighted " + rooms[highlighted]["name"] + " as the room the murder took place.")
+    for suspicion in ["highly suspicious", "neutral", "unlikely"]:
+        printed = False
+        print("-" + suspicion.upper() + "-\n")
+        for room in rooms:
+            if rooms[room]["notebook_status"] == suspicion:
+                print("Room Name: " + rooms[room]["name"])
+                print("Room Description: " + rooms[room]["name"] + "\n")
+                printed = True
+        if printed == False:
+            print("   None")
+            print()
     editing_within_notebook("rooms")
+    return
 
 def notebook_clues():
     # Displays the list of clues previously discovered by the player
