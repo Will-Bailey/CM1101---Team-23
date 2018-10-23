@@ -1,4 +1,12 @@
 import string
+import time
+import sys
+
+def scroll_text(text, delay):
+    for a in text:
+        print(a, end = "")
+        sys.stdout.flush()
+        time.sleep(delay)
 
 # List of "unimportant" words (feel free to add more)
 skip_words = ['a', 'about', 'all', 'an', 'another', 'any', 'around', 'at',
