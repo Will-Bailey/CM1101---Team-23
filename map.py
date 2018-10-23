@@ -16,7 +16,7 @@ room_lobby ={
  "name": "Lobby",
  "description": """You are in the lobby, the suspects await your decision. """,
  "exits": {"north": "conservatory", "east": "dining room", "west": "study"},
- 
+ "details": [],
  "clue": "",
  "notebook_status": "neutral"
 }
