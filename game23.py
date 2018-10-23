@@ -101,7 +101,7 @@ def ask_for_command():
 
     return input_normalised
 
-def display_help(exits, details): #red_herrings needed
+def display_help(exits, details):
 
     print("\nYou can use commands:\n")
     
@@ -110,7 +110,9 @@ def display_help(exits, details): #red_herrings needed
 
     for item in details:
         print("CHECK " + item.upper() +  " for closer inspection.")
-        
+
+    print("ACCUSE to make accusation")
+    
 def print_exit(direction, leads_to):
 
     print("GO " + direction.upper() + " to " + leads_to + ".")
