@@ -152,7 +152,6 @@ def execute_command(command):
         print("This makes no sense.")
 
 def make_accusation():
-    print(mystery)
     comparison_mystery = {}
     for element in mystery:
     	comparison_mystery.update({element: normalise_input(mystery[element])})
@@ -198,8 +197,6 @@ def make_accusation():
                                                 if accusation == comparison_mystery:
                                                     game_won()
                                                 else:
-                                                    print(accusation)
-                                                    print(comparison_mystery)
                                                     print("Incorrect")
                                                     main()
                                             else:
