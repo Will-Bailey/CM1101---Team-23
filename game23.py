@@ -185,7 +185,7 @@ def make_accusation():
                             for weapon in weapons:
                                 if weapons[weapon]["notebook_status"] == "highly suspicious":
                                     print(weapons[weapon]["name"])
-                            weapon_accused = normalise_input(input("..."))
+                            weapon_accused = normalise_input(input("...")) 
                             if "".join(normalise_input(weapon_accused)) in list(weapons):
                                     accusation["weapon"] = weapon_accused
                                     print("\n")
@@ -196,7 +196,7 @@ def make_accusation():
                                             if rooms[room]["notebook_status"] == "highly suspicious":
                                                 print(rooms[room]["name"])
                                             room_accused = normalise_input(input("...")) 
-                                            if "".join(normalise_input(room_accused)) in list(rooms):
+                                            if " ".join(room_accused) in list(rooms):
                                                 accusation["room"] = room_accused###NEEDS FIXING, ROOMS NEED TO BE LOWER CASE
                                                 print("\n")
                                                 if accusation == comparison_mystery:
