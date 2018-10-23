@@ -26,20 +26,20 @@ def introduction():
 def intro():
 
     #Intro
-    scroll_text("\n\nRing Ring", 0.04)
+    scroll_text("\n\nRing Ring,", 0.04)
     time.sleep(0.4)
-    scroll_text("\nRing Ring", 0.04)
+    scroll_text("\nRing Ring,", 0.04)
     time.sleep(0.4)
     scroll_text("\n" + """A rusty voice at the other end of the line grunts,
-'Hello? Is this Inspector """ + player_name.title() +  "?'\n", 0.03)
+'Hello? Is this Inspector """ + player_name.title() +  "?'.\n", 0.03)
     time.sleep(0.5)
     scroll_text("""You answer, huskily, 'It certainly is'.\n""", 0.03)
     time.sleep(0.5)                
     scroll_text("'Professor Parker has been murdered in Morebrandt mansion and we need your help!'",0.03)
     time.sleep(0.7)
-    scroll_text("\n'We have all 6 suspects gathered in the lobby, and all the rooms are available for inspection.'",0.03)
+    scroll_text("\n'We have all 6 suspects gathered in the lobby, and all the rooms are available for inspection'.",0.03)
     time.sleep(0.9)
-    scroll_text("\n'We are counting on you to bring the killer to justice.'\n", 0.03)
+    scroll_text("\n'We are counting on you to bring the killer to justice'.\n", 0.03)
     time.sleep(0.4)
 
 def main():
