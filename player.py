@@ -1,5 +1,6 @@
 #from items import *
 from map import rooms
+from gameparser import *
 
 #inventory = [item_id, item_laptop, item_money]
 
@@ -12,8 +13,8 @@ def age_verification(name):
     while True:
 
         try:
-            
-            player_age = int(input("How old are you? "))
+            scroll_text("How old are you?\n",0.04)
+            player_age = int(input("..."))
 
             if player_age < 0 or player_age > 100:
                 print("Please enter age between 1-100")
@@ -33,9 +34,6 @@ def age_verification(name):
 
 def print_welcome(name):
 
-    print("\nWelcome " + name + ",")
-    print("blah blah blah")
-
-
+    scroll_text("Welcome " + str(name) + ", " ,0.04)
 
     
