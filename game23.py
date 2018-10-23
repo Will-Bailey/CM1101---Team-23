@@ -16,6 +16,7 @@ def introduction():
 
 def main():
 
+    generate_mystery()
     display_room(current_room)
 
     while True:
@@ -40,23 +41,27 @@ def generate_mystery():
     ###dicitonaries and asigns them as values. Once it has done this, the
     ###function should then call the generate_clues function to finish off the
     ###setup.
+    global mystery
     mystery = {
         "suspect": random.choice(list(suspects)),
         "weapon" : random.choice(list(weapons)), 
-        "room": random.choice(list(rooms))
+        "room": random.choice(list(rooms)[1:])
     }
-    init_clues()
+    init_clues(mystery)
     generate_clues(mystery)
 
 def generate_clues(mystery):
     ###This function is responsible for generating the correct clues to solve the
     ###mystery given to it and then asigning each of them to a room.
 
-    rooms[mystery["room"]][clue] = clues["room"]
+    rooms[mystery["room"]]["clue"] = clues["room"]
+    clue_list = list(clues)[1:]
 
     for room in rooms:
-        if room["name"] != "lobby" and room["clue"] == "":
-            room["clue"] = clues[random.choice(list(clues)[1:])]
+        if room != "Lobby" and rooms[room]["clue"] == "":
+            random_clue = random.choice(clue_list)
+            rooms[room]["clue"] = clues[random_clue]
+            clue_list.remove(random_clue)
 
 def ask_for_command():
 
@@ -111,7 +116,7 @@ def execute_command(command):
             print("inspect what?")
 
     elif command[0] == "help":
-        display_help(current_room["exits"])#need to add red_herrings
+        display_help(current_room["exits"])
         print("OPEN NOTEBOOK to open notebook")
 
     elif command == ["open", "notebook"]:
@@ -134,10 +139,6 @@ def execute_go(direction):
 def display_details(room):
     #This function combines the 3 red herrings and the clue from a room, randomly inserting the clue to hide it.
     #it then returns the text as one string to be printed after the rooms description. 
-    pass
-
-def execute_inspect(detail):
-    #This will return the "Closer inspection" text asigned to each red hearing and each clue
     pass
 
 def display_notebook():
@@ -336,8 +337,21 @@ def show_status():
 def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
+    
+    if room != rooms["Lobby"]:
+        clue_number = random.randint(0, 3)
+        print(clue_number)
+        if clue_number == 0:
+            print(room["clue"]["first look"])
+        position = 1
+        for red_herring in room["red herrings"]:
+            print(red_herring)
+            if position == clue_number:
+                print(room["clue"]["first look"])
+            position = position + 1
 
-def init_clues():
+def init_clues(mystery):
+    global clues
     clue_room = {
         "detail": "stain",
         "first look": "There's a smalll red stain on the floor just visible behind the open door.",
@@ -376,6 +390,15 @@ def init_clues():
         "hair": clue_hair,
         "weapon": clue_weapon
     }
+
+def execute_inspect(detail):
+    if detail == current_room["clue"]["detail"]:
+        print(current_room["clue"]["closer inspection"])
+    elif detail in current_room["details"]:
+        detail_number = current_room["details"].index(detail)
+        print(current_room["red herrings"][list(current_room["red herrings"])[detail_number]])
+    else:
+        print("You can't inspect that.")
 
 if __name__ == "__main__":
     introduction()
