@@ -8,7 +8,9 @@ room_study = {
  "Study RH 3": "Inspected Study RH 3"
  },
  "details": ["detail1", "detail2", "detail3"],
- "clue": ""
+ "clue": "",
+ "notebook_status": "neutral"
+
 }
 room_lobby ={
  "name": "Lobby",
@@ -20,7 +22,8 @@ room_lobby ={
  "Lobby RH 3": "Inspected Lobby RH 3"
  },
  "details": ["detail1", "detail2", "detail3"],
- "clue": ""
+ "clue": "",
+ "notebook_status": "neutral"
 }
 room_conservatory = {
  "name": "Conservatory",
@@ -32,7 +35,8 @@ room_conservatory = {
  "Conservatory RH 3": "Inspected Conservatory RH 3"
  },
  "details": ["detail1", "detail2", "detail3"],
- "clue": ""
+ "clue": "",
+ "notebook_status": "neutral"
 }
 room_diningroom = {
  "name": "Dining Room",
@@ -44,7 +48,8 @@ room_diningroom = {
  "Dining room RH 3": "Inspected Dining room RH 3"
  },
  "details": ["detail1", "detail2", "detail3"],
- "clue": ""
+ "clue": "",
+ "notebook_status": "neutral"
 }
 room_lounge = {
  "name": "Lounge",
@@ -56,7 +61,8 @@ room_lounge = {
  "Lounge RH 3": "Inspected Lounge RH 3"
  },
  "details": ["detail1", "detail2", "detail3"],
- "clue": ""
+ "clue": "",
+ "notebook_status": "neutral"
 }
 room_kitchen = {
  "name" : "Kitchen",
@@ -68,7 +74,8 @@ room_kitchen = {
  "Kitchen RH 3": "Inspected Kitchen RH 3"
  },
  "details": ["detail1", "detail2", "detail3"],
- "clue": ""
+ "clue": "",
+ "notebook_status": "neutral"
 }
 
 rooms = {

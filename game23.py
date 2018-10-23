@@ -16,6 +16,7 @@ def introduction():
 
 def main():
 
+    correct_accusation = False
     generate_mystery()
     display_room(current_room)
 
@@ -26,9 +27,9 @@ def main():
         execute_command(command)
 
         #Victory condition
-        #if whatever:
-        #    print("Congratulations")
-        #    break
+        if correct_accusation == True:
+            print("Congratulations")
+            break
         #Game over
         #elif life == 0:
         #    print("Game over")
@@ -122,8 +123,41 @@ def execute_command(command):
     elif command == ["open", "notebook"]:
         display_notebook()
 
+    elif command == ["make", "accusation"]:
+        make_accusation()
+
     else:
         print("This makes no sense.")
+
+def make_accusation():
+    accusation = {
+    "suspect": "",
+    "weapon": "",
+    "room": ""
+    }
+    print("Who are you going to accuse?")
+    print("The suspects you have highlighted are:")
+    for suspect in suspects:
+        if suspect["notebook_status"] == "highly suspicious":
+            print(suspect["name"])
+    accusation["suspect"] = normalise_input(input("..."))
+    print("\n")
+    print("What weapon do you think they used?")
+    print("The weapons you have highlighted are:")
+    for weapon in weapons:
+        if weapon["notebook_status"] == "highly suspicious":
+            print(weapon["name"])
+    accusation["weapon"] = normalise_input(input("..."))
+    print("\n")
+    print("Which room do you think the murder took place in?")
+    print("The rooms you have highlighted are:")
+    for room in rooms:
+        if room["notebook_status"] == "highly suspicious":
+            print(room["name"])
+    accusation["room"] = normalise_input(input("..."))
+    print("\n")
+    if accusation == mystery:
+        corret_accusation = True
 
 def execute_go(direction):
 
@@ -276,7 +310,17 @@ def notebook_weapons():
 
 def notebook_rooms():
     # Displays the list of rooms sorted by their suspicion level
-    pass
+    print("\n\tLIST OF ROOMS\n")
+    highlighted = False
+    print("You open your notebook to the rooms section the list reads:\n")
+    for room in rooms:
+        print(rooms[room]["name"] + ": " + rooms[room]["description"])
+        print()
+        if rooms[room]["notebook_status"] == "highly suspicious":
+            highlighted = room
+    if highlighted != False:
+        print("You have highlighted " + rooms[highlighted]["name"] + " as the room the murder took place.")
+    editing_within_notebook("rooms")
 
 def notebook_clues():
     # Displays the list of clues previously discovered by the player
