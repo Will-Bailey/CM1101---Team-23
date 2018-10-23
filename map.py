@@ -1,79 +1,74 @@
 room_study = {
  "name": "Study",
- "description": """Study description""",
+ "description": """You are now in the study, the lights are off and the blinds are down.""",
  "exits": {"east": "Lobby", "secret": "Kitchen"},
  "red herrings": {
- "Study RH 1": "Inspected Study RH 1",
- "Study RH 2": "Inspected Study RH 2",
- "Study RH 3": "Inspected Study RH 3"
+ "The monitor of the computer has been left on, illuminating the desk and it's contents.": "On further inspection Logan Paul's suicide forest video had been left on pause.",
+ "A cup of pens have been knocked over.": "You can't investigate this.",
+ "A desk drawer has been left open.": "Looking closely you see a pair of pink fluffy handcuffs."
  },
- "details": ["detail1", "detail2", "detail3"],
+ "details": ["computer", "pens", "drawer"],
  "clue": "",
  "notebook_status": "neutral"
 
 }
 room_lobby ={
  "name": "Lobby",
- "description": """Lobby description""",
- "exits": {"north": "Conservatory", "east": "Lounge", "northeast": "Dining Room"},
- "red herrings": {
- "Lobby RH 1": "Inspected Lobby RH 1",
- "Lobby RH 2": "Inspected Lobby RH 2",
- "Lobby RH 3": "Inspected Lobby RH 3"
- },
- "details": ["detail1", "detail2", "detail3"],
+ "description": """You are in the lobby, the suspects await your decision. """,
+ "exits": {"north": "Conservatory", "east": "Dining Room", "west": "Study"},
+ 
  "clue": "",
  "notebook_status": "neutral"
 }
 room_conservatory = {
  "name": "Conservatory",
- "description": """Conservatory description""",
- "exits": {"south": "Lobby"},
+ "description": """You are now in the conservatory, you feel a breeze.""",
+ "exits": {"south": "Lobby", "east": "Kitchen"},
  "red herrings": {
- "Conservatory RH 1": "Inspected Conservatory RH 1",
- "Conservatory RH 2": "Inspected Conservatory RH 2",
- "Conservatory RH 3": "Inspected Conservatory RH 3"
+ "There appears to be blood stains down the window which has been left slightly ajar to your left.": "As you move closer you see a dead rook lying on the patio outside.",
+ "A vase in the far right corner has smashed on the ground.": "You suspect the breeze has caused it to fall.",
+ "The radio has been left on.": "It hasn't been tuned and is static hum and crackle sound is coming from it."
  },
- "details": ["detail1", "detail2", "detail3"],
+ "details": ["window", "vase", "radio"],
  "clue": "",
  "notebook_status": "neutral"
 }
 room_diningroom = {
  "name": "Dining Room",
- "description": """Dining Room description""",
- "exits": {"southwest": "Lobby", "northeast": "Kitchen"},
+ "description": """You are now in the dining room.""",
+ "exits": {"west": "Lobby", "north": "Kitchen"},
  "red herrings": {
- "Dining room RH 1": "Inspected Dining room RH 1",
- "Dining room RH 2": "Inspected Dining room RH 2",
- "Dining room RH 3": "Inspected Dining room RH 3"
+ "You see candles on the window sill.": "As you move you move closer you see some smoke is still rising from them.",
+ "Moving towards the candles something catches your eye on the wall.": "Upon further inspection there appears to be 3 deep scratches.",
+ "An open box is on the table.": "A game of cluedo has been left out."
  },
- "details": ["detail1", "detail2", "detail3"],
+ "details": ["candles", "wall", "box"],
  "clue": "",
  "notebook_status": "neutral"
 }
-room_lounge = {
- "name": "Lounge",
- "description": """Lounge description""",
- "exits": {"west": "Lobby", "north" : "Kitchen"},
+room_garage = {
+ "name": "Garage",
+ "description": """You step into the garage, a strange and pungent smell hits you.""",
+ "exits": {"west": "Kitchen"},
  "red herrings": {
- "Lounge RH 1": "Inspected Lounge RH 1",
- "Lounge RH 2": "Inspected Lounge RH 2",
- "Lounge RH 3": "Inspected Lounge RH 3"
+ "There is a dent in the bonnet of a 1961 Ferrari 250 GT California SWB Spider": "The dent appears to be the size of a adult male's back and the bottom of the windscreen has a crack in it.",
+ "The garage door has been left slightly open.": "Upon further inspection the door has been left open 0.52m high.",
+ "A strange smell is coming from the boot of the Ferrari.": "You open the boot and see a dead deer."
  },
- "details": ["detail1", "detail2", "detail3"],
+ "details": ["bonnet", "door", "smell"],
  "clue": "",
  "notebook_status": "neutral"
 }
 room_kitchen = {
  "name" : "Kitchen",
- "description": """Kitchen description""",
- "exits": {"southwest": "Dining Room", "secret": "Study"},
+ "description": """You have now entered the kitchen, burnt bacon is still in the frying pan.""",
+ "exits": {"south": "Dining Room", "secret": "Study", "west": "Conservatory", "east": "Garage"},
  "red herrings": {
- "Kitchen RH 1": "Inspected Kitchen RH 1",
- "Kitchen RH 2": "Inspected Kitchen RH 2",
- "Kitchen RH 3": "Inspected Kitchen RH 3"
+ "You see charcoal-crispy burnt bacon in the frying pan.": "As you move closer you can feel the heat coming from the frying pan.",
+ "There is a red puddle on the countertop.": "Upon further investigation it smells of Chateau Margaux 1787.",
+ "It appears there is a knife missing from the knife block.": "With further investigation you see it has been left on the chopping board."
  },
- "details": ["detail1", "detail2", "detail3"],
+ "details": ["pan", "countertop", "knife"],
  "clue": "",
  "notebook_status": "neutral"
 }
@@ -83,7 +78,7 @@ rooms = {
     "Study": room_study,
     "Conservatory": room_conservatory,
     "Dining Room": room_diningroom,
-    "Lounge": room_lounge,
+    "Garage": room_garage,
     "Kitchen": room_kitchen
 }
- 
+
