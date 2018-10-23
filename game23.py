@@ -32,12 +32,16 @@ def intro():
     scroll_text("\nRing Ring", 0.04)
     time.sleep(0.4)
     scroll_text("\n" + """A rusty voice at the other end of the line grunts,
-'Hello? Is this Inspector """ + player_name +  "?'\n", 0.02)
+'Hello? Is this Inspector """ + player_name.title() +  "?'\n", 0.03)
     time.sleep(0.5)
-    scroll_text("""You answer, huskily, 'It certainly is'.\n""", 0.02)
+    scroll_text("""You answer, huskily, 'It certainly is'.\n""", 0.03)
     time.sleep(0.5)                
-    scroll_text("""'Professor Parker has been murdered in Morebrandt mansion and we need your help!'\n'We have all 6 suspects gathered in the lobby, and all the rooms are available for inspection.' \n'We are counting on you to bring the killer to justice.'\n""", 0.02)
-    time.sleep(0.5)
+    scroll_text("'Professor Parker has been murdered in Morebrandt mansion and we need your help!'",0.03)
+    time.sleep(0.7)
+    scroll_text("\n'We have all 6 suspects gathered in the lobby, and all the rooms are available for inspection.'",0.03)
+    time.sleep(0.9)
+    scroll_text("\n'We are counting on you to bring the killer to justice.'\n", 0.03)
+    time.sleep(0.4)
 
 def main():
     display_room(current_room)
@@ -98,18 +102,16 @@ def ask_for_command():
 
     return input_normalised
 
-def display_help(exits, details): #red_herrings needed
+def display_help(exits): #red_herrings needed
 
     print("\nYou can use commands:\n")
     
     for direction in exits:
         print_exit(direction, destination(exits, direction))
 
-    for item in details:
-        print("CHECK " + item.upper() +  " for closer inspection.")
+    #for item in red_herrings:
+    #    print("CHECK " + item["id"].upper() +  " to inspect " + item["name"] + ".")
 
-    print("ACCUSE to make accusation")
-    
 def print_exit(direction, leads_to):
 
     print("GO " + direction.upper() + " to " + leads_to + ".")
@@ -144,7 +146,7 @@ def execute_command(command):
             print("inspect what?")
 
     elif command[0] == "help":
-        display_help(current_room["exits"], current_room["details"])
+        display_help(current_room["exits"])
         print("OPEN NOTEBOOK to open notebook")
 
     elif command == ["open", "notebook"]:
@@ -158,7 +160,6 @@ def execute_command(command):
         print("This makes no sense.")
 
 def make_accusation():
-    print(mystery)
     comparison_mystery = {}
     for element in mystery:
     	comparison_mystery.update({element: normalise_input(mystery[element])})
@@ -204,8 +205,6 @@ def make_accusation():
                                                 if accusation == comparison_mystery:
                                                     game_won()
                                                 else:
-                                                    print(accusation)
-                                                    print(comparison_mystery)
                                                     print("Incorrect")
                                                     main()
                                             else:
@@ -500,7 +499,7 @@ def execute_inspect(detail):
         print("You can't inspect that.")
 
 def game_won():
-	print("CONGRATULATIONS YOU ACUSED CORECTLY AND HAVE WON THE GAME.")
+	print("CONGRATULATIONS YOU ACCUSED CORRECTLY AND HAVE WON THE GAME.")
 
 if __name__ == "__main__":
     introduction()
