@@ -10,15 +10,13 @@ def introduction():
     
     global player_name
     title()
-    scroll_text("Enter your name: \n", 0.04)
+    print("Enter your name: \n")
     player_name = input("...")
 
     age_verification(player_name)
-
     intro()
     
     current_room = rooms["lobby"]
-
     global correct_accusation
     correct_accusation = False
     global found_clues
