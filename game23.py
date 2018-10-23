@@ -21,7 +21,6 @@ def introduction():
     global found_clues
     found_clues = []
     generate_mystery()
-    display_room(current_room)
  
 
 def intro():
@@ -37,7 +36,8 @@ case! We have all 6 suspects gathered in the lobby, and all the rooms are availa
 We are counting on you to bring the killer to justice.""")
 
 def main():
-
+    display_room(current_room)
+    
     while True:
 
         command = ask_for_command()
@@ -152,6 +152,7 @@ def execute_command(command):
         print("This makes no sense.")
 
 def make_accusation():
+    print(mystery)
     comparison_mystery = {}
     for element in mystery:
     	comparison_mystery.update({element: normalise_input(mystery[element])})
@@ -161,29 +162,56 @@ def make_accusation():
     "weapon": "",
     "room": ""
     }
-    print("Who are you going to accuse?")
-    print("The suspects you have highlighted are:")
-    for suspect in suspects:
-        if suspects[suspect]["notebook_status"] == "highly suspicious":
-            print(suspects[suspect]["name"])
-    accusation["suspect"] = normalise_input(input("..."))
-    print("\n")
-    print("What weapon do you think they used?")
-    print("The weapons you have highlighted are:")
-    for weapon in weapons:
-        if weapons[weapon]["notebook_status"] == "highly suspicious":
-            print(weapons[weapon]["name"])
-    accusation["weapon"] = normalise_input(input("..."))
-    print("\n")
-    print("Which room do you think the murder took place in?")
-    print("The rooms you have highlighted are:")
-    for room in rooms:
-        if rooms[room]["notebook_status"] == "highly suspicious":
-            print(rooms[room]["name"])
-    accusation["room"] = normalise_input(input("...")) ###NEEDS FIXING, ROOMS NEED TO BE LOWER CASE
-    print("\n")
-    if accusation == comparison_mystery:
-        game_won()
+    while True:
+        a=input("Are you sure you want to make an accusation. (Y/N):\n...")
+        if normalise_input(a)==["yes"] or normalise_input(a)==["y"] or normalise_input(a)==["yeah"]:
+            print("Who are you going to accuse?")
+            print("The suspects you have highlighted are:")
+            while True:
+                for suspect in suspects:
+                    if suspects[suspect]["notebook_status"] == "highly suspicious":
+                        print(suspect["name"])
+                    suspect_accused = normalise_input(input("..."))
+                    if "".join(normalise_input(suspect_accused)) in list(suspects):
+                        accusation["suspect"] = suspect_accused
+                        print("\n")
+                        print("What weapon do you think they used?")
+                        print("The weapons you have highlighted are:")
+                        while True:
+                            for weapon in weapons:
+                                if weapons[weapon]["notebook_status"] == "highly suspicious":
+                                    print(weapons[weapon]["name"])
+                            weapon_accused = normalise_input(input("..."))
+                            if "".join(normalise_input(weapon_accused)) in list(weapons):
+                                    accusation["weapon"] = weapon_accused
+                                    print("\n")
+                                    print("Which room do you think the murder took place in?")
+                                    print("The rooms you have highlighted are:")
+                                    while True:
+                                        for room in rooms:
+                                            if rooms[room]["notebook_status"] == "highly suspicious":
+                                                print(rooms[room]["name"])
+                                            room_accused = normalise_input(input("...")) 
+                                            if "".join(normalise_input(room_accused)) in list(rooms):
+                                                accusation["room"] = room_accused###NEEDS FIXING, ROOMS NEED TO BE LOWER CASE
+                                                print("\n")
+                                                if accusation == comparison_mystery:
+                                                    game_won()
+                                                else:
+                                                    print(accusation)
+                                                    print(comparison_mystery)
+                                                    print("Incorrect")
+                                                    main()
+                                            else:
+                                                print("Please enter a valid room")
+                            else:
+                                print("Please enter a valid weapon name")
+                    else:
+                        print("Please enter a valid name")
+        elif normalise_input(a)==["no"] or normalise_input(a)==["n"] or normalise_input(a)==["nah"]:
+            main()
+        else:
+            print("Please answer Yes or No")
 
 def execute_go(direction):
 
