@@ -3,12 +3,13 @@ from gameparser import *
 from suspects import *
 from map import *
 from weapons import *
+from TitleASCII import *
 import random
 
 def introduction():
     
     global player_name
-    scroll_text("Wudunnit!? Who is the Kiriller?\n \n", 0.04)
+    title()
     scroll_text("Enter your name: \n", 0.04)
     player_name = input("...")
 
@@ -27,7 +28,7 @@ def introduction():
 def intro():
 
     #Intro
-    scroll_text("\nRing Ring", 0.04)
+    scroll_text("\n\nRing Ring", 0.04)
     time.sleep(0.4)
     scroll_text("\nRing Ring", 0.04)
     time.sleep(0.4)
@@ -200,7 +201,7 @@ def make_accusation():
                                                 print(rooms[room]["name"])
                                             room_accused = normalise_input(input("...")) 
                                             if " ".join(room_accused) in list(rooms):
-                                                accusation["room"] = room_accused###NEEDS FIXING, ROOMS NEED TO BE LOWER CASE
+                                                accusation["room"] = room_accused
                                                 print("\n")
                                                 if accusation == comparison_mystery:
                                                     game_won()

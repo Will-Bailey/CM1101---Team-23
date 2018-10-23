@@ -34,6 +34,7 @@ def age_verification(name):
 
 def print_welcome(name):
 
-    scroll_text("Welcome " + str(name) + ", " ,0.04)
+    scroll_text("Welcome " + str(name.title()) + ", " ,0.04)
+    time.sleep(0.5)
 
     
