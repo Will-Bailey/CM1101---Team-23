@@ -153,7 +153,7 @@ def execute_command(command):
     elif command == ["open", "notebook"]:
         display_notebook()
 
-    elif command == ["make", "accusation"]:
+    elif command == ["accuse"]:
         make_accusation()
         
 
@@ -171,7 +171,11 @@ def make_accusation():
     "room": ""
     }
     while True:
-        a=input("Are you sure you want to make an accusation. (Y/N):\n...")
+        a=input("""To make an accusation you need to find out:
+• The suspected killer
+• The supected murder weapon
+• The room of the murder
+\nAre you sure you want to make an accusation.\nThere will be consequences if you get the case incorrect(Yes/No):\n...""")
         if normalise_input(a)==["yes"] or normalise_input(a)==["y"] or normalise_input(a)==["yeah"]:
             print("Who are you going to accuse?")
             print("The suspects you have highlighted are:")
