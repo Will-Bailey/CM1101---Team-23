@@ -242,7 +242,7 @@ def display_details(room):
 def display_notebook():
 
     while execute_notebook != "close":
-        print('''\nYou opened your notebook, which section do you want to turn to?
+        print('''\nYour notebook is open, which section do you want to turn to?
 
 0) Close (to close notebook)
 1) Suspects
@@ -377,10 +377,10 @@ def notebook_weapons():
         print("-" + suspicion.upper() + "-\n")
         for weapon in weapons:
             if weapons[weapon]["notebook_status"] == suspicion:
-                print("Weapon Name:\n" + weapons[weapon]["name"])
-                print("Weapon Description:\n" + weapons[weapon]["description"] + "\n")
-                printed = True
+                print("Weapon: " + weapons[weapon]["name"].upper())
+                print(weapons[weapon]["description"])
                 print()
+                printed = True
         if printed == False:
             print("   None")
             print()
@@ -396,8 +396,9 @@ def notebook_rooms():
         print("-" + suspicion.upper() + "-\n")
         for room in rooms:
             if rooms[room]["notebook_status"] == suspicion:
-                print("Room Name: " + rooms[room]["name"])
-                print("Room Description: " + rooms[room]["description"] + "\n")
+                print("Room: " + rooms[room]["name"].upper())
+                print(rooms[room]["description"])
+                print()
                 printed = True
         if printed == False:
             print("   None")
