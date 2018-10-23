@@ -14,7 +14,7 @@ def introduction():
 
     intro()
     
-    current_room = rooms["Lobby"]
+    current_room = rooms["lobby"]
 
     global correct_accusation
     correct_accusation = False
@@ -45,9 +45,7 @@ def main():
         execute_command(command)
 
         #Victory condition
-        if correct_accusation == True:
-            print("Congratulations")
-            break
+
         #Game over
         #elif life == 0:
         #    print("Game over")
@@ -78,7 +76,7 @@ def generate_clues(mystery):
     random_clue_list = list(clues)
     random_room_list = list(rooms)
     random_clue_list.remove("room")
-    random_room_list.remove("Lobby")
+    random_room_list.remove("lobby")
     random_room_list.remove(mystery["room"])
     
     random.shuffle(random_clue_list)
@@ -148,12 +146,15 @@ def execute_command(command):
 
     elif command == ["make", "accusation"]:
         make_accusation()
+        
 
     else:
         print("This makes no sense.")
 
 def make_accusation():
-    print(mystery)
+    comparison_mystery = {}
+    for element in mystery:
+    	comparison_mystery.update({element: normalise_input(mystery[element])})
 
     accusation = {
     "suspect": "",
@@ -164,29 +165,25 @@ def make_accusation():
     print("The suspects you have highlighted are:")
     for suspect in suspects:
         if suspects[suspect]["notebook_status"] == "highly suspicious":
-            print(suspect["name"])
+            print(suspects[suspect]["name"])
     accusation["suspect"] = normalise_input(input("..."))
     print("\n")
     print("What weapon do you think they used?")
     print("The weapons you have highlighted are:")
     for weapon in weapons:
         if weapons[weapon]["notebook_status"] == "highly suspicious":
-            print(weapon["name"])
+            print(weapons[weapon]["name"])
     accusation["weapon"] = normalise_input(input("..."))
     print("\n")
     print("Which room do you think the murder took place in?")
     print("The rooms you have highlighted are:")
     for room in rooms:
         if rooms[room]["notebook_status"] == "highly suspicious":
-            print(room["name"])
-    accusation["room"] = normalise_input(input("...")).title() ###NEEDS FIXING, ROOMS NEED TO BE LOWER CASE
+            print(rooms[room]["name"])
+    accusation["room"] = normalise_input(input("...")) ###NEEDS FIXING, ROOMS NEED TO BE LOWER CASE
     print("\n")
-
-    print(accusation)
-    print(mystery)
-    if accusation == mystery:
-        corret_accusation = True
-    print(corret_accusation)
+    if accusation == comparison_mystery:
+        game_won()
 
 def execute_go(direction):
 
@@ -368,22 +365,18 @@ def notebook_clues():
     else:
         print("You are yet to find any useful clues.")
     
-
 def suspicion_change(subject, suspicion):
     edited = False
     for element in [weapons, suspects, rooms]:
-        if subject in element or subject.title() in element:
-            if element == rooms:
-                element[subject.title()]["notebook_status"] = suspicion
-                edited = True
-                notebook_rooms()
-            else:
+        if subject in element:
                 element[subject]["notebook_status"] = suspicion
                 edited = True
                 if element == weapons:
                     notebook_weapons()
                 elif element == suspects:
                     notebook_suspects()
+                elif element == rooms:
+                	notebook_rooms()
         if element == suspects:
             for suspect in suspects:
                 for attribute in ["sex", "build", "hair colour"]:
@@ -403,9 +396,8 @@ def display_room(room):
 
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
     
-    if room != rooms["Lobby"]:
+    if room != rooms["lobby"]:
         clue_number = random.randint(0, 3)
-        print(clue_number)
         if clue_number == 0:
             print(room["clue"]["first look"])
         position = 1
@@ -419,8 +411,8 @@ def init_clues(mystery):
     global clues
     clue_room = {
         "detail": "stain",
-        "first look": "There's a smalll red stain on the floor just visible behind the open door.",
-        "closer inspection": "As you look more closely you notide discover a larger puddle of blood. Clearly this must be the room in which the murder was committed.",
+        "first look": "There's a smalll red STAIN on the floor just visible behind the open door.",
+        "closer inspection": "As you look more closely you discover a larger puddle of blood. Clearly this must be the room in which the murder was committed.",
     }
 
     clue_witness = {
@@ -466,6 +458,9 @@ def execute_inspect(detail):
         print(current_room["red herrings"][list(current_room["red herrings"])[detail_number]])
     else:
         print("You can't inspect that.")
+
+def game_won():
+	print("CONGRATULATIONS YOU ACUSED CORECTLY AND HAVE WON THE GAME.")
 
 if __name__ == "__main__":
     introduction()

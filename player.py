@@ -4,7 +4,7 @@ from map import rooms
 #inventory = [item_id, item_laptop, item_money]
 
 # Start game at the Lobby
-current_room = rooms["Lobby"]
+current_room = rooms["lobby"]
 #player_name = ""
 
 def age_verification(name):
