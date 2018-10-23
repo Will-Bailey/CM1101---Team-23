@@ -13,7 +13,7 @@ def age_verification(name):
     while True:
 
         try:
-            scroll_text("How old are you?\n",0.04)
+            print("How old are you?\n")
             player_age = int(input("..."))
 
             if player_age < 0 or player_age > 100:
@@ -34,7 +34,6 @@ def age_verification(name):
 
 def print_welcome(name):
 
-    scroll_text("Welcome " + str(name.title()) + ", " ,0.04)
-    time.sleep(0.5)
+    print("Welcome " + str(name.title()) + ", ")
 
     
