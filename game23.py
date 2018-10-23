@@ -103,16 +103,16 @@ def ask_for_command():
 
     return input_normalised
 
-def display_help(exits): #red_herrings needed
+def display_help(exits, details): #red_herrings needed
 
     print("\nYou can use commands:\n")
     
     for direction in exits:
         print_exit(direction, destination(exits, direction))
 
-    #for item in red_herrings:
-    #    print("CHECK " + item["id"].upper() +  " to inspect " + item["name"] + ".")
-
+    for item in details:
+        print("CHECK " + item.upper() +  " for closer inspection.")
+        
 def print_exit(direction, leads_to):
 
     print("GO " + direction.upper() + " to " + leads_to + ".")
@@ -147,7 +147,7 @@ def execute_command(command):
             print("inspect what?")
 
     elif command[0] == "help":
-        display_help(current_room["exits"])
+        display_help(current_room["exits"], current_room["details"])
         print("OPEN NOTEBOOK to open notebook")
 
     elif command == ["open", "notebook"]:
