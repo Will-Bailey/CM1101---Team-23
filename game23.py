@@ -10,7 +10,7 @@ def introduction():
     
     global player_name
     title()
-    print("Enter your name: \n")
+    print("Enter your name:")
     player_name = input("...")
 
     age_verification(player_name)
@@ -298,19 +298,25 @@ def editing_within_notebook(page):
                     continue
 
                 elif normalised_command[0] == "highlight":
-                    if len(normalised_command) > 1:
+                    if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
+                        suspicion_change((" ".join(normalised_command[1:3])), "highly suspicious")
+                    elif len(normalised_command) > 1:
                         suspicion_change(normalised_command[1], "highly suspicious")
                     else:
                         print("Highlight what?\n")
 
                 elif normalised_command[0] == "cross":
-                    if len(normalised_command) > 1:
+                    if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
+                        suspicion_change((" ".join(normalised_command[1:3])), "unlikely")
+                    elif len(normalised_command) > 1:
                         suspicion_change(normalised_command[1], "unlikely")
                     else:
                         print("Cross what?\n")
 
                 elif normalised_command[0] == "reset":
-                    if len(normalised_command) > 1:
+                    if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
+                        suspicion_change((" ".join(normalised_command[1:3])), "neutral")
+                    elif len(normalised_command) > 1:
                         suspicion_change(normalised_command[1], "neutral")
                     else:
                         print("Reset what?\n")
