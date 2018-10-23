@@ -13,7 +13,7 @@ def age_verification(name):
     while True:
 
         try:
-            print("How old are you?\n")
+            print("How old are you?")
             player_age = int(input("..."))
 
             if player_age < 0 or player_age > 100:
