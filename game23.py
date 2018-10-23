@@ -18,6 +18,8 @@ def introduction():
 
     global correct_accusation
     correct_accusation = False
+    global found_clues
+    found_clues = []
     generate_mystery()
     display_room(current_room)
  
@@ -359,8 +361,13 @@ def notebook_rooms():
 def notebook_clues():
     # Displays the list of clues previously discovered by the player
     print("\n\tLIST OF CLUES\n")
-    for clue in discovered_clues:
-        pass
+    if found_clues != []:
+        for explored_room in found_clues:
+            print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"] + " to find:")
+            print(explored_room["clue"]["closer inspection"])
+    else:
+        print("You are yet to find any useful clues.")
+    
 
 def suspicion_change(subject, suspicion):
     edited = False
@@ -452,6 +459,8 @@ def init_clues(mystery):
 def execute_inspect(detail):
     if detail == current_room["clue"]["detail"]:
         print(current_room["clue"]["closer inspection"])
+        found_clues.append(current_room)
+        print("You make a note of this in the clues section of your notebook") 
     elif detail in current_room["details"]:
         detail_number = current_room["details"].index(detail)
         print(current_room["red herrings"][list(current_room["red herrings"])[detail_number]])
