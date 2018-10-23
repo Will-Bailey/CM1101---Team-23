@@ -6,19 +6,35 @@ from weapons import *
 import random
 
 def introduction():
-    intro()
-
+    
+    global player_name
     player_name = input("Enter your name: ")
 
     age_verification(player_name)
+
+    intro()
     
-    current_room = rooms["Lobby"]    
+    current_room = rooms["Lobby"]
 
-def main():
-
+    global correct_accusation
     correct_accusation = False
     generate_mystery()
     display_room(current_room)
+ 
+
+def intro():
+
+    #Intro
+    print("""
+            Wudunnit!? Who is the Kiriller?
+
+ring ring ring ring  A rusty voice at the other end of the line grunts, 
+"Hello? Is this Inspector """ + player_name + """ ?" You answer, huskily, " It certainly is."
+"Professor Parker has been murdered in Morebrandt mansion and we need your help to solve this
+case! We have all 6 suspects gathered in the lobby, and all the rooms are available for inspection.
+We are counting on you to bring the killer to justice.""")
+
+def main():
 
     while True:
 
@@ -56,13 +72,18 @@ def generate_clues(mystery):
     ###mystery given to it and then asigning each of them to a room.
 
     rooms[mystery["room"]]["clue"] = clues["room"]
-    clue_list = list(clues)[1:]
 
-    for room in rooms:
-        if room != "Lobby" and rooms[room]["clue"] == "":
-            random_clue = random.choice(clue_list)
-            rooms[room]["clue"] = clues[random_clue]
-            clue_list.remove(random_clue)
+    random_clue_list = list(clues)
+    random_room_list = list(rooms)
+    random_clue_list.remove("room")
+    random_room_list.remove("Lobby")
+    random_room_list.remove(mystery["room"])
+    
+    random.shuffle(random_clue_list)
+    random.shuffle(random_room_list)
+
+    for n in range(0,4):
+        rooms[random_room_list[n]]["clue"] = clues[random_clue_list[n]]
 
 def ask_for_command():
 
@@ -130,6 +151,8 @@ def execute_command(command):
         print("This makes no sense.")
 
 def make_accusation():
+    print(mystery)
+
     accusation = {
     "suspect": "",
     "weapon": "",
@@ -138,26 +161,30 @@ def make_accusation():
     print("Who are you going to accuse?")
     print("The suspects you have highlighted are:")
     for suspect in suspects:
-        if suspect["notebook_status"] == "highly suspicious":
+        if suspects[suspect]["notebook_status"] == "highly suspicious":
             print(suspect["name"])
     accusation["suspect"] = normalise_input(input("..."))
     print("\n")
     print("What weapon do you think they used?")
     print("The weapons you have highlighted are:")
     for weapon in weapons:
-        if weapon["notebook_status"] == "highly suspicious":
+        if weapons[weapon]["notebook_status"] == "highly suspicious":
             print(weapon["name"])
     accusation["weapon"] = normalise_input(input("..."))
     print("\n")
     print("Which room do you think the murder took place in?")
     print("The rooms you have highlighted are:")
     for room in rooms:
-        if room["notebook_status"] == "highly suspicious":
+        if rooms[room]["notebook_status"] == "highly suspicious":
             print(room["name"])
-    accusation["room"] = normalise_input(input("..."))
+    accusation["room"] = normalise_input(input("...")).title() ###NEEDS FIXING, ROOMS NEED TO BE LOWER CASE
     print("\n")
+
+    print(accusation)
+    print(mystery)
     if accusation == mystery:
         corret_accusation = True
+    print(corret_accusation)
 
 def execute_go(direction):
 
@@ -241,19 +268,19 @@ def editing_within_notebook(page):
 
                 elif normalised_command[0] == "highlight":
                     if len(normalised_command) > 1:
-                        suspicion_highlight(normalised_command[1])
+                        suspicion_change(normalised_command[1], "highly suspicious")
                     else:
                         print("Highlight what?\n")
 
                 elif normalised_command[0] == "cross":
                     if len(normalised_command) > 1:
-                        suspicion_lowlight(normalised_command[1])
+                        suspicion_change(normalised_command[1], "unlikely")
                     else:
                         print("Cross what?\n")
 
                 elif normalised_command[0] == "reset":
                     if len(normalised_command) > 1:
-                        suspicion_reset(normalised_command[1])
+                        suspicion_change(normalised_command[1], "neutral")
                     else:
                         print("Reset what?\n")
 
@@ -335,52 +362,32 @@ def notebook_clues():
     for clue in discovered_clues:
         pass
 
-def suspicion_highlight(subject):
+def suspicion_change(subject, suspicion):
     edited = False
     for element in [weapons, suspects, rooms]:
-        if subject in element:
-            element[subject]["notebook_status"] = "highly suspicious"
-            edited = True
-            if element == weapons:
-                notebook_weapons()
-            elif element == suspects:
-                notebook_suspects()
-            elif element == rooms:
+        if subject in element or subject.title() in element:
+            if element == rooms:
+                element[subject.title()]["notebook_status"] = suspicion
+                edited = True
                 notebook_rooms()
-    if edited != True:
-        print("You can't highlight that\n")
+            else:
+                element[subject]["notebook_status"] = suspicion
+                edited = True
+                if element == weapons:
+                    notebook_weapons()
+                elif element == suspects:
+                    notebook_suspects()
+        if element == suspects:
+            for suspect in suspects:
+                for attribute in ["sex", "build", "hair colour"]:
+                    if subject == suspects[suspect][attribute]:
+                        suspects[suspect]["notebook_status"] = suspicion
+                        edited = True
+            if edited == True:
+                notebook_suspects()
 
-def suspicion_lowlight(subject):
-    edited = False
-    for element in [weapons, suspects, rooms]:
-        if subject in element:
-            element[subject]["notebook_status"] = "unlikely"
-            edited = True
-            if element == weapons:
-                notebook_weapons()
-            elif element == suspects:
-                notebook_suspects()
-            elif element == rooms:
-                notebook_rooms()
     if edited != True:
-        print("You can't cross off that\n")
-    notebook_suspects()
-
-def suspicion_reset(subject):
-    edited = False
-    for element in [weapons, suspects, rooms]:
-        if subject in element:
-            element[subject]["notebook_status"] = "neutral"
-            edited = True
-            if element == weapons:
-                notebook_weapons()
-            elif element == suspects:
-                notebook_suspects()
-            elif element == rooms:
-                notebook_rooms()
-    if edited != True:
-        print("You can't reset that\n")
-    notebook_suspects()
+        print("You can't edit that\n")
 
 def show_status():
     pass

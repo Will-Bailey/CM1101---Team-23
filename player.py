@@ -36,14 +36,6 @@ def print_welcome(name):
     print("\nWelcome " + name + ",")
     print("blah blah blah")
 
-def intro():
 
-    #Intro
-    print("""
-            Game Title
-
-            Intro.....
-
-            """)
 
     
