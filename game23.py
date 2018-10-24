@@ -411,7 +411,7 @@ def command_directory():
             suspicion_change(normalised_command[1], "unlikely")
         else:
             print("Cross what?\n")
-            editing_within_notebook_without_question(page)
+            editing_within_notebook_without_question(placeholder)
 
     elif normalised_command[0] == "reset":
         if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
@@ -420,7 +420,7 @@ def command_directory():
             suspicion_change(normalised_command[1], "neutral")
         else:
             print("Reset what?\n")
-            editing_within_notebook_without_question(page)
+            editing_within_notebook_without_question(placeholder)
 
     else:
         print("This makes no sense.\n")
@@ -448,6 +448,7 @@ def editing_within_notebook_without_question(page):
 
                 elif normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="reset":
                     command_directory()
+                
 
                 elif len(normalised_command) == 1:
                     print("This makes no sense\n")
@@ -484,7 +485,7 @@ def editing_within_notebook_without_question(page):
                     cls()
                     main()
                     
-                elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
+                elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="reset"):
                     command_directory()
 
                 elif len(normalised_command) == 1:
@@ -515,7 +516,10 @@ def editing_within_notebook_without_question(page):
                 elif normalised_command[0] == "help":
                     notebook_display_help("room")
 
-                elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
+                elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="reset"):
+                    command_directory()
+
+                elif len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
                     command_directory()
 
                 elif len(normalised_command) == 1:
@@ -615,8 +619,9 @@ def print_rooms():
         print("-" + suspicion.upper() + "-\n")
         for room in rooms:
             if rooms[room]["notebook_status"] == suspicion:
-                print("Room Name: " + rooms[room]["name"])
+                print(rooms[room]["name"] + ".")
                 printed = True
+                print()
         if printed == False:
             print("   None")
             print()
