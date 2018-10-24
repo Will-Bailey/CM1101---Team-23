@@ -9,15 +9,15 @@ def scroll_text(text, delay):
         time.sleep(delay)
 
 # List of "unimportant" words (feel free to add more)
-skip_words = ['a', 'about', 'all', 'an', 'another', 'any', 'around', 'at',
-              'bad', 'beautiful', 'been', 'better', 'big', 'can', 'every', 'for',
-              'from', 'good', 'have', 'her', 'here', 'hers', 'his', 'how',
+skip_words = ['a', 'about', 'all', 'an', 'and', 'another', 'any', 'around','as', 'at',
+              'bad', 'beautiful', 'be', 'been', 'better', 'big', 'can', 'do',  'every', 'for',
+              'from', 'get', 'good', 'have', 'he', 'her', 'here', 'hers', 'his', 'how',
               'i', 'if', 'in', 'into', 'is', 'it', 'its', 'large', 'later',
-              'like', 'little', 'love', 'main', 'me', 'mine', 'more', 'my', 'now',
+              'like', 'little', 'love','may', 'main', 'me', 'mine', 'more', 'my', 'now', 'not',
               'of', 'off', 'oh', 'on', 'please', 'small', 'some', 'soon',
-              'that', 'the', 'then', 'this', 'those', 'through', 'till', 'to',
+              'that', 'the', 'they', 'then', 'this', 'those', 'through', 'till', 'to',
               'towards', 'until', 'us', 'want', 'we', 'what', 'when', 'why',
-              'wish', 'with', 'would']
+              'wish', 'with', 'would', 'you']
 
 
 def filter_words(words, skip_words):

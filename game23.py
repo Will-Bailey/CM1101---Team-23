@@ -25,6 +25,7 @@ def new_game():
     main()
     
 def introduction():
+    current_room = rooms["lobby"]
     winsound.PlaySound("lobby", winsound.SND_ASYNC | winsound.SND_LOOP )
     global player_name
     global attempts_remaining
@@ -49,7 +50,6 @@ def introduction():
         else:
             print("please enter a valid input")
     cls()
-    current_room = rooms["lobby"]
     #intro()
 
     global correct_accusation
