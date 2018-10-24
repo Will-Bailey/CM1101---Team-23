@@ -5,6 +5,7 @@ from map import *
 from weapons import *
 from TitleASCII import *
 import random
+import winsound
 
 def new_game():
     introduction()
@@ -283,8 +284,11 @@ def execute_go(direction):
 
     exits = current_room["exits"]
     if is_valid_exit(exits, direction):
+        winsound.PlaySound(None, winsound.SND_ASYNC)
         current_room = move(exits, direction)
         display_room(current_room)
+        winsound.PlaySound(current_room["room_sound"], winsound.SND_ASYNC | winsound.SND_LOOP )
+    
     else:
         print("You cannot go there.")
 
