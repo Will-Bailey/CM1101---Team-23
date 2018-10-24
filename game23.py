@@ -47,6 +47,8 @@ def intro():
     time.sleep(0.9)
     scroll_text("\n'We are counting on you to bring the killer to justice'.\n", 0.03)
     time.sleep(0.4)
+    scroll_text("\n" + "15 minutes later you arrive at the masnion.\n", 0.03)
+    time.sleep(0.4)
 
 def main():
     display_room(current_room)
@@ -118,7 +120,7 @@ def display_help(exits):
     #    print("CHECK " + item.upper() +  " for closer inspection.")
     print("CHECK + <object> for closer inspection.")
     print("ACCUSE to make accusation.")
-    print("OPEN NOTEBOOK to open notebook\n")
+    print("OPEN NOTEBOOK to open notebook")
     
 def print_exit(direction, leads_to):
 
@@ -164,7 +166,7 @@ def execute_command(command):
         
 
     else:
-        print("This makes no sense.\n")
+        print("This makes no sense.")
 
 def make_accusation():
     comparison_mystery = {}
@@ -257,7 +259,7 @@ Are you sure you want to make an accusation? (Yes/No)
                 elif suspect_accused == ["help"]:
                     print("\nYou can accuse suspect:\n")
                     for suspect in suspects:
-                        print("\t" + suspects[suspect]["name"])                        
+                        print("\t" + suspects[suspect]["name"])
                 else:
                     print("Please enter a valid name")
         elif normalise_input(a)==["no"] or normalise_input(a)==["n"] or normalise_input(a)==["nah"]:
@@ -593,7 +595,7 @@ def suspicion_change(subject, suspicion):
                         suspects[suspect]["notebook_status"] = suspicion
                         edited = True
             if edited == True:
-                notebook_suspects()
+                editing_within_notebook_without_question("rooms")
 
     if edited != True:
         print("You can't edit that\n")
@@ -622,7 +624,7 @@ def init_clues(mystery):
     global clues
     clue_room = {
         "detail": "stain",
-        "first look": "There's a smalll red STAIN on the floor just visible behind the open door.",
+        "first look": "There's a small red STAIN on the floor just visible behind the open door.",
         "closer inspection": """As you look more closely you discover a larger puddle of blood.
 Clearly this must be the room in which the murder was committed.""",
     }
@@ -656,7 +658,7 @@ The hair is clearly """ + suspects[mystery["suspect"]]["hair colour"] + "."
     clue_weapon = {
         "detail": "rug",
         "first look": "There's something vaugley shiny sticking out from under a RUG.",
-        "closer inspection": "You peel back teh corner of the rug and find a blood stained " + mystery["weapon"] + """.
+        "closer inspection": "You peel back the corner of the rug and find a blood stained " + mystery["weapon"] + """.
 The killer must have used this to commit the murder and then hidden it here."""
     }
 
@@ -717,6 +719,7 @@ The murder of Morebrandt mansion remains unsolved.""")
             
 if __name__ == "__main__":
     introduction()
+    intro()
     main()
 
 
