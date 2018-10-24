@@ -290,7 +290,7 @@ Are you sure you want to make an accusation? (Yes/No)
 
 
                                     elif room_accused == ["help"]:
-                                        print("\nYou can accuse the following rooms:\n")
+                                        print("\nYou can choose from the following rooms:\n")
                                         for room in rooms:
                                             print("\t" + rooms[room]["name"])
                                     else:
@@ -298,7 +298,7 @@ Are you sure you want to make an accusation? (Yes/No)
 
 
                         elif weapon_accused == ["help"]:
-                            print("\nYou can accuse the following weapons:\n")
+                            print("\nYou can choose from the following weapons:\n")
                             for weapon in weapons:
                                 print("\t" + weapons[weapon]["name"])
 
@@ -307,7 +307,7 @@ Are you sure you want to make an accusation? (Yes/No)
 
 
                 elif suspect_accused == ["help"]:
-                    print("\nYou can accuse suspect:\n")
+                    print("\nYou can choose from the following suspect:\n")
                     for suspect in suspects:
                         print("\t" + suspects[suspect]["name"])
                 else:
