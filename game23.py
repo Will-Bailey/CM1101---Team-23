@@ -29,7 +29,19 @@ def introduction():
     found_clues = []
     generate_mystery()
     global attempts_remaining
-    attempts_remaining=5
+    difficulty = normalise_input(input("Difficulty? Hard(h), Medium(m), Easy(e)"))
+    difficulty_picked = False
+    while difficulty_picked == True:
+        if difficulty == "h":
+            attempts_remaining = 1
+            difficulty_picked = True
+        elif difficulty == "m":
+            attempt_remaining = 3
+            difficulty_picked = True
+        elif difficulty == "e":
+            attempt_remaining = 5
+            difficulty_picked = True
+
  
 def intro():
 
@@ -385,7 +397,7 @@ def editing_within_notebook_without_question(page):
         while True:
             for a in suspects:
                 
-                player_command = input("What would you like to do to the suspects list? (type 'Help' for help):" "\n" "...")
+                player_command = input("What would you like to do to the suspects list? (type 'Help' for help):\n...")
                 normalised_command = normalise_input(player_command)
 
                 if 0 == len(normalised_command):
@@ -398,14 +410,23 @@ def editing_within_notebook_without_question(page):
                 elif normalised_command[0] == "help":
                     notebook_display_help("suspect")
 
-                elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
+                elif normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="reset":
                     command_directory()
 
                 elif len(normalised_command) == 1:
                     print("This makes no sense\n")
             
                 
-                elif normalised_command[1] in suspects or normalised_command[1] in suspects[a]["sex"] or normalised_command[1] in suspects[a]["build"] or normalised_command[1] in suspects[a]["hair colour"]:
+                elif normalised_command[1] in suspects:
+                    command_directory()
+                    
+                elif normalised_command[1]in suspects[a]["sex"]:
+                    command_directory()
+
+                elif normalised_command[1] in suspects[a]["build"]:
+                    command_directory()
+                    
+                elif normalised_command[1] in suspects[a]["hair colour"]:
                     command_directory()
                     
 
@@ -413,7 +434,7 @@ def editing_within_notebook_without_question(page):
                     print("You are on the wrong page! This is the suspects page.\n")
                     
                 else:
-                    print("You cannot highlight that.")
+                    print("You cannot edit that.")
     elif placeholder == "weapons":
         while True:
                 player_command = input("What would you like to do to the weapons list? (type 'Help' for help):" "\n" "...")
@@ -439,7 +460,7 @@ def editing_within_notebook_without_question(page):
                     print("You are on the wrong page! This is the weapons page.\n")
                     
                 else:
-                    print("You cannot do that.\n")
+                    print("You cannot edit that.\n")
                     
     elif placeholder == "rooms":
         while True:
@@ -470,7 +491,7 @@ def editing_within_notebook_without_question(page):
                     print("You are on the wrong page! This is the rooms page.\n")
                     
                 else:
-                    print("You cannot highlight that.\n")
+                    print("You cannot edit that.\n")
                     
                     
         
@@ -535,8 +556,8 @@ def print_weapons():
         print("-" + suspicion.upper() + "-\n")
         for weapon in weapons:
             if weapons[weapon]["notebook_status"] == suspicion:
-                print("Weapon Name:\n" + weapons[weapon]["name"])
-                print("Weapon Description:\n" + weapons[weapon]["description"] + "\n")
+                print("Weapon:" + weapons[weapon]["name"])
+                print("Description:" + weapons[weapon]["description"] + "\n")
                 printed = True
                 print()
         if printed == False:
@@ -560,7 +581,6 @@ def print_rooms():
         for room in rooms:
             if rooms[room]["notebook_status"] == suspicion:
                 print("Room Name: " + rooms[room]["name"])
-                print("Room Description: " + rooms[room]["description"] + "\n")
                 printed = True
         if printed == False:
             print("   None")
@@ -576,8 +596,9 @@ def notebook_clues():
     print("\n\tLIST OF CLUES\n")
     if found_clues != []:
         for explored_room in found_clues:
-            print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"] + " to find:")
-            print(explored_room["clue"]["closer inspection"])
+            print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"])
+            print()
+            print(explored_room["clue"]["closer inspection"]+ "\n")
     else:
         print("You are yet to find any useful clues.")
     
