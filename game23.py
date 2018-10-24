@@ -34,6 +34,26 @@ def introduction():
     player_name = input("...")
 
     age_verification(player_name)
+    
+    difficulty_picked = False
+    
+    while difficulty_picked == False:
+
+        difficulty = normalise_input(input("Use number key or difficulty name.\n..."))
+        
+        if difficulty == ["hard"] or difficulty == ["3"]:
+            attempts_remaining = 1
+            difficulty_picked = True
+            
+        elif difficulty == ["medium"] or difficulty == ["2"]:
+            attempts_remaining = 3
+            difficulty_picked = True
+            
+        elif difficulty == ["easy"] or difficulty == ["1"]:
+            attempts_remaining = 5
+            difficulty_picked = True
+        else:
+            print("please enter a valid input\n")
 
     cls()
     current_room = rooms["lobby"]
@@ -306,7 +326,7 @@ Are you sure you want to make an accusation? (Yes/No)
             
 def incorrect_accusations():
     global difficulty
-    if difficulty == ["easy"] or difficulty == ["e"]:
+    if difficulty == ["easy"] or difficulty == ["1"]:
         if attempts_remaining==4:
             print("The case seems to be more complicated than you think, the residents of Morebrandt are giving you some space to try to piece the puzzle together.")
         elif attempts_remaining==3:
@@ -315,7 +335,7 @@ def incorrect_accusations():
             print("People are getting more and more nervous as you can't seem to make sense of the clues you have.")
         elif attempts_remaining==1:
             print("What little hope that remained of the Morebrandt residents has completely vanished, everyone is panicking. You feel as though you have 1 more attempt at finding the killer.")  
-    elif difficulty == ["medium"] or difficulty == ["m"]:
+    elif difficulty == ["medium"] or difficulty == ["2"]:
         if attempts_remaining==2:
             print("The residents of Morebrandt are starting to look a bit more worried, but even the best detectives make mistakes. Right?")
         elif attempts_remaining==1:

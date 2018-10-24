@@ -36,22 +36,4 @@ def print_welcome(name):
     3) Hard
     ''')
     
-    difficulty_picked = False
-    
-    while difficulty_picked == False:
 
-        difficulty = normalise_input(input("Use number key or difficulty name.\n..."))
-        
-        if difficulty == ["hard"] or difficulty == ["3"]:
-            attempts_remaining = 1
-            difficulty_picked = True
-            
-        elif difficulty == ["medium"] or difficulty == ["2"]:
-            attempts_remaining = 3
-            difficulty_picked = True
-            
-        elif difficulty == ["easy"] or difficulty == ["1"]:
-            attempts_remaining = 5
-            difficulty_picked = True
-        else:
-            print("please enter a valid input\n")
