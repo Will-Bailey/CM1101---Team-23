@@ -21,9 +21,6 @@ def reset_all():
 
     current_room = rooms["lobby"]
     
-        
-    
-
 def new_game():
     reset_all()
     introduction()
