@@ -22,6 +22,8 @@ def introduction():
     global found_clues
     found_clues = []
     generate_mystery()
+    global attempts_remaining
+    attempts_remaining=5
  
 def intro():
 
@@ -162,6 +164,7 @@ def execute_command(command):
 
 def make_accusation():
     comparison_mystery = {}
+    global attempts_remaining
     for element in mystery:
     	comparison_mystery.update({element: normalise_input(mystery[element])})
 
@@ -171,14 +174,15 @@ def make_accusation():
     "room": ""
     }
     while True:
-        a=input("""To make an accusation you need to find out:
+        a=input("""\nTo make an accusation you need to find out:
 • The suspected killer
 • The supected murder weapon
 • The room of the murder
-\nAre you sure you want to make an accusation.\nThere will be consequences if you get the case incorrect(Yes/No):\n...""")
+\nThere will be consequences if you get the case incorrect
+\nAre you sure you want to make an accusation.(Yes/No):\n...""")
         if normalise_input(a)==["yes"] or normalise_input(a)==["y"] or normalise_input(a)==["yeah"]:
-            print("Who are you going to accuse?")
-            print("The suspects you have highlighted are:")
+            print("\nWho are you going to accuse?")
+            print("\nThe suspects you have highlighted are:")
             while True:
                 for suspect in suspects:
                     if suspects[suspect]["notebook_status"] == "highly suspicious":
@@ -186,9 +190,8 @@ def make_accusation():
                     suspect_accused = normalise_input(input("..."))
                     if "".join(normalise_input(suspect_accused)) in list(suspects):
                         accusation["suspect"] = suspect_accused
-                        print("\n")
-                        print("What weapon do you think they used?")
-                        print("The weapons you have highlighted are:")
+                        print("\nWhat weapon do you think they used?")
+                        print("\nThe weapons you have highlighted are:")
                         while True:
                             for weapon in weapons:
                                 if weapons[weapon]["notebook_status"] == "highly suspicious":
@@ -196,9 +199,8 @@ def make_accusation():
                             weapon_accused = normalise_input(input("...")) 
                             if "".join(normalise_input(weapon_accused)) in list(weapons):
                                     accusation["weapon"] = weapon_accused
-                                    print("\n")
-                                    print("Which room do you think the murder took place in?")
-                                    print("The rooms you have highlighted are:")
+                                    print("\nWhich room do you think the murder took place in?")
+                                    print("\nThe rooms you have highlighted are:")
                                     while True:
                                         for room in rooms:
                                             if rooms[room]["notebook_status"] == "highly suspicious":
@@ -206,12 +208,17 @@ def make_accusation():
                                             room_accused = normalise_input(input("...")) 
                                             if " ".join(room_accused) in list(rooms):
                                                 accusation["room"] = room_accused
-                                                print("\n")
                                                 if accusation == comparison_mystery:
                                                     game_won()
                                                 else:
-                                                    print("Incorrect")
-                                                    main()
+                                                    print("\nYour accusation doesn't make sense.\n")
+                                                    attempts_remaining-=1
+                                                    incorrect_accusations()
+                                                    if attempts_remaining==0:
+                                                        game_over()
+                                                        
+                                                    else:
+                                                        main()
                                             else:
                                                 print("Please enter a valid room")
                             else:
@@ -222,7 +229,17 @@ def make_accusation():
             main()
         else:
             print("Please answer Yes or No")
-
+            
+def incorrect_accusations():
+    if attempts_remaining==4:
+        print("The case seems to be more complicated than you think, the residents of Morebrandt are giving you some space to try to piece the puzzle together.")
+    elif attempts_remaining==3:
+        print("The residents of Morebrandt are starting to look a bit more worried, but even the best detectives make mistakes. Right?")
+    elif attempts_remaining==2:
+        print("People are getting more and more nervous as you can't seem to make sense of the clues you have.")
+    elif attempts_remaining==1:
+        print("What little hope that remained of the Morebrandt residents has completely vanished, everyone is panicking. You feel as though you have 1 more attempt at finding the killer.")  
+    
 def execute_go(direction):
 
     global current_room
@@ -238,6 +255,7 @@ def display_details(room):
     #This function combines the 3 red herrings and the clue from a room, randomly inserting the clue to hide it.
     #it then returns the text as one string to be printed after the rooms description. 
     pass
+
 
 def display_notebook():
 
@@ -513,7 +531,11 @@ def execute_inspect(detail):
         print("You can't inspect that.")
 
 def game_won():
-	print("CONGRATULATIONS YOU ACCUSED CORRECTLY AND HAVE WON THE GAME.")
+	print("Congratulations, your accusations were correct, and the killer has been brought to justice.")
+
+def game_over():
+    print("Game Over. The murder of Morebrandt mansion remains unsolved.")
+    
 
 if __name__ == "__main__":
     introduction()
