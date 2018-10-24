@@ -798,25 +798,37 @@ def execute_inspect(detail):
     print()
 
 def game_won():
-    print("""Congratulations.
-Your accusations were correct, and the killer has been brought to justice.""")
+    scroll_text("\nCongratulations!", 0.03)
+    time.sleep(0.4)
+    scroll_text("\nYour accusations were correct, and the killer has been brought to justice.", 0.03)
+    time.sleep(0.4)
+    scroll_text("\nThe residents of Morebrandt Mansion can rest easy knowing the killer is behind bars.", 0.03)
+    time.sleep(0.4)
     while True:
-        restart_game = input("\nWould you like to play again? (Yes/No)\n...")
+        restart_game = input("\n\nWould you like to play again? (Yes/No)\n...")
         if normalise_input(restart_game)==["yes"] or normalise_input(restart_game)==["y"] or normalise_input(restart_game)==["yeah"]:
             new_game()
         elif normalise_input(restart_game)==["no"] or normalise_input(restart_game)==["n"] or normalise_input(restart_game)==["nah"]:
+            print("\n\n\n")
+            scroll_text("Thanks for playing!", 0.03)
+            time.sleep(4)
             quit()
         else:
             print("Please answer Yes or No")            
 
 def game_over():
-    print("""Game Over.
-The murder of Morebrandt mansion remains unsolved.""")
+    scroll_text("\nGame Over.", 0.05)
+    time.sleep(0.4)
+    scroll_text("\nThe murder of Morebrandt mansion remains unsolved.", 0.03)
+    time.sleep(0.4)
     while True:
-        restart_game = input("\nWould you like to try again? (Yes/No)\n...")
+        restart_game = input("\n\nWould you like to try again? (Yes/No)\n...")
         if normalise_input(restart_game)==["yes"] or normalise_input(restart_game)==["y"] or normalise_input(restart_game)==["yeah"]:
             new_game()
         elif normalise_input(restart_game)==["no"] or normalise_input(restart_game)==["n"] or normalise_input(restart_game)==["nah"]:
+            print("\n\n\n")
+            scroll_text("Thanks for playing!", 0.03)
+            time.sleep(4)
             quit()
         else:
             print("Please answer Yes or No")
