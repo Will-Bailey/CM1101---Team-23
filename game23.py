@@ -8,6 +8,9 @@ import random
 import winsound
 
 def reset_all():
+
+    global current_room
+    
     for x in rooms:
         rooms[x]["notebook_status"]="neutral"
         rooms[x]["clue"]=""
