@@ -118,7 +118,7 @@ def display_help(exits):
     #    print("CHECK " + item.upper() +  " for closer inspection.")
     print("CHECK + <object> for closer inspection.")
     print("ACCUSE to make accusation.")
-    print("OPEN NOTEBOOK to open notebook")
+    print("OPEN NOTEBOOK to open notebook\n")
     
 def print_exit(direction, leads_to):
 
@@ -164,7 +164,7 @@ def execute_command(command):
         
 
     else:
-        print("This makes no sense.")
+        print("This makes no sense.\n")
 
 def make_accusation():
     comparison_mystery = {}
@@ -179,11 +179,15 @@ def make_accusation():
     }
     while True:
         a=input("""\nTo make an accusation you need to find out:
-• The suspected killer
-• The supected murder weapon
-• The room of the murder
-\nThere will be consequences if you get the case incorrect
-\nAre you sure you want to make an accusation.(Yes/No):\n...""")
+
+    • The suspected killer
+    • The supected murder weapon
+    • The room of the murder
+
+There will be consequences if you get the case incorrect.
+
+Are you sure you want to make an accusation? (Yes/No)
+...""")
         if normalise_input(a)==["yes"] or normalise_input(a)==["y"] or normalise_input(a)==["yeah"]:
 
             while True:
@@ -192,7 +196,7 @@ def make_accusation():
 
                 for suspect in suspects:
                     if suspects[suspect]["notebook_status"] == "highly suspicious":
-                        print("• " + suspects[suspect]["name"])
+                        print("\t• " + suspects[suspect]["name"])
                 suspect_accused = normalise_input(input("..."))
 
                 if "".join(normalise_input(suspect_accused)) in list(suspects):
@@ -612,6 +616,8 @@ def display_room(room):
                 print(room["clue"]["first look"])
             position = position + 1
 
+        print()
+
 def init_clues(mystery):
     global clues
     clue_room = {
@@ -664,21 +670,25 @@ The killer must have used this to commit the murder and then hidden it here."""
     }
 
 def execute_inspect(detail):
+    
     if current_room == rooms["lobby"]:
         print("You cant inspect that.")
     elif detail == current_room["clue"]["detail"]:
         if current_room in found_clues:
-            print(current_room["clue"]["closer inspection"])
-            print("\nYou have already added this to your notebook")
+            #print(current_room["clue"]["closer inspection"])
+            print("\nYou have already inspected " + detail.upper() + " and added clue to your notebook")
         else:
+            print()
             print(current_room["clue"]["closer inspection"])
             found_clues.append(current_room)
-            print("You make a note of this in the clues section of your notebook") 
+            print("\nYou've made a note of this in the clues section of your notebook") 
     elif detail in current_room["details"]:
         detail_number = current_room["details"].index(detail)
+        print()
         print(current_room["red herrings"][list(current_room["red herrings"])[detail_number]])
     else:
         print("You can't inspect that.")
+    print()
 
 def game_won():
     print("""Congratulations.
