@@ -91,8 +91,8 @@ def intro():
     time.sleep(0.9)
     scroll_text("\n'We are counting on you to bring the killer to justice'.\n", 0.03)
     time.sleep(0.4)
-    scroll_text("\n" + "15 minutes later you arrive at the masnion.\n", 0.03)
-    time.sleep(0.4)
+    scroll_text("\n" + "15 minutes later you arrive at the mansion.\n", 0.03)
+    time.sleep(1)
     cls()
 
 def main():
@@ -459,6 +459,11 @@ def editing_within_notebook_without_question(page):
                     print("You have closed the notebook.\n")
                     cls()
                     main()
+                
+                elif normalised_command[0] == "back":
+                    display_notebook()
+                    cls()
+                    
                     
                 elif normalised_command[0] == "help":
                     notebook_display_help("suspect")
@@ -501,6 +506,11 @@ def editing_within_notebook_without_question(page):
                     print("You have closed the notebook.\n")
                     cls()
                     main()
+
+                elif normalised_command[0] == "back":
+                    print("You return to the contents page.\n")
+                    display_notebook()
+                    cls()
                     
                 elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="reset"):
                     command_directory()
@@ -532,6 +542,11 @@ def editing_within_notebook_without_question(page):
 
                 elif normalised_command[0] == "help":
                     notebook_display_help("room")
+
+                elif normalised_command[0] == "back":
+                    print("You return to the contents page.\n")
+                    display_notebook()
+                    cls()
 
                 elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="reset"):
                     command_directory()
@@ -574,6 +589,7 @@ def notebook_display_help(page):
     print("HIGHLIGHT + \'" + page + "_name\'")
     print("CROSS + \'" + page + "_name\'")
     print("RESET + \'" + page + "_name\'")
+    print("BACK to return to contents page")
     print("CLOSE to close notebook\n")
 
 def print_suspects():
@@ -810,7 +826,6 @@ def cls():
             
 if __name__ == "__main__":
     introduction()
-    #intro()
     main()
 
 
