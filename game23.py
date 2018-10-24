@@ -305,16 +305,9 @@ def execute_notebook(command):
         else:
             print("This makes no sense.")
             return
-
-def editing_within_notebook(page):
-
+        
+def editing_within_notebook_without_question(page):
     while True:
-        
-        yes_no_input = input("Would you like to edit the " + str(page)+ " list? (Yes/No):" "\n" "...")
-        yes_or_no = normalise_input(yes_no_input)
-        
-        if yes_or_no == ['yes'] or yes_or_no == ['yeah'] or yes_or_no == ['y']:
-            while True:
                 player_command = input("What would you like to do to the " + str(page) + " list? (type 'Help' for help):" "\n" "...")
                 normalised_command = normalise_input(player_command)
 
@@ -356,7 +349,15 @@ def editing_within_notebook(page):
                 else:
                     print("This makes no sense.\n")
 
+def editing_within_notebook(page):
 
+    while True:
+        
+        yes_no_input = input("Would you like to edit the " + str(page)+ " list? (Yes/No):" "\n" "...")
+        yes_or_no = normalise_input(yes_no_input)
+        
+        if yes_or_no == ['yes'] or yes_or_no == ['yeah'] or yes_or_no == ['y']:
+            editing_within_notebook_without_question(page)
         elif yes_or_no == ['no'] or yes_or_no == ['nah'] or yes_or_no == ['n']:
             display_notebook()
             break
@@ -371,7 +372,7 @@ def notebook_display_help(page):
     print("RESET + \'" + page + "_name\'")
     print("CLOSE to close notebook\n")
 
-def notebook_suspects():
+def print_suspects():
     # Displays the list of suspects sorted by their suspicion level
     print("\n\tLIST OF SUSPECTS\n")
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
@@ -387,10 +388,13 @@ def notebook_suspects():
         if printed == False:
             print("   None")
             print()
+
+def notebook_suspects():
+    print_suspects()
     editing_within_notebook("suspects")
     return
 
-def notebook_weapons():
+def print_weapons():
     # Displays the list of weapons sorted by their suspicion level
     print("\nYou open your notebook to the weapons section the list reads:")
     print("\n\tLIST OF WEAPONS\n")
@@ -406,10 +410,13 @@ def notebook_weapons():
         if printed == False:
             print("   None")
             print()
+
+def notebook_weapons():
+    print_weapons()
     editing_within_notebook("weapons")
     return
-    
-def notebook_rooms():
+
+def print_rooms():
     # Displays the list of rooms sorted by their suspicion level
     print("\nYou open your notebook to the weapons section the list reads:")
     print("\n\tLIST OF ROOMS\n")
@@ -424,6 +431,9 @@ def notebook_rooms():
         if printed == False:
             print("   None")
             print()
+    
+def notebook_rooms():
+    print_rooms()
     editing_within_notebook("rooms")
     return
 
@@ -444,11 +454,14 @@ def suspicion_change(subject, suspicion):
                 element[subject]["notebook_status"] = suspicion
                 edited = True
                 if element == weapons:
-                    notebook_weapons()
+                    print_weapons()
+                    editing_within_notebook_without_question("weapons")
                 elif element == suspects:
-                    notebook_suspects()
+                    print_suspects()
+                    editing_within_notebook_without_question("suspects")
                 elif element == rooms:
-                	notebook_rooms()
+                    print_rooms()
+                    editing_within_notebook_without_question("rooms")
         if element == suspects:
             for suspect in suspects:
                 for attribute in ["sex", "build", "hair colour"]:
