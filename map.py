@@ -2,7 +2,7 @@ room_study = {
  "name": "Study",
  "description": """You are now in the study. There is an ornate, oak wood bookcase in the corner of the room
 next to the large bay window, there is a hardwood desk with a personal computer and large black office chair.""",
- "exits": {"east": "lobby", "secret": "kitchen"},
+ "exits": {"east": "lobby", "south": "kitchen"},
  "red herrings": {
  "The monitor of the COMPUTER has been left on, illuminating the desk and it's contents.": "On further inspection Logan Paul's suicide forest video had been left on pause.",
  "A cup of PENS have been knocked over.": "A knocked over cup of pens... nothing interesting about this.",
@@ -66,7 +66,7 @@ room_garage = {
 room_kitchen = {
  "name" : "Kitchen",
  "description": """You have now entered the kitchen, burnt bacon is still sizziling in the frying pan at the breakfast bar situated against the northern wall beside that is a sliding glass door that leads to the patio.""",
- "exits": {"south": "dining room", "secret": "study", "west": "conservatory", "east": "garage"},
+ "exits": {"south": "dining room", "north": "study", "west": "conservatory", "east": "garage"},
  "red herrings": {
  "You see charcoal-crispy burnt bacon in the frying PAN.": "As you move closer the smell of the bacon intensifies.",
  "There is a red puddle on the COUNTERTOP.": "Upon further investigation it smells of Chateau Margaux 1787.",
