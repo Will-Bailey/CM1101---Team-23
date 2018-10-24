@@ -10,7 +10,9 @@ next to the large bay window, there is a hardwood desk with a personal computer 
  },
  "details": ["computer", "pens", "drawer"],
  "clue": "",
- "notebook_status": "neutral"
+ "notebook_status": "neutral",
+ "room_sound": "study"
+                
 
 }
 room_lobby ={
@@ -20,7 +22,8 @@ the suspects have gathered here while you look for clues in the mansion. """,
  "exits": {"north": "conservatory", "east": "dining room", "west": "study"},
  "details": [],
  "clue": "",
- "notebook_status": "neutral"
+ "notebook_status": "neutral",
+ "room_sound": "lobby"
 }
 room_conservatory = {
  "name": "Conservatory",
@@ -34,7 +37,8 @@ view to the relative quiet of the garden.  There are three sofas around a balsa 
  },
  "details": ["window", "vase", "radio"],
  "clue": "",
- "notebook_status": "neutral"
+ "notebook_status": "neutral",
+ "room_sound": "conservatory"
 }
 room_diningroom = {
  "name": "Dining Room",
@@ -48,7 +52,8 @@ not poured.  There is a vibrant bouquet of flowers in the centre of the table.""
  },
  "details": ["candles", "chair", "box"],
  "clue": "",
- "notebook_status": "neutral"
+ "notebook_status": "neutral",
+ "room_sound": "dining"
 }
 room_garage = {
  "name": "Garage",
@@ -61,7 +66,8 @@ room_garage = {
  },
  "details": ["bonnet", "door", "smell"],
  "clue": "",
- "notebook_status": "neutral"
+ "notebook_status": "neutral",
+ "room_sound": "wind"
 }
 room_kitchen = {
  "name" : "Kitchen",
@@ -74,7 +80,8 @@ room_kitchen = {
  },
  "details": ["pan", "countertop", "knife"],
  "clue": "",
- "notebook_status": "neutral"
+ "notebook_status": "neutral",
+ "room_sound": "kitchen"
 }
 
 rooms = {
