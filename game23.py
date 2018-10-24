@@ -432,8 +432,9 @@ def notebook_clues():
     print("\n\tLIST OF CLUES\n")
     if found_clues != []:
         for explored_room in found_clues:
-            print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"] + " to find:")
+            print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"].upper() + ".")
             print(explored_room["clue"]["closer inspection"])
+            print()
     else:
         print("You are yet to find any useful clues.")
     
@@ -533,12 +534,16 @@ The killer must have used this to commit the murder and then hidden it here."""
 def execute_inspect(detail):
     if detail == current_room["clue"]["detail"]:
         if current_room in found_clues:
+<<<<<<< HEAD
             print(current_room["clue"]["closer inspection"])
             print("\nYou have already added this to your notebook")
+=======
+            print("\nYou have already inspected " + detail.upper() + " and added clues to your notebook")
+>>>>>>> 8386c83771b5cdf8a1542650603c53f52feea960
         else:
-            print(current_room["clue"]["closer inspection"])
+            print("\n"+ current_room["clue"]["closer inspection"])
             found_clues.append(current_room)
-            print("You make a note of this in the clues section of your notebook") 
+            print("\nYou've made a note of this in the clues section of your notebook") 
     elif detail in current_room["details"]:
         detail_number = current_room["details"].index(detail)
         print(current_room["red herrings"][list(current_room["red herrings"])[detail_number]])
