@@ -62,7 +62,7 @@ def introduction():
             print("please enter a valid input\n")
 
     cls()
-    #intro()
+    intro()
 
     global correct_accusation
     correct_accusation = False
@@ -216,6 +216,7 @@ def make_accusation():
     "weapon": "",
     "room": ""
     }
+    cls()
     while True:
         a=input("""\nTo make an accusation you need to find out:
 
