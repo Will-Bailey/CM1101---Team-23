@@ -30,6 +30,7 @@ def new_game():
     main()
     
 def introduction():
+    current_room = rooms["lobby"]
     winsound.PlaySound("lobby", winsound.SND_ASYNC | winsound.SND_LOOP )
     global player_name
     global attempts_remaining
@@ -61,8 +62,7 @@ def introduction():
             print("please enter a valid input\n")
 
     cls()
-    current_room = rooms["lobby"]
-    #intro()
+    intro()
 
     global correct_accusation
     correct_accusation = False
@@ -216,6 +216,7 @@ def make_accusation():
     "weapon": "",
     "room": ""
     }
+    cls()
     while True:
         a=input("""\nTo make an accusation you need to find out:
 

@@ -17,7 +17,7 @@ weapon_pen = {
 }
 
 weapon_toothbrush = {
-	"name": "Sharpened Toothbrush",
+	"name": "Toothbrush",
 	"description": "A tooth brush with a sharpen handle, possibly used to stab the victim",
 	"notebook_status": "neutral"
 }
