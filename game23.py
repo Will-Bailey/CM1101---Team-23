@@ -185,27 +185,35 @@ def make_accusation():
 \nThere will be consequences if you get the case incorrect
 \nAre you sure you want to make an accusation.(Yes/No):\n...""")
         if normalise_input(a)==["yes"] or normalise_input(a)==["y"] or normalise_input(a)==["yeah"]:
-            print("\nWho are you going to accuse?")
-            print("\nThe suspects you have highlighted as highly suspicious are:\n")
+
             while True:
+                print("\nWho are you going to accuse? (type 'Help' for help)")
+                print("\nThe suspects you have highlighted as highly suspicious are:\n")
+
                 for suspect in suspects:
                     if suspects[suspect]["notebook_status"] == "highly suspicious":
                         print("• " + suspects[suspect]["name"])
                 suspect_accused = normalise_input(input("..."))
+
                 if "".join(normalise_input(suspect_accused)) in list(suspects):
                     accusation["suspect"] = suspect_accused
-                    print("\nWhat weapon do you think they used?")
-                    print("\nThe weapons you have highlighted as highly suspicious are:\n")
+
                     while True:
+                        print("\nWhat weapon do you think they used? (type 'Help' for help)")
+                        print("\nThe weapons you have highlighted as highly suspicious are:\n")
+
                         for weapon in weapons:
                             if weapons[weapon]["notebook_status"] == "highly suspicious":
                                 print("• " + weapons[weapon]["name"])
                         weapon_accused = normalise_input(input("...")) 
+
                         if "".join(normalise_input(weapon_accused)) in list(weapons):
                                 accusation["weapon"] = weapon_accused
-                                print("\nWhich room do you think the murder took place in?")
-                                print("\nThe rooms you have highlighted as highly suspicious are:\n")
+
                                 while True:
+                                    print("\nWhich room do you think the murder took place in? (type 'Help' for help)")
+                                    print("\nThe rooms you have highlighted as highly suspicious are:\n")
+
                                     for room in rooms:
                                         if rooms[room]["notebook_status"] == "highly suspicious":
                                             print("• " + rooms[room]["name"])
@@ -223,12 +231,31 @@ def make_accusation():
                                                         
                                             else:
                                                 main()
+
+
+                                    elif room_accused == ["help"]:
+                                        print("\nYou can accuse the following rooms:\n")
+                                        for room in rooms:
+                                            print("\t" + rooms[room]["name"])
                                     else:
                                         print("Please enter a valid room")
-                    else:
-                        print("Please enter a valid weapon name")
-            else:
-                print("Please enter a valid name")
+
+
+                        elif weapon_accused == ["help"]:
+                            print("\nYou can accuse the following weapons:\n")
+                            for weapon in weapons:
+                                print("\t" + weapons[weapon]["name"])
+
+                        else:
+                            print("Please enter a valid weapon name")
+
+
+                elif suspect_accused == ["help"]:
+                    print("\nYou can accuse suspect:\n")
+                    for suspect in suspects:
+                        print("\t" + suspects[suspect]["name"])                        
+                else:
+                    print("Please enter a valid name")
         elif normalise_input(a)==["no"] or normalise_input(a)==["n"] or normalise_input(a)==["nah"]:
             main()
         else:
