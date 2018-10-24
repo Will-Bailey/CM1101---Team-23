@@ -4,6 +4,7 @@ from suspects import *
 from map import *
 from weapons import *
 from TitleASCII import *
+import wave
 import random
 import winsound
 
@@ -12,31 +13,31 @@ def new_game():
     main()
     
 def introduction():
-    
+    winsound.PlaySound("lobby", winsound.SND_ASYNC | winsound.SND_LOOP )
     global player_name
+    global attempts_remaining
+    global difficulty
     title()
     print("Enter your name:")
     player_name = input("...")
 
     age_verification(player_name)
-    global attempts_remaining
-
-    difficulty = normalise_input(input("Difficulty? Hard(h), Medium(m), Easy(e)"))
+    difficulty = normalise_input(input("\nDifficulty? Easy(e), Medium(m), Hard(h):\n..."))
     difficulty_picked = False
-    while difficulty_picked == True:
-        if difficulty == "h":
+    while difficulty_picked == False:
+        if normalise_input(difficulty) == ["h"] or normalise_input(difficulty) == ["hard"] :
             attempts_remaining = 1
             difficulty_picked = True
-        elif difficulty == "m":
-            attempt_remaining = 3
+        elif normalise_input(difficulty) == ["m"] or normalise_input(difficulty) == ["medium"] :
+            attempts_remaining = 3
             difficulty_picked = True
-        elif difficulty == "e":
-            attempt_remaining = 5
+        elif normalise_input(difficulty) == ["e"] or normalise_input(difficulty) == ["easy"]:
+            attempts_remaining = 5
             difficulty_picked = True
-
+        else:
+            print("please enter a valid input")
     cls()
     current_room = rooms["lobby"]
-    winsound.PlaySound(current_room["room_sound"], winsound.SND_ASYNC | winsound.SND_LOOP )
     intro()
 
     global correct_accusation
@@ -68,6 +69,7 @@ def intro():
     time.sleep(0.4)
     scroll_text("\n" + "15 minutes later you arrive at the masnion.\n", 0.03)
     time.sleep(0.4)
+    cls()
 
 def main():
     display_room(current_room)
@@ -164,6 +166,7 @@ def execute_command(command):
 
     if command[0] == "go":
         if len(command) > 1:
+            cls()
             execute_go(command[1])
         else:
             print("Go where?")
@@ -287,22 +290,28 @@ Are you sure you want to make an accusation? (Yes/No)
             print("Please answer Yes or No")
             
 def incorrect_accusations():
-    if attempts_remaining==4:
-        print("The case seems to be more complicated than you think, the residents of Morebrandt are giving you some space to try to piece the puzzle together.")
-    elif attempts_remaining==3:
-        print("The residents of Morebrandt are starting to look worried as you come to an incorrect conclusion, but even the best detectives make mistakes. Right?")
-    elif attempts_remaining==2:
-        print("People are getting more and more nervous as you can't seem to make sense of the clues you have.")
-    elif attempts_remaining==1:
-        print("What little hope that remained of the Morebrandt residents has completely vanished, everyone is panicking. You feel as though you have 1 more attempt at finding the killer.")  
-    
+    global difficulty
+    if difficulty == ["easy"] or difficulty == ["e"]:
+        if attempts_remaining==4:
+            print("The case seems to be more complicated than you think, the residents of Morebrandt are giving you some space to try to piece the puzzle together.")
+        elif attempts_remaining==3:
+            print("The residents of Morebrandt are starting to look a bit more worried, but even the best detectives make mistakes. Right?")
+        elif attempts_remaining==2:
+            print("People are getting more and more nervous as you can't seem to make sense of the clues you have.")
+        elif attempts_remaining==1:
+            print("What little hope that remained of the Morebrandt residents has completely vanished, everyone is panicking. You feel as though you have 1 more attempt at finding the killer.")  
+    elif difficulty == ["medium"] or difficulty == ["m"]:
+        if attempts_remaining==2:
+            print("The residents of Morebrandt are starting to look a bit more worried, but even the best detectives make mistakes. Right?")
+        elif attempts_remaining==1:
+            print("What little hope that remained of the Morebrandt residents has completely vanished, everyone is panicking. You feel as though you have 1 more attempt at finding the killer.")  
+        
 def execute_go(direction):
 
     global current_room
 
     exits = current_room["exits"]
     if is_valid_exit(exits, direction):
-        winsound.PlaySound(None, winsound.SND_ASYNC)
         current_room = move(exits, direction)
         display_room(current_room)
         winsound.PlaySound(current_room["room_sound"], winsound.SND_ASYNC | winsound.SND_LOOP )
@@ -487,9 +496,6 @@ def editing_within_notebook_without_question(page):
                 elif normalised_command[0] == "help":
                     notebook_display_help("room")
 
-                elif len(normalised_command) == 3 and normalised_command[1:3]==['dining', 'room']:
-                    command_directory()
-
                 elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
                     command_directory()
 
@@ -566,9 +572,10 @@ def print_weapons():
         print("-" + suspicion.upper() + "-\n")
         for weapon in weapons:
             if weapons[weapon]["notebook_status"] == suspicion:
-                print("Weapon: " + weapons[weapon]["name"])
-                print("Description: " + weapons[weapon]["description"] + "\n")
+                print("Weapon:" + weapons[weapon]["name"])
+                print("Description:" + weapons[weapon]["description"] + "\n")
                 printed = True
+                print()
         if printed == False:
             print("   None")
             print()
@@ -589,7 +596,7 @@ def print_rooms():
         print("-" + suspicion.upper() + "-\n")
         for room in rooms:
             if rooms[room]["notebook_status"] == suspicion:
-                print(rooms[room]["name"] + "\n")
+                print("Room Name: " + rooms[room]["name"])
                 printed = True
         if printed == False:
             print("   None")
@@ -607,7 +614,7 @@ def notebook_clues():
         for explored_room in found_clues:
             print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"])
             print()
-            print(explored_room["clue"]["closer inspection"]+ "\n\n")
+            print(explored_room["clue"]["closer inspection"]+ "\n")
     else:
         print("You are yet to find any useful clues.")
     
@@ -644,11 +651,8 @@ def suspicion_change(subject, suspicion):
     if edited != True:
         print("You can't edit that\n")
 
-def show_status():
-    pass
 
 def display_room(room):
-    cls()
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
     
     if room != rooms["lobby"]:
