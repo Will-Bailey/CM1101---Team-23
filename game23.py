@@ -378,6 +378,8 @@ def editing_within_notebook_without_question(page):
     global normalised_command
     if placeholder=="suspects":
         while True:
+            for a in suspects:
+                
                 player_command = input("What would you like to do to the suspects list? (type 'Help' for help):" "\n" "...")
                 normalised_command = normalise_input(player_command)
 
@@ -385,7 +387,7 @@ def editing_within_notebook_without_question(page):
                     continue
                 
                 elif normalised_command[0] == "close":
-                    print("You have closed the notebook.zn")
+                    print("You have closed the notebook.\n")
                     main()
                     
                 elif normalised_command[0] == "help":
@@ -398,8 +400,9 @@ def editing_within_notebook_without_question(page):
                     print("This makes no sense\n")
             
                 
-                elif normalised_command[1] in suspects:
+                elif normalised_command[1] in suspects or normalised_command[1] in suspects[a]["sex"] or normalised_command[1] in suspects[a]["build"] or normalised_command[1] in suspects[a]["hair colour"]:
                     command_directory()
+                    
 
                 elif normalised_command[1] in weapons or normalised_command[1] in rooms:
                     print("You are on the wrong page! This is the suspects page.\n")
@@ -431,7 +434,7 @@ def editing_within_notebook_without_question(page):
                     print("You are on the wrong page! This is the weapons page.\n")
                     
                 else:
-                    print("You cannot highlight that.\n")
+                    print("You cannot do that.\n")
                     
     elif placeholder == "rooms":
         while True:
@@ -588,14 +591,20 @@ def suspicion_change(subject, suspicion):
                 elif element == rooms:
                     print_rooms()
                     editing_within_notebook_without_question("rooms")
+
+                
         if element == suspects:
             for suspect in suspects:
                 for attribute in ["sex", "build", "hair colour"]:
                     if subject == suspects[suspect][attribute]:
                         suspects[suspect]["notebook_status"] = suspicion
                         edited = True
+                    
+                
             if edited == True:
-                editing_within_notebook_without_question("rooms")
+                print_suspects()
+                editing_within_notebook_without_question("suspects")
+                #editing_within_notebook_without_question("rooms")
 
     if edited != True:
         print("You can't edit that\n")
@@ -719,7 +728,7 @@ The murder of Morebrandt mansion remains unsolved.""")
             
 if __name__ == "__main__":
     introduction()
-    intro()
+    #intro()
     main()
 
 
