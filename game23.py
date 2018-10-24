@@ -290,7 +290,7 @@ def incorrect_accusations():
     if attempts_remaining==4:
         print("The case seems to be more complicated than you think, the residents of Morebrandt are giving you some space to try to piece the puzzle together.")
     elif attempts_remaining==3:
-        print("The residents of Morebrandt are starting to look a bit more worried, but even the best detectives make mistakes. Right?")
+        print("The residents of Morebrandt are starting to look worried as you come to an incorrect conclusion, but even the best detectives make mistakes. Right?")
     elif attempts_remaining==2:
         print("People are getting more and more nervous as you can't seem to make sense of the clues you have.")
     elif attempts_remaining==1:
@@ -486,6 +486,9 @@ def editing_within_notebook_without_question(page):
 
                 elif normalised_command[0] == "help":
                     notebook_display_help("room")
+
+                elif len(normalised_command) == 3 and normalised_command[1:3]==['dining', 'room']:
+                    command_directory()
 
                 elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
                     command_directory()
