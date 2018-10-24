@@ -6,6 +6,10 @@ from weapons import *
 from TitleASCII import *
 import random
 
+def new_game():
+    introduction()
+    main()
+    
 def introduction():
     
     global player_name
@@ -260,7 +264,7 @@ def display_details(room):
 def display_notebook():
 
     while execute_notebook != "close":
-        print('''\nYour notebook is open, which section do you want to turn to?
+        print('''\nYou opened your notebook, which section do you want to turn to?
 
 0) Close (to close notebook)
 1) Suspects
@@ -395,10 +399,10 @@ def notebook_weapons():
         print("-" + suspicion.upper() + "-\n")
         for weapon in weapons:
             if weapons[weapon]["notebook_status"] == suspicion:
-                print("Weapon: " + weapons[weapon]["name"].upper())
-                print(weapons[weapon]["description"])
-                print()
+                print("Weapon Name:\n" + weapons[weapon]["name"])
+                print("Weapon Description:\n" + weapons[weapon]["description"] + "\n")
                 printed = True
+                print()
         if printed == False:
             print("   None")
             print()
@@ -414,9 +418,8 @@ def notebook_rooms():
         print("-" + suspicion.upper() + "-\n")
         for room in rooms:
             if rooms[room]["notebook_status"] == suspicion:
-                print("Room: " + rooms[room]["name"].upper())
-                print(rooms[room]["description"])
-                print()
+                print("Room Name: " + rooms[room]["name"])
+                print("Room Description: " + rooms[room]["description"] + "\n")
                 printed = True
         if printed == False:
             print("   None")
@@ -481,31 +484,41 @@ def init_clues(mystery):
     clue_room = {
         "detail": "stain",
         "first look": "There's a smalll red STAIN on the floor just visible behind the open door.",
-        "closer inspection": "As you look more closely you discover a larger puddle of blood. Clearly this must be the room in which the murder was committed.",
+        "closer inspection": """As you look more closely you discover a larger puddle of blood.
+Clearly this must be the room in which the murder was committed.""",
     }
 
     clue_witness = {
         "detail": "butler",
         "first look": "The BUTLER is in this room, tidying up",
-        "closer inspection": """You ask the butler if he saw anything he replys in a frail, voice "I did,"" he replys "I saw the silhouette of a person dragging off what looked like a body earlier. I couldn't tell who it was but they were definitely a """ + suspects[mystery["suspect"]]["build"] +""" person. I'm sorry bu that's all I know." You thank the butler""" 
+        "closer inspection": """You ask the butler if he saw anything.
+He replies in a frail voice
+'I did, I saw the silhouette of a person dragging off what looked like a body earlier.'
+'I couldn't tell who it was but they were definitely a """ + suspects[mystery["suspect"]]["build"] + """ person.'
+'I'm sorry but that's all I know.'
+You thank the butler""" 
     }
 
     clue_clothes = {
         "detail": "fabric",
         "first look": "Snagged on the door, you spot a scrap of FABRIC.",
-        "closer inspection": "As you look closer at the farbic, you notice spots of blood on what must be a scrap of clothing. You also notice that the scrap is from " + suspects[mystery["suspect"]]["sex"] + "'s clothing."
+        "closer inspection": """As you look closer at the farbic, you notice spots of blood on what must be a scrap of clothing.
+You also notice that the scrap is from """ + suspects[mystery["suspect"]]["sex"] + "'s clothing."
     }
 
     clue_hair = {
         "detail": "scuff",
         "first look": "There's a SCUFF on the wall, it looks like someone scraped against the wall, carrying something heavy.",
-        "closer inspection": "You look more carefully and realise that the mark was clearly form the killer on there way past, dragging the body. There are drips of blood and you also find a lock of hair, snagged on a nail that the killer must have brushed past on their way. The hair is clearly " + suspects[mystery["suspect"]]["hair colour"] + "."
+        "closer inspection": """You look more carefully and realise that the mark was clearly form the killer on there way past, dragging the body.
+There are drips of blood and you also find a lock of hair, snagged on a nail that the killer must have brushed past on their way.
+The hair is clearly """ + suspects[mystery["suspect"]]["hair colour"] + "."
     }
 
     clue_weapon = {
         "detail": "rug",
         "first look": "There's something vaugley shiny sticking out from under a RUG.",
-        "closer inspection": "You peel back teh corner of the rug and find a blood stained " + mystery["weapon"] + ". The killer must have used this to commit the murder and then hidden it here."
+        "closer inspection": "You peel back teh corner of the rug and find a blood stained " + mystery["weapon"] + """.
+The killer must have used this to commit the murder and then hidden it here."""
     }
 
 
@@ -520,7 +533,8 @@ def init_clues(mystery):
 def execute_inspect(detail):
     if detail == current_room["clue"]["detail"]:
         if current_room in found_clues:
-            print("You have already added this to your notebook")
+            print(current_room["clue"]["closer inspection"])
+            print("\nYou have already added this to your notebook")
         else:
             print(current_room["clue"]["closer inspection"])
             found_clues.append(current_room)
@@ -532,12 +546,28 @@ def execute_inspect(detail):
         print("You can't inspect that.")
 
 def game_won():
-	print("Congratulations, your accusations were correct, and the killer has been brought to justice.")
+    print("""Congratulations.
+Your accusations were correct, and the killer has been brought to justice.""")
+    while True:
+        restart_game = input("\nWould you like to play again? (Yes/No)\n...")
+        if normalise_input(restart_game)==["yes"] or normalise_input(restart_game)==["y"] or normalise_input(restart_game)==["yeah"]:
+            new_game()
+        elif normalise_input(restart_game)==["no"] or normalise_input(restart_game)==["n"] or normalise_input(restart_game)==["nah"]:
+            quit()
+        else:
+            print("Please answer Yes or No")
+            
 
 def game_over():
-    print("Game Over. The murder of Morebrandt mansion remains unsolved.")
-    
+    print("""Game Over.
+The murder of Morebrandt mansion remains unsolved.""")
+    while True:
+        restart_game = input("\nWould you like to try again? (Yes/No)\n...")
+        if normalise_input(restart_game)==["yes"] or normalise_input(restart_game)==["y"] or normalise_input(restart_game)==["yeah"]:
+            new_game()
+        elif normalise_input(restart_game)==["no"] or normalise_input(restart_game)==["n"] or normalise_input(restart_game)==["nah"]:
+            quit()
+        else:
+            print("Please answer Yes or No")
 
-if __name__ == "__main__":
-    introduction()
-    main()
+
