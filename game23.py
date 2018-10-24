@@ -15,6 +15,8 @@ def reset_all():
         weapons[x]["notebook_status"]="neutral"
     for x in suspects:
         suspects[x]["notebook_status"]="neutral"
+
+    current_room = rooms["lobby"]
     
         
     
@@ -99,13 +101,6 @@ def main():
 
         execute_command(command)
 
-        #Victory condition
-
-        #Game over
-        #elif life == 0:
-        #    print("Game over")
-        #    break
-
 def generate_mystery():
     ### This function should randomly generate a dictionary (called "mystery")
     ###that uses the terms "suspect", "weapon" and "room"
@@ -156,11 +151,9 @@ def display_help(exits):
     for direction in exits:
         print_exit(direction, destination(exits, direction))
 
-    #for item in details:
-    #    print("CHECK " + item.upper() +  " for closer inspection.")
     print("CHECK + <object> for closer inspection.")
     print("ACCUSE to make accusation.")
-    print("OPEN NOTEBOOK to open notebook")
+    print("OPEN NOTEBOOK to open notebook\n")
     
 def print_exit(direction, leads_to):
 
@@ -170,7 +163,7 @@ def move(exits, direction):
 
     return(rooms[exits[direction]])
 
-def destination(exits, direction): #formerly exit_leads_to
+def destination(exits, direction):
 
     return rooms[exits[direction]]["name"]
 
