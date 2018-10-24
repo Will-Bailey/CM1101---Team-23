@@ -21,9 +21,6 @@ def reset_all():
 
     current_room = rooms["lobby"]
     
-        
-    
-
 def new_game():
     reset_all()
     introduction()
@@ -253,7 +250,7 @@ Are you sure you want to make an accusation? (Yes/No)
                         y=[]
                         for weapon in weapons:
                             if weapons[weapon]["notebook_status"] == "highly suspicious":
-                                print("• " + weapons[weapon]["name"])
+                                print("\t• " + weapons[weapon]["name"])
                             else:
                                 if weapons[weapon]["notebook_status"] != "highly suspicious":   
                                     y.append(weapon)
@@ -271,7 +268,7 @@ Are you sure you want to make an accusation? (Yes/No)
                                     
                                     for room in rooms:
                                         if rooms[room]["notebook_status"] == "highly suspicious":
-                                            print("• " + rooms[room]["name"])
+                                            print("\t• " + rooms[room]["name"])
                                         else:
                                             if weapons[weapon]["notebook_status"] != "highly suspicious":   
                                                 z.append(room)
