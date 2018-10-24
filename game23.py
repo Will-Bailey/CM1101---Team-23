@@ -531,7 +531,9 @@ The killer must have used this to commit the murder and then hidden it here."""
     }
 
 def execute_inspect(detail):
-    if detail == current_room["clue"]["detail"]:
+    if current_room == rooms["lobby"]:
+        print("You cant inspect that.")
+    elif detail == current_room["clue"]["detail"]:
         if current_room in found_clues:
             print(current_room["clue"]["closer inspection"])
             print("\nYou have already added this to your notebook")
