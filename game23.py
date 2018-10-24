@@ -534,12 +534,9 @@ The killer must have used this to commit the murder and then hidden it here."""
 def execute_inspect(detail):
     if detail == current_room["clue"]["detail"]:
         if current_room in found_clues:
-<<<<<<< HEAD
             print(current_room["clue"]["closer inspection"])
             print("\nYou have already added this to your notebook")
-=======
             print("\nYou have already inspected " + detail.upper() + " and added clues to your notebook")
->>>>>>> 8386c83771b5cdf8a1542650603c53f52feea960
         else:
             print("\n"+ current_room["clue"]["closer inspection"])
             found_clues.append(current_room)
@@ -575,4 +572,7 @@ The murder of Morebrandt mansion remains unsolved.""")
         else:
             print("Please answer Yes or No")
 
+if __name__ == "__main__":
+    introduction()
+    main()
 
