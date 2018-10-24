@@ -566,10 +566,9 @@ def print_weapons():
         print("-" + suspicion.upper() + "-\n")
         for weapon in weapons:
             if weapons[weapon]["notebook_status"] == suspicion:
-                print("Weapon:" + weapons[weapon]["name"])
-                print("Description:" + weapons[weapon]["description"] + "\n")
+                print("Weapon: " + weapons[weapon]["name"])
+                print("Description: " + weapons[weapon]["description"] + "\n")
                 printed = True
-                print()
         if printed == False:
             print("   None")
             print()
@@ -590,7 +589,7 @@ def print_rooms():
         print("-" + suspicion.upper() + "-\n")
         for room in rooms:
             if rooms[room]["notebook_status"] == suspicion:
-                print("Room Name: " + rooms[room]["name"])
+                print(rooms[room]["name"] + "\n")
                 printed = True
         if printed == False:
             print("   None")
@@ -608,7 +607,7 @@ def notebook_clues():
         for explored_room in found_clues:
             print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"])
             print()
-            print(explored_room["clue"]["closer inspection"]+ "\n")
+            print(explored_room["clue"]["closer inspection"]+ "\n\n")
     else:
         print("You are yet to find any useful clues.")
     
