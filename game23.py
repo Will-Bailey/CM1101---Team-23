@@ -8,6 +8,9 @@ import random
 import winsound
 
 def reset_all():
+
+    global current_room
+    
     for x in rooms:
         rooms[x]["notebook_status"]="neutral"
         rooms[x]["clue"]=""
@@ -15,6 +18,8 @@ def reset_all():
         weapons[x]["notebook_status"]="neutral"
     for x in suspects:
         suspects[x]["notebook_status"]="neutral"
+
+    current_room = rooms["lobby"]
     
         
     
@@ -35,20 +40,27 @@ def introduction():
     player_name = input("...")
 
     age_verification(player_name)
-    difficulty = normalise_input(input("\nDifficulty? Easy(e), Medium(m), Hard(h):\n..."))
+    
     difficulty_picked = False
+    
     while difficulty_picked == False:
-        if normalise_input(difficulty) == ["h"] or normalise_input(difficulty) == ["hard"] :
+
+        difficulty = normalise_input(input("Use number key or difficulty name.\n..."))
+        
+        if difficulty == ["hard"] or difficulty == ["3"]:
             attempts_remaining = 1
             difficulty_picked = True
-        elif normalise_input(difficulty) == ["m"] or normalise_input(difficulty) == ["medium"] :
+            
+        elif difficulty == ["medium"] or difficulty == ["2"]:
             attempts_remaining = 3
             difficulty_picked = True
-        elif normalise_input(difficulty) == ["e"] or normalise_input(difficulty) == ["easy"]:
+            
+        elif difficulty == ["easy"] or difficulty == ["1"]:
             attempts_remaining = 5
             difficulty_picked = True
         else:
-            print("please enter a valid input")
+            print("please enter a valid input\n")
+
     cls()
     #intro()
 
@@ -91,13 +103,6 @@ def main():
         command = ask_for_command()
 
         execute_command(command)
-
-        #Victory condition
-
-        #Game over
-        #elif life == 0:
-        #    print("Game over")
-        #    break
 
 def generate_mystery():
     ### This function should randomly generate a dictionary (called "mystery")
@@ -149,11 +154,9 @@ def display_help(exits):
     for direction in exits:
         print_exit(direction, destination(exits, direction))
 
-    #for item in details:
-    #    print("CHECK " + item.upper() +  " for closer inspection.")
     print("CHECK + <object> for closer inspection.")
     print("ACCUSE to make accusation.")
-    print("OPEN NOTEBOOK to open notebook")
+    print("OPEN NOTEBOOK to open notebook\n")
     
 def print_exit(direction, leads_to):
 
@@ -163,7 +166,7 @@ def move(exits, direction):
 
     return(rooms[exits[direction]])
 
-def destination(exits, direction): #formerly exit_leads_to
+def destination(exits, direction):
 
     return rooms[exits[direction]]["name"]
 
@@ -319,7 +322,7 @@ Are you sure you want to make an accusation? (Yes/No)
             
 def incorrect_accusations():
     global difficulty
-    if difficulty == ["easy"] or difficulty == ["e"]:
+    if difficulty == ["easy"] or difficulty == ["1"]:
         if attempts_remaining==4:
             print("The case seems to be more complicated than you think, the residents of Morebrandt are giving you some space to try to piece the puzzle together.")
         elif attempts_remaining==3:
@@ -328,7 +331,7 @@ def incorrect_accusations():
             print("People are getting more and more nervous as you can't seem to make sense of the clues you have.")
         elif attempts_remaining==1:
             print("What little hope that remained of the Morebrandt residents has completely vanished, everyone is panicking. You feel as though you have 1 more attempt at finding the killer.")  
-    elif difficulty == ["medium"] or difficulty == ["m"]:
+    elif difficulty == ["medium"] or difficulty == ["2"]:
         if attempts_remaining==2:
             print("The residents of Morebrandt are starting to look a bit more worried, but even the best detectives make mistakes. Right?")
         elif attempts_remaining==1:
