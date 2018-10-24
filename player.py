@@ -2,11 +2,7 @@
 from map import rooms
 from gameparser import *
 
-#inventory = [item_id, item_laptop, item_money]
-
-# Start game at the Lobby
 current_room = rooms["lobby"]
-#player_name = ""
 
 def age_verification(name):
 
@@ -21,7 +17,6 @@ def age_verification(name):
                 continue
 
             elif player_age >= 13:
-                #Welcome
                 print_welcome(name)
 
             else:
@@ -34,6 +29,29 @@ def age_verification(name):
 
 def print_welcome(name):
 
-    print("Welcome " + str(name.title()) + ", ")
-
+    print("\nWelcome " + str(name.title()) + ". Please choose difficulty level.")
+    print('''
+    1) Easy
+    2) Medium
+    3) Hard
+    ''')
     
+    difficulty_picked = False
+    
+    while difficulty_picked == False:
+
+        difficulty = normalise_input(input("Use number key or difficulty name.\n..."))
+        
+        if difficulty == ["hard"] or difficulty == ["3"]:
+            attempts_remaining = 1
+            difficulty_picked = True
+            
+        elif difficulty == ["medium"] or difficulty == ["2"]:
+            attempts_remaining = 3
+            difficulty_picked = True
+            
+        elif difficulty == ["easy"] or difficulty == ["1"]:
+            attempts_remaining = 5
+            difficulty_picked = True
+        else:
+            print("please enter a valid input\n")

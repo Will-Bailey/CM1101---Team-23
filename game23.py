@@ -34,20 +34,7 @@ def introduction():
     player_name = input("...")
 
     age_verification(player_name)
-    difficulty = normalise_input(input("\nDifficulty? Easy(e), Medium(m), Hard(h):\n..."))
-    difficulty_picked = False
-    while difficulty_picked == False:
-        if normalise_input(difficulty) == ["h"] or normalise_input(difficulty) == ["hard"] :
-            attempts_remaining = 1
-            difficulty_picked = True
-        elif normalise_input(difficulty) == ["m"] or normalise_input(difficulty) == ["medium"] :
-            attempts_remaining = 3
-            difficulty_picked = True
-        elif normalise_input(difficulty) == ["e"] or normalise_input(difficulty) == ["easy"]:
-            attempts_remaining = 5
-            difficulty_picked = True
-        else:
-            print("please enter a valid input")
+
     cls()
     current_room = rooms["lobby"]
     #intro()
