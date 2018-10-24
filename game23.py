@@ -22,6 +22,7 @@ def introduction():
     #intro()
     
     current_room = rooms["lobby"]
+    winsound.PlaySound(current_room["room_sound"], winsound.SND_ASYNC | winsound.SND_LOOP )
     global correct_accusation
     correct_accusation = False
     global found_clues
