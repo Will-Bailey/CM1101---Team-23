@@ -628,8 +628,8 @@ def print_weapons():
         print("-" + suspicion.upper() + "-\n")
         for weapon in weapons:
             if weapons[weapon]["notebook_status"] == suspicion:
-                print("Weapon:" + weapons[weapon]["name"])
-                print("Description:" + weapons[weapon]["description"] + "\n")
+                print("Weapon: " + weapons[weapon]["name"])
+                print("Description: " + weapons[weapon]["description"] + "\n")
                 printed = True
                 print()
         if printed == False:
@@ -748,7 +748,7 @@ You thank the butler"""
     clue_clothes = {
         "detail": "fabric",
         "first look": "Snagged on the door, you spot a scrap of FABRIC.",
-        "closer inspection": """As you look closer at the farbic, you notice spots of blood on what must be a scrap of clothing.
+        "closer inspection": """As you look closer at the fabric, you noticed spots of blood on what must be a scrap of clothing.
 You also notice that the scrap is from """ + suspects[mystery["suspect"]]["sex"] + "'s clothing."
     }
 
