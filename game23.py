@@ -62,7 +62,7 @@ def introduction():
             print("please enter a valid input\n")
 
     cls()
-    intro()
+    #intro()
 
     global correct_accusation
     correct_accusation = False
@@ -231,7 +231,7 @@ Are you sure you want to make an accusation? (Yes/No)
         if normalise_input(a)==["yes"] or normalise_input(a)==["y"] or normalise_input(a)==["yeah"]:
 
             while True:
-                print("\nWho are you going to accuse? (type 'Help' for help)")
+                
                 print("\nThe suspects you have highlighted as highly suspicious are:\n")
                 x=[]
                 for suspect in suspects:
@@ -241,42 +241,45 @@ Are you sure you want to make an accusation? (Yes/No)
                         if suspects[suspect]["notebook_status"] != "highly suspicious":   
                             x.append(suspect)
                             if len(x)==8:
-                                print ("\t(none)\n")
+                                print ("\tNONE")
+                print("\nWho are you going to accuse? (type 'Help' for help)")
                 suspect_accused = normalise_input(input("..."))
 
                 if "".join(normalise_input(suspect_accused)) in list(suspects):
                     accusation["suspect"] = suspect_accused
 
                     while True:
-                        print("\nWhat weapon do you think they used? (type 'Help' for help)")
+                        
                         print("\nThe weapons you have highlighted as highly suspicious are:\n")
                         y=[]
                         for weapon in weapons:
                             if weapons[weapon]["notebook_status"] == "highly suspicious":
-                                print("• " + weapons[weapon]["name"])
+                                print("\t• " + weapons[weapon]["name"])
                             else:
                                 if weapons[weapon]["notebook_status"] != "highly suspicious":   
                                     y.append(weapon)
                                     if len(y)==6:
-                                        print ("\t(none)\n")
+                                        print ("\tNONE")
+                        print("\nWhat weapon do you think they used? (type 'Help' for help)")
                         weapon_accused = normalise_input(input("...")) 
 
                         if "".join(normalise_input(weapon_accused)) in list(weapons):
                                 accusation["weapon"] = weapon_accused
 
                                 while True:
-                                    print("\nWhich room do you think the murder took place in? (type 'Help' for help)")
+                                    
                                     print("\nThe rooms you have highlighted as highly suspicious are:\n")
                                     z=[]
                                     
                                     for room in rooms:
                                         if rooms[room]["notebook_status"] == "highly suspicious":
-                                            print("• " + rooms[room]["name"])
+                                            print("\t• " + rooms[room]["name"])
                                         else:
                                             if weapons[weapon]["notebook_status"] != "highly suspicious":   
                                                 z.append(room)
                                                 if len(z)==6:
-                                                    print ("\t(none)\n")
+                                                    print ("\tNONE")
+                                    print("\nWhich room do you think the murder took place in? (type 'Help' for help)")
                                     room_accused = normalise_input(input("...")) 
                                     if " ".join(room_accused) in list(rooms):
                                         accusation["room"] = room_accused
