@@ -100,7 +100,7 @@ def generate_clues(mystery):
 
 def ask_for_command():
 
-    print("\nWhat do you want to do?  (Type HELP for list of commands)")
+    print("What do you want to do?  (Type HELP for list of commands)")
     user_command = input("...")
 
     input_normalised = normalise_input(user_command)
@@ -279,6 +279,7 @@ def display_notebook():
 def execute_notebook(command):
     #Displays the notebook for the player to change the suspicion on any of the mystery elements or to look at any clues that they've previously discovered
     #The player should input which section they'd like to view, Suspects, Weapons, Rooms or clues
+        global placeholder
         if 0 == len(command):
             return
 
@@ -299,61 +300,146 @@ def execute_notebook(command):
             return
 
         if command[0] == "close" or command[0] == "0":
-            print("You have closed the notebook.")
+            print("\nYou have closed the notebook.")
             main()
 
         else:
             print("This makes no sense.")
             return
+def command_directory():
+    global normalised_command
+    global placeholder
+
+    if normalised_command[0] == "highlight":
+        if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
+            suspicion_change((" ".join(normalised_command[1:3])), "highly suspicious")
+        elif len(normalised_command) > 1:
+            suspicion_change(normalised_command[1], "highly suspicious")
+        else:
+            print("Highlight what?\n")
+            editing_within_notebook_without_question(placeholder)
+
+    elif normalised_command[0] == "cross":
+        if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
+            suspicion_change((" ".join(normalised_command[1:3])), "unlikely")
+        elif len(normalised_command) > 1:
+            suspicion_change(normalised_command[1], "unlikely")
+        else:
+            print("Cross what?\n")
+            editing_within_notebook_without_question(page)
+
+    elif normalised_command[0] == "reset":
+        if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
+            suspicion_change((" ".join(normalised_command[1:3])), "neutral")
+        elif len(normalised_command) > 1:
+            suspicion_change(normalised_command[1], "neutral")
+        else:
+            print("Reset what?\n")
+            editing_within_notebook_without_question(page)
+
+    else:
+        print("This makes no sense.\n")
         
 def editing_within_notebook_without_question(page):
-    while True:
-                player_command = input("What would you like to do to the " + str(page) + " list? (type 'Help' for help):" "\n" "...")
+    global placeholder
+    global normalised_command
+    if placeholder=="suspects":
+        while True:
+                player_command = input("What would you like to do to the suspects list? (type 'Help' for help):" "\n" "...")
                 normalised_command = normalise_input(player_command)
 
                 if 0 == len(normalised_command):
                     continue
                 
-                elif normalised_command == ['help']:
-                    notebook_display_help(page)
-                    continue
-
-                elif normalised_command[0] == "highlight":
-                    if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
-                        suspicion_change((" ".join(normalised_command[1:3])), "highly suspicious")
-                    elif len(normalised_command) > 1:
-                        suspicion_change(normalised_command[1], "highly suspicious")
-                    else:
-                        print("Highlight what?\n")
-
-                elif normalised_command[0] == "cross":
-                    if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
-                        suspicion_change((" ".join(normalised_command[1:3])), "unlikely")
-                    elif len(normalised_command) > 1:
-                        suspicion_change(normalised_command[1], "unlikely")
-                    else:
-                        print("Cross what?\n")
-
-                elif normalised_command[0] == "reset":
-                    if len(normalised_command) > 1 and normalised_command[1:3]==['dining', 'room']:
-                        suspicion_change((" ".join(normalised_command[1:3])), "neutral")
-                    elif len(normalised_command) > 1:
-                        suspicion_change(normalised_command[1], "neutral")
-                    else:
-                        print("Reset what?\n")
-
                 elif normalised_command[0] == "close":
-                    print("You have closed the notebook.")
+                    print("You have closed the notebook.zn")
+                    main()
+                    
+                elif normalised_command[0] == "help":
+                    notebook_display_help("suspect")
+
+                elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
+                    command_directory()
+
+                elif len(normalised_command) == 1:
+                    print("This makes no sense\n")
+            
+                
+                elif normalised_command[1] in suspects:
+                    command_directory()
+
+                elif normalised_command[1] in weapons or normalised_command[1] in rooms:
+                    print("You are on the wrong page! This is the suspects page.\n")
+                    
+                else:
+                    print("You cannot highlight that.")
+    elif placeholder == "weapons":
+        while True:
+                player_command = input("What would you like to do to the weapons list? (type 'Help' for help):" "\n" "...")
+                normalised_command = normalise_input(player_command)
+
+                if 0 == len(normalised_command):
+                    continue
+                
+                elif normalised_command[0] == "close":
+                    print("You have closed the notebook.\n")
+                    main()
+                    
+                elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
+                    command_directory()
+
+                elif len(normalised_command) == 1:
+                    print("This makes no sense\n")
+            
+                elif normalised_command[1] in weapons:
+                    command_directory()
+
+                elif normalised_command[1] in suspects or normalised_command[1] in rooms:
+                    print("You are on the wrong page! This is the weapons page.\n")
+                    
+                else:
+                    print("You cannot highlight that.\n")
+                    
+    elif placeholder == "rooms":
+        while True:
+                player_command = input("What would you like to do to the rooms list? (type 'Help' for help):" "\n" "...")
+                normalised_command = normalise_input(player_command)
+                
+                if 0 == len(normalised_command):
+                    continue
+                
+                elif normalised_command[0] == "close":
+                    print("You have closed the notebook.\n")
                     main()
 
-                else:
+                elif normalised_command[0] == "help":
+                    notebook_display_help("room")
+
+                elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
+                    command_directory()
+
+                elif len(normalised_command) == 1:
                     print("This makes no sense.\n")
+            
+                
+                elif normalised_command[1] in rooms:
+                    command_directory()
+                    
+                elif normalised_command[1] in weapons or normalised_command[1] in suspects:
+                    print("You are on the wrong page! This is the rooms page.\n")
+                    
+                else:
+                    print("You cannot highlight that.\n")
+                    
+                    
+        
 
 def editing_within_notebook(page):
 
     while True:
         
         yes_no_input = input("Would you like to edit the " + str(page)+ " list? (Yes/No):" "\n" "...")
+        print("")
         yes_or_no = normalise_input(yes_no_input)
         
         if yes_or_no == ['yes'] or yes_or_no == ['yeah'] or yes_or_no == ['y']:
@@ -375,6 +461,8 @@ def notebook_display_help(page):
 def print_suspects():
     # Displays the list of suspects sorted by their suspicion level
     print("\n\tLIST OF SUSPECTS\n")
+    global placeholder
+    placeholder="suspects"
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
         printed = False
         print("-" + suspicion.upper() + "-\n")
@@ -398,6 +486,9 @@ def print_weapons():
     # Displays the list of weapons sorted by their suspicion level
     print("\nYou open your notebook to the weapons section the list reads:")
     print("\n\tLIST OF WEAPONS\n")
+    global placeholder
+    placeholder="weapons"
+    print(placeholder)
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
         printed = False
         print("-" + suspicion.upper() + "-\n")
@@ -420,6 +511,8 @@ def print_rooms():
     # Displays the list of rooms sorted by their suspicion level
     print("\nYou open your notebook to the weapons section the list reads:")
     print("\n\tLIST OF ROOMS\n")
+    global placeholder
+    placeholder="rooms"
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
         printed = False
         print("-" + suspicion.upper() + "-\n")
