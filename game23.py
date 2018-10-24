@@ -19,16 +19,8 @@ def introduction():
     player_name = input("...")
 
     age_verification(player_name)
-    #intro()
-    
-    current_room = rooms["lobby"]
-    winsound.PlaySound(current_room["room_sound"], winsound.SND_ASYNC | winsound.SND_LOOP )
-    global correct_accusation
-    correct_accusation = False
-    global found_clues
-    found_clues = []
-    generate_mystery()
     global attempts_remaining
+
     difficulty = normalise_input(input("Difficulty? Hard(h), Medium(m), Easy(e)"))
     difficulty_picked = False
     while difficulty_picked == True:
@@ -41,6 +33,19 @@ def introduction():
         elif difficulty == "e":
             attempt_remaining = 5
             difficulty_picked = True
+
+    cls()
+    current_room = rooms["lobby"]
+    winsound.PlaySound(current_room["room_sound"], winsound.SND_ASYNC | winsound.SND_LOOP )
+    intro()
+
+    global correct_accusation
+    correct_accusation = False
+    global found_clues
+    found_clues = []
+    generate_mystery()
+    
+    
 
  
 def intro():
@@ -312,7 +317,7 @@ def display_details(room):
 
 
 def display_notebook():
-
+    cls()
     while execute_notebook != "close":
         print('''\nYou opened your notebook, which section do you want to turn to?
 
@@ -334,18 +339,22 @@ def execute_notebook(command):
             return
 
         if command[0] == "suspects" or command[0] == "1":
+            cls()
             notebook_suspects()
             return
         
         elif command[0] == "weapons" or command[0] == "2" :
+            cls()
             notebook_weapons()
             return
 
         elif command[0] == "rooms" or command[0] == "3":
+            cls()
             notebook_rooms()
             return
 
         elif command[0] == "clues" or command[0] == "4":
+            cls()
             notebook_clues()
             return
 
@@ -356,6 +365,7 @@ def execute_notebook(command):
         else:
             print("This makes no sense.")
             return
+
 def command_directory():
     global normalised_command
     global placeholder
@@ -493,9 +503,6 @@ def editing_within_notebook_without_question(page):
                 else:
                     print("You cannot edit that.\n")
                     
-                    
-        
-
 def editing_within_notebook(page):
 
     while True:
@@ -639,7 +646,7 @@ def show_status():
     pass
 
 def display_room(room):
-
+    cls()
     print("\n" + room["name"].upper() + "\n\n" + room["description"] + "\n")
     
     if room != rooms["lobby"]:
@@ -737,8 +744,7 @@ Your accusations were correct, and the killer has been brought to justice.""")
         elif normalise_input(restart_game)==["no"] or normalise_input(restart_game)==["n"] or normalise_input(restart_game)==["nah"]:
             quit()
         else:
-            print("Please answer Yes or No")
-            
+            print("Please answer Yes or No")            
 
 def game_over():
     print("""Game Over.
@@ -751,6 +757,9 @@ The murder of Morebrandt mansion remains unsolved.""")
             quit()
         else:
             print("Please answer Yes or No")
+
+def cls():
+    print("\n" * 100)
             
 if __name__ == "__main__":
     introduction()
