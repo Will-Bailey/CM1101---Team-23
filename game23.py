@@ -7,7 +7,20 @@ from TitleASCII import *
 import random
 import winsound
 
+def reset_all():
+    for x in rooms:
+        rooms[x]["notebook_status"]="neutral"
+        rooms[x]["clue"]=""
+    for x in weapons:
+        weapons[x]["notebook_status"]="neutral"
+    for x in suspects:
+        suspects[x]["notebook_status"]="neutral"
+    
+        
+    
+
 def new_game():
+    reset_all()
     introduction()
     main()
     
@@ -66,8 +79,8 @@ def intro():
     time.sleep(0.9)
     scroll_text("\n'We are counting on you to bring the killer to justice'.\n", 0.03)
     time.sleep(0.4)
-    scroll_text("\n" + "15 minutes later you arrive at the masnion.", 0.03)
-    time.sleep(1.4)
+    scroll_text("\n" + "15 minutes later you arrive at the masnion.\n", 0.03)
+    time.sleep(0.4)
     cls()
 
 def main():
@@ -216,16 +229,10 @@ Are you sure you want to make an accusation? (Yes/No)
             while True:
                 print("\nWho are you going to accuse? (type 'Help' for help)")
                 print("\nThe suspects you have highlighted as highly suspicious are:\n")
-                x=[]
 
                 for suspect in suspects:
                     if suspects[suspect]["notebook_status"] == "highly suspicious":
                         print("\t• " + suspects[suspect]["name"])
-                    else:
-                        if suspects[suspect]["notebook_status"] != "highly suspicious":   
-                            x.append(suspect)
-                            if len(x)==8:
-                                print ("\t(none)\n")
                 suspect_accused = normalise_input(input("..."))
 
                 if "".join(normalise_input(suspect_accused)) in list(suspects):
@@ -234,16 +241,10 @@ Are you sure you want to make an accusation? (Yes/No)
                     while True:
                         print("\nWhat weapon do you think they used? (type 'Help' for help)")
                         print("\nThe weapons you have highlighted as highly suspicious are:\n")
-                        y=[]
 
                         for weapon in weapons:
                             if weapons[weapon]["notebook_status"] == "highly suspicious":
                                 print("• " + weapons[weapon]["name"])
-                            else:
-                                if weapons[weapon]["notebook_status"] != "highly suspicious":   
-                                    y.append(suspect)
-                                    if len(y)==6:
-                                        print ("\t(none)\n")
                         weapon_accused = normalise_input(input("...")) 
 
                         if "".join(normalise_input(weapon_accused)) in list(weapons):
@@ -252,16 +253,10 @@ Are you sure you want to make an accusation? (Yes/No)
                                 while True:
                                     print("\nWhich room do you think the murder took place in? (type 'Help' for help)")
                                     print("\nThe rooms you have highlighted as highly suspicious are:\n")
-                                    z=[]
-                                    
+
                                     for room in rooms:
                                         if rooms[room]["notebook_status"] == "highly suspicious":
                                             print("• " + rooms[room]["name"])
-                                        else:
-                                            if weapons[weapon]["notebook_status"] != "highly suspicious":   
-                                                z.append(suspect)
-                                                if len(z)==6:
-                                                    print ("\t(none)\n")
                                     room_accused = normalise_input(input("...")) 
                                     if " ".join(room_accused) in list(rooms):
                                         accusation["room"] = room_accused
@@ -386,6 +381,7 @@ def execute_notebook(command):
 
         if command[0] == "close" or command[0] == "0":
             print("\nYou have closed the notebook.")
+            cls()
             main()
 
         else:
@@ -441,6 +437,7 @@ def editing_within_notebook_without_question(page):
                 
                 elif normalised_command[0] == "close":
                     print("You have closed the notebook.\n")
+                    cls()
                     main()
                     
                 elif normalised_command[0] == "help":
@@ -481,6 +478,7 @@ def editing_within_notebook_without_question(page):
                 
                 elif normalised_command[0] == "close":
                     print("You have closed the notebook.\n")
+                    cls()
                     main()
                     
                 elif len(normalised_command)==1 and (normalised_command[0]=="highlight" or normalised_command[0]=="cross" or normalised_command[0]=="cross"):
@@ -508,6 +506,7 @@ def editing_within_notebook_without_question(page):
                 
                 elif normalised_command[0] == "close":
                     print("You have closed the notebook.\n")
+                    cls()
                     main()
 
                 elif normalised_command[0] == "help":
