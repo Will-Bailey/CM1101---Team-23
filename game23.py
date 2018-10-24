@@ -252,7 +252,7 @@ Are you sure you want to make an accusation? (Yes/No)
                                 print("• " + weapons[weapon]["name"])
                             else:
                                 if weapons[weapon]["notebook_status"] != "highly suspicious":   
-                                    y.append(suspect)
+                                    y.append(weapon)
                                     if len(y)==6:
                                         print ("\t(none)\n")
                         weapon_accused = normalise_input(input("...")) 
@@ -270,7 +270,7 @@ Are you sure you want to make an accusation? (Yes/No)
                                             print("• " + rooms[room]["name"])
                                         else:
                                             if weapons[weapon]["notebook_status"] != "highly suspicious":   
-                                                z.append(suspect)
+                                                z.append(room)
                                                 if len(z)==6:
                                                     print ("\t(none)\n")
                                     room_accused = normalise_input(input("...")) 
