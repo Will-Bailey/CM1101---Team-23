@@ -29,8 +29,9 @@ def age_verification(name):
 
 def print_welcome(name):
 
-    print("\nWelcome " + str(name.title()) + ". Please choose difficulty level.")
-    print('''
+    print()
+    print('''Please choose a difficulty level.
+
     1) Easy
     2) Medium
     3) Hard

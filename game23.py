@@ -804,7 +804,7 @@ def execute_inspect(detail):
     print()
 
 def game_won():
-    scroll_text("\nCongratulations!", 0.03)
+    scroll_text("\nCongratulations! " + player_name + ".", 0.03)
     time.sleep(0.4)
     scroll_text("\nYour accusations were correct, and the killer has been brought to justice.", 0.03)
     time.sleep(0.4)
@@ -823,7 +823,7 @@ def game_won():
             print("Please answer Yes or No")            
 
 def game_over():
-    scroll_text("\nGame Over.", 0.05)
+    scroll_text("\nYou have failed this case " + player_name + ".", 0.05)
     time.sleep(0.4)
     scroll_text("\nThe murder of Morebrandt mansion remains unsolved.", 0.03)
     time.sleep(0.4)
