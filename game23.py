@@ -33,13 +33,16 @@ def introduction():
     global attempts_remaining
     global difficulty
     title()
-
     while True:
         print("Enter your name:")
         player_name = input("...")
 
-        if len(player_name) <= 20:
+        if 0 == len(player_name.strip()):
+            print("\nYou entered nothing.\n")
+
+        elif len(player_name) <= 20:
             break
+            
         else:
             print("Plese enter a shorter name\n")
 
@@ -66,7 +69,7 @@ def introduction():
             print("please enter a valid input\n")
 
     cls()
-    #intro()
+    intro()
 
     global correct_accusation
     correct_accusation = False
@@ -210,6 +213,7 @@ def execute_command(command):
         print("This makes no sense.")
 
 def make_accusation():
+    print (mystery)
     comparison_mystery = {}
     global attempts_remaining
     for element in mystery:
@@ -804,7 +808,7 @@ def execute_inspect(detail):
     print()
 
 def game_won():
-    scroll_text("\nCongratulations! " + player_name + ".", 0.03)
+    scroll_text("\nInspector " + player_name.title() + ", Congratulations!", 0.03)
     time.sleep(0.4)
     scroll_text("\nYour accusations were correct, and the killer has been brought to justice.", 0.03)
     time.sleep(0.4)
@@ -823,9 +827,11 @@ def game_won():
             print("Please answer Yes or No")            
 
 def game_over():
-    scroll_text("\nYou have failed this case " + player_name + ".", 0.05)
+    scroll_text("Inspector " + player_name.title() +",\nYou have failed this case. ", 0.05)
     time.sleep(0.4)
-    scroll_text("\nThe murder of Morebrandt mansion remains unsolved.", 0.03)
+    scroll_text("\nThe murder of Morebrandt mansion remains unsolved.", 0.05)
+    time.sleep(0.4)
+    scroll_text("\n\nGAME OVER",0.06)
     time.sleep(0.4)
     while True:
         restart_game = input("\n\nWould you like to try again? (Yes/No)\n...")
