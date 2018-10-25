@@ -33,8 +33,15 @@ def introduction():
     global attempts_remaining
     global difficulty
     title()
-    print("Enter your name:")
-    player_name = input("...")
+
+    while True:
+        print("Enter your name:")
+        player_name = input("...")
+
+        if len(player_name) <= 20:
+            break
+        else:
+            print("Plese enter a shorter name\n")
 
     age_verification(player_name)
     
@@ -622,7 +629,6 @@ def print_weapons():
     print("\n\tLIST OF WEAPONS\n")
     global placeholder
     placeholder="weapons"
-    print(placeholder)
     for suspicion in ["highly suspicious", "neutral", "unlikely"]:
         printed = False
         print("-" + suspicion.upper() + "-\n")
@@ -669,7 +675,7 @@ def notebook_clues():
     print("\n\tLIST OF CLUES\n")
     if found_clues != []:
         for explored_room in found_clues:
-            print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"])
+            print("You explored the " + explored_room["name"] + " and investigated the " + explored_room["clue"]["detail"] + ":")
             print()
             print(explored_room["clue"]["closer inspection"]+ "\n")
     else:
